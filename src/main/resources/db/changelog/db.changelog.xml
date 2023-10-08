@@ -5,7 +5,7 @@
 
   <changeSet id="create-users-table" author="Wladimir">
     <createTable tableName="users">
-      <column name="user_id" type="int">
+      <column name="user_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
       <column name="username" type="varchar(100)">
@@ -23,10 +23,10 @@
       <column name="email" type="varchar(150)">
         <constraints unique="true" nullable="false"/>
       </column>
-      <column name="role_id" type="int">
+      <column name="role_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="group_id" type="int">
+      <column name="group_id" type="bigint">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -34,7 +34,7 @@
 
   <changeSet id="create-roles-table" author="Wladimir">
     <createTable tableName="roles">
-      <column name="role_id" type="int">
+      <column name="role_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
       <column name="role_name" type="varchar(100)">
@@ -45,7 +45,7 @@
 
   <changeSet id="create-courses-table" author="Wladimir">
     <createTable tableName="courses">
-      <column name="course_id" type="int">
+      <column name="course_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
       <column name="course_name" type="varchar(100)">
@@ -56,13 +56,13 @@
 
   <changeSet id="create-student-groups-table" author="Wladimir">
     <createTable tableName="student_groups">
-      <column name="group_id" type="int">
+      <column name="group_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
       <column name="group_name" type="varchar(150)">
         <constraints nullable="false"/>
       </column>
-      <column name="course_id" type="int">
+      <column name="course_id" type="bigint">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -70,17 +70,17 @@
 
   <changeSet id="create-lectures-table" author="Wladimir">
     <createTable tableName="lectures">
-      <column name="lecture_id" type="int">
+      <column name="lecture_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
-      <column name="course_id" type="int">
+      <column name="course_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="lecture_title" type="varchar(100)">
         <constraints nullable="false"/>
       </column>
       <column name="lecture_description" type="text"/>
-      <column name="lecturer_id" type="int">
+      <column name="lecturer_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="lecture_date" type="date">
@@ -92,7 +92,7 @@
       <column name="end_time" type="time">
         <constraints nullable="false"/>
       </column>
-      <column name="module_id" type="int">
+      <column name="module_id" type="bigint">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -100,19 +100,19 @@
 
   <changeSet id="create-attendances-table" author="Wladimir">
     <createTable tableName="attendances">
-      <column name="attendance_id" type="int">
+      <column name="attendance_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
-      <column name="student_id" type="int">
+      <column name="student_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="lecture_id" type="int">
+      <column name="lecture_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="attendance_date" type="date">
         <constraints nullable="false"/>
       </column>
-      <column name="status_id" type="int">
+      <column name="status_id" type="bigint">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -120,7 +120,7 @@
 
   <changeSet id="create-attendance-statuses-table" author="Wladimir">
     <createTable tableName="attendance_statuses">
-      <column name="status_id" type="int">
+      <column name="status_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
       <column name="status_name" type="varchar(100)">
@@ -131,13 +131,13 @@
 
   <changeSet id="create-observers-table" author="Wladimir">
     <createTable tableName="observers">
-      <column name="observer_id" type="int">
+      <column name="observer_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
-      <column name="student_id" type="int">
+      <column name="student_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="observed_group_id" type="int">
+      <column name="observed_group_id" type="bigint">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -145,13 +145,13 @@
 
   <changeSet id="create-schedules-table" author="Wladimir">
     <createTable tableName="schedules">
-      <column name="schedule_id" type="int">
+      <column name="schedule_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
-      <column name="lecture_id" type="int">
+      <column name="lecture_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="group_id" type="int">
+      <column name="group_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="lecture_date" type="date">
@@ -168,7 +168,7 @@
 
   <changeSet id="create-modules-table" author="Wladimir">
     <createTable tableName="modules">
-      <column name="module_id" type="int">
+      <column name="module_id" type="bigserial">
         <constraints primaryKey="true"/>
       </column>
       <column name="module_name" type="varchar(100)">
