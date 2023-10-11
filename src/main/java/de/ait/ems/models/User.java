@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "users_em")
+@Table(name = "users_ems")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class User {
   private String username;
   @Column(name = "password", length = 100, nullable = false)
   private String password;
-  @Column(name = "email", length = 255, nullable = false)
+  @Column(name = "email", nullable = false)
   private String email;
   @Column(name = "is_blocked", columnDefinition = "boolean default false")
   private boolean isBlocked;
