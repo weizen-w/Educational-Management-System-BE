@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Schema(name = "ValidationError", description = "Description of the validation error")
-public class ValidationErrorsDTO {
+public class ValidationErrorsDto {
 
   @Schema(description = "List of validation errors")
-  private List<ValidationErrorDTO> errors;
+  private List<ValidationErrorDto> errors;
 }

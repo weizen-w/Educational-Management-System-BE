@@ -1,9 +1,9 @@
 package de.ait.ems.services;
 
-import static de.ait.ems.dto.CourseDTO.from;
+import static de.ait.ems.dto.CourseDto.from;
 
-import de.ait.ems.dto.CourseDTO;
-import de.ait.ems.dto.NewCourseDTO;
+import de.ait.ems.dto.CourseDto;
+import de.ait.ems.dto.NewCourseDto;
 import de.ait.ems.models.Course;
 import de.ait.ems.repositories.CoursesRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ public class CoursesService {
 
   private final CoursesRepository coursesRepository;
 
-  public CourseDTO addCourse(NewCourseDTO newCourseDTO) {
+  public CourseDto addCourse(NewCourseDto newCourseDto) {
     Course course = Course.builder()
-        .name(newCourseDTO.getName())
+        .name(newCourseDto.getName())
         .build();
     coursesRepository.save(course);
     return from(course);

@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @Schema(name = "New course")
-public class NewCourseDTO {
+public class NewCourseDto {
 
   @Schema(description = "Course name", example = "Fullstack developer")
   @NotNull

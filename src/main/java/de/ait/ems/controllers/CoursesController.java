@@ -1,9 +1,9 @@
 package de.ait.ems.controllers;
 
-import de.ait.ems.dto.CourseDTO;
-import de.ait.ems.dto.NewCourseDTO;
+import de.ait.ems.dto.CourseDto;
+import de.ait.ems.dto.NewCourseDto;
 import de.ait.ems.services.CoursesService;
-import de.ait.ems.validations.dto.ValidationErrorsDTO;
+import de.ait.ems.validations.dto.ValidationErrorsDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -37,14 +37,14 @@ public class CoursesController {
       @ApiResponse(responseCode = "201",
           description = "The course was created successfully",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = CourseDTO.class))),
+              schema = @Schema(implementation = CourseDto.class))),
       @ApiResponse(responseCode = "400",
           description = "Validation error",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ValidationErrorsDTO.class)))
+              schema = @Schema(implementation = ValidationErrorsDto.class)))
   })
   @PostMapping
-  public ResponseEntity<CourseDTO> addCourse(@RequestBody @Valid NewCourseDTO newCourse) {
+  public ResponseEntity<CourseDto> addCourse(@RequestBody @Valid NewCourseDto newCourse) {
     return ResponseEntity
         .status(HttpStatus.CREATED)
         .body(coursesService.addCourse(newCourse));

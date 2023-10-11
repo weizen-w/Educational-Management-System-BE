@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Schema(name = "ValidationError", description = "Description of the validation error")
-public class ValidationErrorDTO {
+public class ValidationErrorDto {
 
   @Schema(description = "Name of the field in which the error occurred", example = "price")
   private String field;
