@@ -29,6 +29,9 @@
       <column name="group_id" type="bigint">
         <constraints nullable="false"/>
       </column>
+      <column name="is_blocked" type="bool">
+        <constraints nullable="false"/>
+      </column>
     </createTable>
   </changeSet>
 
@@ -51,6 +54,9 @@
       <column name="course_name" type="varchar(100)">
         <constraints nullable="false"/>
       </column>
+      <column name="is_archived" type="bool">
+        <constraints nullable="false"/>
+      </column>
     </createTable>
   </changeSet>
 
@@ -63,6 +69,9 @@
         <constraints nullable="false"/>
       </column>
       <column name="course_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_archived" type="bool">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -95,6 +104,9 @@
       <column name="module_id" type="bigint">
         <constraints nullable="false"/>
       </column>
+      <column name="is_archived" type="bool">
+        <constraints nullable="false"/>
+      </column>
     </createTable>
   </changeSet>
 
@@ -113,6 +125,9 @@
         <constraints nullable="false"/>
       </column>
       <column name="status_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_archived" type="bool">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -163,6 +178,9 @@
       <column name="end_time" type="timestamp">
         <constraints nullable="false"/>
       </column>
+      <column name="is_archived" type="bool">
+        <constraints nullable="false"/>
+      </column>
     </createTable>
   </changeSet>
 
@@ -172,6 +190,9 @@
         <constraints primaryKey="true"/>
       </column>
       <column name="module_name" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_archived" type="bool">
         <constraints nullable="false"/>
       </column>
     </createTable>
