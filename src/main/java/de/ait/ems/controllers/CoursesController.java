@@ -108,11 +108,6 @@ public class CoursesController {
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = CourseDto.class))
       ),
-      @ApiResponse(responseCode = "400",
-          description = "Validation error",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ValidationErrorsDto.class))
-      ),
       @ApiResponse(responseCode = "404",
           description = "Course not found",
           content = @Content(mediaType = "application/json",
