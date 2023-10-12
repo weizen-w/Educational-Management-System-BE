@@ -25,11 +25,14 @@ public class CourseDto {
   private Long id;
   @Schema(description = "Course name", example = "Fullstack developer")
   private String name;
+  @Schema(description = "Course is archived", example = "false")
+  private Boolean isArchived;
 
   public static CourseDto from(Course course) {
     return CourseDto.builder()
         .id(course.getId())
         .name(course.getName())
+        .isArchived(course.getIsArchived())
         .build();
   }
 
