@@ -19,24 +19,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Schema(name = "Course(direction)", description = "Course Description")
-public class CourseDTO {
+public class CourseDto {
 
   @Schema(description = "Course ID", example = "1")
   private Long id;
   @Schema(description = "Course name", example = "Fullstack developer")
   private String name;
+  @Schema(description = "Course is archived", example = "false")
+  private Boolean isArchived;
 
-  public static CourseDTO from(Course course) {
-    return CourseDTO.builder()
+  public static CourseDto from(Course course) {
+    return CourseDto.builder()
         .id(course.getId())
         .name(course.getName())
+        .isArchived(course.getIsArchived())
         .build();
   }
 
-  public static List<CourseDTO> from(List<Course> courses) {
+  public static List<CourseDto> from(List<Course> courses) {
     return courses
         .stream()
-        .map(CourseDTO::from)
+        .map(CourseDto::from)
         .collect(Collectors.toList());
   }
 }

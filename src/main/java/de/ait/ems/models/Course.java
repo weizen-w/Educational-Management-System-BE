@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 /**
  * 08/10/2023 EducationalManagementSystem
@@ -30,4 +31,7 @@ public class Course {
   private Long id;
   @Column(name = "course_name", length = 100, nullable = false)
   private String name;
+  @Column(name = "is_archived", nullable = false)
+  @ColumnDefault("false")
+  private Boolean isArchived;
 }

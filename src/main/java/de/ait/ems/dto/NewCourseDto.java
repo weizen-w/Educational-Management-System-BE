@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Builder.Default;
 import lombok.Data;
 
 /**
@@ -14,12 +15,12 @@ import lombok.Data;
  */
 @Data
 @Schema(name = "New course")
-public class NewCourseDTO {
+public class NewCourseDto {
 
   @Schema(description = "Course name", example = "Fullstack developer")
-  @NotNull
-  @NotBlank
-  @NotEmpty
-  @Size(max = 100)
+  @NotNull(message = "Must not be null")
+  @NotBlank(message = "Must not be blank")
+  @NotEmpty(message = "Must not be empty")
+  @Size(max = 100, message = "Size must be in the range from 0 to 100")
   private String name;
 }

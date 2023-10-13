@@ -1,30 +1,25 @@
 package de.ait.ems.services;
 
-import static de.ait.ems.dto.CourseDTO.from;
-
-import de.ait.ems.dto.CourseDTO;
-import de.ait.ems.dto.NewCourseDTO;
-import de.ait.ems.models.Course;
-import de.ait.ems.repositories.CoursesRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import de.ait.ems.dto.CourseDto;
+import de.ait.ems.dto.NewCourseDto;
+import de.ait.ems.dto.UpdateCourseDto;
+import java.util.List;
 
 /**
- * 08/10/2023 EducationalManagementSystem
+ * 11/10/2023 EducationalManagementSystem
  *
  * @author Wladimir Weizen
  */
-@RequiredArgsConstructor
-@Service
-public class CoursesService {
+public interface CoursesService {
 
-  private final CoursesRepository coursesRepository;
+  CourseDto addCourse(NewCourseDto newCourse);
 
-  public CourseDTO addCourse(NewCourseDTO newCourseDTO) {
-    Course course = Course.builder()
-        .name(newCourseDTO.getName())
-        .build();
-    coursesRepository.save(course);
-    return from(course);
-  }
+  List<CourseDto> getCourses();
+
+  CourseDto getCourse(Long courseId);
+
+  CourseDto updateCourse(Long courseId, UpdateCourseDto updateCourse);
+
+  CourseDto deleteCourse(Long courseId);
+
 }
