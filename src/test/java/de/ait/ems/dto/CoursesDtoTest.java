@@ -29,9 +29,11 @@ public class CoursesDtoTest {
 
     @Test
     public void get_course_dto() {
+      CourseDto courseDtoNoArg = new CourseDto();
       Course course = new Course(ID, NAME, IS_ARCHIVED);
       CourseDto courseDto = CourseDto.from(course);
 
+      Assertions.assertNotNull(courseDtoNoArg);
       Assertions.assertEquals(ID, courseDto.getId());
       Assertions.assertEquals(NAME, courseDto.getName());
       Assertions.assertEquals(IS_ARCHIVED, courseDto.getIsArchived());
@@ -69,10 +71,10 @@ public class CoursesDtoTest {
 
     @Test
     public void get_update_course_dto() {
-      UpdateCourseDto updateCourseDto = new UpdateCourseDto();
-      updateCourseDto.setName(NAME);
-      updateCourseDto.setIsArchived(IS_ARCHIVED);
+      UpdateCourseDto updateCourseDtoNoArg = new UpdateCourseDto();
+      UpdateCourseDto updateCourseDto = new UpdateCourseDto(NAME, IS_ARCHIVED);
 
+      Assertions.assertNotNull(updateCourseDtoNoArg);
       Assertions.assertEquals(NAME, updateCourseDto.getName());
       Assertions.assertEquals(IS_ARCHIVED, updateCourseDto.getIsArchived());
     }
