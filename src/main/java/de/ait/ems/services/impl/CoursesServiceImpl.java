@@ -50,7 +50,9 @@ public class CoursesServiceImpl implements CoursesService {
   @Override
   public CourseDto updateCourse(Long courseId, UpdateCourseDto updateCourse) {
     Course courseForUpdate = getCourseOrThrow(courseId);
-    courseForUpdate.setName(updateCourse.getName());
+    if (updateCourse.getName() != null) {
+      courseForUpdate.setName(updateCourse.getName());
+    }
     if (updateCourse.getIsArchived() != null) {
       courseForUpdate.setIsArchived(updateCourse.getIsArchived());
     }
