@@ -240,4 +240,15 @@
       constraintName="FK_lectures_modules"/>
   </changeSet>
 
+  <changeSet id="adding-data-to-DB" author="Wladimir">
+    <loadData
+      tableName="courses"
+      file="db/data/courses.csv">
+    </loadData>
+    <loadData
+      tableName="student_groups"
+      file="db/data/student_groups.csv">
+    </loadData>
+  </changeSet>
+
 </databaseChangeLog>
