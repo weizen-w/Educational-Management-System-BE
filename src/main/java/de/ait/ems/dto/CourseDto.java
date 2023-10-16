@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(name = "Course(direction)", description = "Course Description")
+@Schema(name = "Course(direction)", description = "Course description")
 public class CourseDto {
 
   @Schema(description = "Course ID", example = "1")
