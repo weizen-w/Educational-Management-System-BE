@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Schema(name = "User", description = "User Description")
-public class UserDTO {
+public class UserDto {
 
   @Schema(description = "User ID", example = "1")
   private Long id;
@@ -31,8 +31,8 @@ public class UserDTO {
   @Schema(description = "is blocked", example = "false")
   private boolean is_blocked;
 
-  public static UserDTO from(User user) {
-    return UserDTO.builder()
+  public static UserDto from(User user) {
+    return UserDto.builder()
         .id(user.getId())
         .username(user.getUsername())
         .password(user.getPassword())
@@ -41,10 +41,10 @@ public class UserDTO {
         .build();
   }
 
-  public static List<UserDTO> from(List<User> users) {
+  public static List<UserDto> from(List<User> users) {
     return users
         .stream()
-        .map(UserDTO::from)
+        .map(UserDto::from)
         .collect(Collectors.toList());
   }
 }
