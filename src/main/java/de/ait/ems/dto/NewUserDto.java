@@ -13,7 +13,7 @@ import lombok.Data;
  **/
 @Data
 @Schema(name = "New user")
-public class NewUserDTO {
+public class NewUserDto {
 
   @Schema(description = "Username", example = "max.musterman")
   @NotNull
