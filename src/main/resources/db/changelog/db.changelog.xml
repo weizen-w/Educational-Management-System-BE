@@ -5,7 +5,7 @@
 
   <changeSet id="create-users-table" author="Wladimir">
     <createTable tableName="users">
-      <column name="user_id" type="bigserial">
+      <column name="user_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="username" type="varchar(100)">
@@ -37,7 +37,7 @@
 
   <changeSet id="create-roles-table" author="Wladimir">
     <createTable tableName="roles">
-      <column name="role_id" type="bigserial">
+      <column name="role_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="role_name" type="varchar(100)">
@@ -48,7 +48,7 @@
 
   <changeSet id="create-courses-table" author="Wladimir">
     <createTable tableName="courses">
-      <column name="course_id" type="bigserial">
+      <column name="course_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="course_name" type="varchar(100)">
@@ -62,7 +62,7 @@
 
   <changeSet id="create-student-groups-table" author="Wladimir">
     <createTable tableName="student_groups">
-      <column name="group_id" type="bigserial">
+      <column name="group_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="group_name" type="varchar(150)">
@@ -79,7 +79,7 @@
 
   <changeSet id="create-lectures-table" author="Wladimir">
     <createTable tableName="lectures">
-      <column name="lecture_id" type="bigserial">
+      <column name="lecture_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="course_id" type="bigint">
@@ -89,7 +89,10 @@
         <constraints nullable="false"/>
       </column>
       <column name="lecture_description" type="text"/>
-      <column name="lecturer_id" type="bigint">
+      <column name="lecture_type_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="teacher_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="lecture_date" type="date">
@@ -110,9 +113,20 @@
     </createTable>
   </changeSet>
 
+  <changeSet id="create-lecture-type-table" author="Wladimir">
+    <createTable tableName="lecture_types">
+      <column name="lecture_type_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="status_name" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
   <changeSet id="create-attendances-table" author="Wladimir">
     <createTable tableName="attendances">
-      <column name="attendance_id" type="bigserial">
+      <column name="attendance_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="student_id" type="bigint">
@@ -135,7 +149,7 @@
 
   <changeSet id="create-attendance-statuses-table" author="Wladimir">
     <createTable tableName="attendance_statuses">
-      <column name="status_id" type="bigserial">
+      <column name="status_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="status_name" type="varchar(100)">
@@ -146,7 +160,7 @@
 
   <changeSet id="create-observers-table" author="Wladimir">
     <createTable tableName="observers">
-      <column name="observer_id" type="bigserial">
+      <column name="observer_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="student_id" type="bigint">
@@ -160,7 +174,7 @@
 
   <changeSet id="create-schedules-table" author="Wladimir">
     <createTable tableName="schedules">
-      <column name="schedule_id" type="bigserial">
+      <column name="schedule_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="lecture_id" type="bigint">
@@ -186,7 +200,7 @@
 
   <changeSet id="create-modules-table" author="Wladimir">
     <createTable tableName="modules">
-      <column name="module_id" type="bigserial">
+      <column name="module_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="module_name" type="varchar(100)">
@@ -226,9 +240,12 @@
     <addForeignKeyConstraint baseTableName="observers" baseColumnNames="observed_group_id"
       referencedTableName="student_groups" referencedColumnNames="group_id"
       constraintName="FK_observers_student_groups"/>
-    <addForeignKeyConstraint baseTableName="lectures" baseColumnNames="lecturer_id"
+    <addForeignKeyConstraint baseTableName="lectures" baseColumnNames="teacher_id"
       referencedTableName="users" referencedColumnNames="user_id"
       constraintName="FK_lectures_users"/>
+    <addForeignKeyConstraint baseTableName="lectures" baseColumnNames="lecture_type_id"
+      referencedTableName="lecture_types" referencedColumnNames="lecture_type_id"
+      constraintName="FK_lectures_lecture_types"/>
     <addForeignKeyConstraint baseTableName="schedules" baseColumnNames="group_id"
       referencedTableName="student_groups" referencedColumnNames="group_id"
       constraintName="FK_schedules_student_groups"/>
