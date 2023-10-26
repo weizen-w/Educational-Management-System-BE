@@ -22,28 +22,30 @@ public class UserDto {
 
   @Schema(description = "User ID", example = "1")
   private Long id;
-  @Schema(description = "Username", example = "max.musterman")
-  private String username;
-  @Schema(description = "Password", example = "qwerty007")
+  @Schema(description = "User password", example = "qwerty007")
   private String password;
+  @Schema(description = "User first name", example = "Marsel")
+  private String firstName;
+  @Schema(description = "User last name", example = "Sidikov")
+  private String lastName;
   @Schema(description = "e-mail", example = "m.musterman@gmx.de")
   private String email;
-  @Schema(description = "is blocked", example = "false")
-  private boolean is_blocked;
+  @Schema(description = "User role", example = "STUDENT")
+  private String role;
 
   public static UserDto from(User user) {
     return UserDto.builder()
         .id(user.getId())
-        .username(user.getUsername())
-        .password(user.getPassword())
+        .password(user.getHashPassword())
+        .firstName(user.getFirstName())
+        .lastName(user.getLastName())
         .email(user.getEmail())
-        .is_blocked(user.isBlocked())
+        .role(user.getRole().toString())
         .build();
   }
 
   public static List<UserDto> from(List<User> users) {
-    return users
-        .stream()
+    return users.stream()
         .map(UserDto::from)
         .collect(Collectors.toList());
   }

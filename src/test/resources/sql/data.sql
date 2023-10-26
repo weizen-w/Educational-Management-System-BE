@@ -1,3 +1,5 @@
+-- table account
+insert into account(hash_password, first_name, last_name, email, role, account_state) values ('Qwerty007!', 'Wladimir', 'Weizen', 'weizen.w@gmx.de', 'STUDENT', 'CONFIRMED')
 -- table courses
 insert into courses(course_name, is_archived)
 values ('Course 1', false);

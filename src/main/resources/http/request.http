@@ -1,8 +1,0 @@
-### Adding a new course
-
-POST http://localhost:8080/api/courses
-Content-Type: application/json
-
-{
-  "name": "Fullstack developer"
-}
