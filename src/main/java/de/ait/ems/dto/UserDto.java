@@ -1,7 +1,6 @@
 package de.ait.ems.dto;
 
 import de.ait.ems.models.User;
-import de.ait.ems.models.UserGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import java.util.stream.Collectors;
