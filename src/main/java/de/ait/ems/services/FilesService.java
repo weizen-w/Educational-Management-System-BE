@@ -44,11 +44,12 @@ public class FilesService {
     InputStream inputStream = file.getInputStream();
     ObjectMetadata metadata = new ObjectMetadata();
     metadata.setContentType(file.getContentType());
+    metadata.setContentLength(file.getSize());
     PutObjectRequest request =
-        new PutObjectRequest("online-shop-files", "images/" + newFileName, inputStream, metadata)
+        new PutObjectRequest("online-shop-files", "wladimir/" + newFileName, inputStream, metadata)
             .withCannedAcl(CannedAccessControlList.PublicRead);
     amazonS3.putObject(request);
-    String link = amazonS3.getUrl("online-shop-files", "images/" + newFileName).toString();
+    String link = amazonS3.getUrl("online-shop-files", "wladimir/" + newFileName).toString();
     FileInfo fileInfo = FileInfo.builder()
         .link(link)
         .build();

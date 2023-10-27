@@ -4,6 +4,7 @@ import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.NewGroupDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.UpdateGroupDto;
+import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.validations.dto.ValidationErrorsDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +57,11 @@ public interface GroupsApi {
   @GetMapping
   @ResponseStatus(code = HttpStatus.OK)
   List<GroupDto> getGroups();
+
+  @Operation(summary = "Getting a list of groups by authenticated user", description = "Available to authenticated user")
+  @GetMapping
+  @ResponseStatus(code = HttpStatus.OK)
+  List<GroupDto> getGroupsByAuthUser(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 
   @Operation(summary = "Getting a group", description = "Available to users in this group")
   @ApiResponses(value = {

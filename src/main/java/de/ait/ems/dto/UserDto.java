@@ -24,9 +24,9 @@ public class UserDto {
   private Long id;
   @Schema(description = "User password", example = "qwerty007")
   private String password;
-  @Schema(description = "User first name", example = "Marsel")
+  @Schema(description = "User first name", example = "Max")
   private String firstName;
-  @Schema(description = "User last name", example = "Sidikov")
+  @Schema(description = "User last name", example = "Musterman")
   private String lastName;
   @Schema(description = "e-mail", example = "m.musterman@gmx.de")
   private String email;

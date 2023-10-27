@@ -31,7 +31,7 @@ public class GroupsService {
     Group group = Group.builder()
         .name(newGroup.getName())
         .course(getCourseOrThrow(newGroup.getCourseId()))
-        .isArchived(false)
+        .archived(false)
         .build();
     groupsRepository.save(group);
     return from(group);
@@ -55,8 +55,8 @@ public class GroupsService {
     if (updateGroup.getCourseId() != null) {
       groupForUpdate.setCourse(getCourseOrThrow(updateGroup.getCourseId()));
     }
-    if (updateGroup.getIsArchived() != null) {
-      groupForUpdate.setIsArchived(updateGroup.getIsArchived());
+    if (updateGroup.getArchived() != null) {
+      groupForUpdate.setArchived(updateGroup.getArchived());
     }
     groupsRepository.save(groupForUpdate);
     return from(groupForUpdate);

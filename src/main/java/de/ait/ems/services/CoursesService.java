@@ -27,7 +27,7 @@ public class CoursesService {
   public CourseDto addCourse(NewCourseDto newCourse) {
     Course course = Course.builder()
         .name(newCourse.getName())
-        .isArchived(false)
+        .archived(false)
         .build();
     coursesRepository.save(course);
     return from(course);
@@ -48,8 +48,8 @@ public class CoursesService {
     if (updateCourse.getName() != null) {
       courseForUpdate.setName(updateCourse.getName());
     }
-    if (updateCourse.getIsArchived() != null) {
-      courseForUpdate.setIsArchived(updateCourse.getIsArchived());
+    if (updateCourse.getArchived() != null) {
+      courseForUpdate.setArchived(updateCourse.getArchived());
     }
     coursesRepository.save(courseForUpdate);
     return from(courseForUpdate);

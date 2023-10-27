@@ -23,13 +23,13 @@ public class ConfirmationCode {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false, unique = true)
+  @Column(name = "code", nullable = false, unique = true)
   private String code;
 
   @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "account_id", nullable = false)
   private User user;
 
-  @Column(nullable = false)
+  @Column(name = "expired_date_time", nullable = false)
   private LocalDateTime expiredDateTime;
 }

@@ -52,7 +52,7 @@ public class UsersService {
     String link = createLinkForConfirmation(codeValue);
     String html = mailTemplatesUtil.createConfirmationMail(user.getFirstName(), user.getLastName(),
         link);
-    mailSender.send(user.getEmail(), "Registration", html); // @Async
+    mailSender.send(user.getEmail(), "Registration", html);
     return from(user);
   }
 

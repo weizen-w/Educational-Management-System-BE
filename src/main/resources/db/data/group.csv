@@ -1,4 +1,4 @@
-group_name,course_id,is_archived
+group_name,course_id,archived
 Cohort-21,1,false
 Cohort-22,2,false
 Cohort-23,3,false

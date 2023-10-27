@@ -11,7 +11,6 @@ import java.util.Objects;
  *
  * @author Wladimir Weizen
  */
-@RequiredArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -19,13 +18,14 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "file_info")
 public class FileInfo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(length = 1000)
+  @Column(name = "link")
   private String link;
 
   @Override

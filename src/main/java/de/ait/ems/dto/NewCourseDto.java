@@ -20,6 +20,6 @@ public class NewCourseDto {
   @NotNull(message = "Must not be null")
   @NotBlank(message = "Must not be blank")
   @NotEmpty(message = "Must not be empty")
-  @Size(max = 100, message = "Size must be in the range from 0 to 100")
+  @Size(max = 200, message = "Size must be in the range from 0 to 200")
   private String name;
 }

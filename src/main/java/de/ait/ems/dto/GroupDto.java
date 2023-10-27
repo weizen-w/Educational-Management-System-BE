@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(name = "Group(student)", description = "Group description")
+@Schema(name = "Group(students/teacher)", description = "Group description")
 public class GroupDto {
 
   @Schema(description = "Group ID", example = "1")
@@ -28,14 +28,14 @@ public class GroupDto {
   @Schema(description = "Group course ID", example = "1")
   private Long courseId;
   @Schema(description = "Group is archived", example = "false")
-  private Boolean isArchived;
+  private Boolean archived;
 
   public static GroupDto from(Group group) {
     return GroupDto.builder()
         .id(group.getId())
         .name(group.getName())
         .courseId(group.getCourse().getId())
-        .isArchived(group.getIsArchived())
+        .archived(group.getArchived())
         .build();
   }
 

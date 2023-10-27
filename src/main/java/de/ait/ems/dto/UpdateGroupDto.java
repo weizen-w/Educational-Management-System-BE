@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 public class UpdateGroupDto {
 
   @Pattern(regexp = "^$|^(?!\\s+$).+", message = "Must not be blank or contain only spaces")
-  @Size(min = 1, max = 150, message = "Size must be in the range from 1 to 150")
+  @Size(min = 1, max = 50, message = "Size must be in the range from 1 to 50")
   @Schema(description = "Group name", example = "Cohort-26")
   private String name;
   @Min(value = 1, message = "Can't be zero or negative")
   @Schema(description = "Group course ID", example = "1")
   private Long courseId;
   @Schema(description = "Group is archived", example = "true")
-  private Boolean isArchived;
+  private Boolean archived;
 }
