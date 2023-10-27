@@ -1,4 +1,4 @@
-hash_password,first_name,last_name,email,role,account_state
-$2y$10$W/Pksn0PL5ZYdOJfogrV.e.znfZhYqZVqrAwrx8FyQHnCC.umHaBS,Admin,Admin,admin@gmail.com,ADMIN,CONFIRMED
-$2y$10$W/Pksn0PL5ZYdOJfogrV.e.znfZhYqZVqrAwrx8FyQHnCC.umHaBS,Student,Student,student@gmail.com,STUDENT,CONFIRMED
-$2y$10$W/Pksn0PL5ZYdOJfogrV.e.znfZhYqZVqrAwrx8FyQHnCC.umHaBS,Teacher,Teacher,teacher@gmail.com,TEACHER,CONFIRMED
+hash_password,first_name,last_name,email,role,account_state,photo_link
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Admin,Admin,admin@gmail.com,ADMIN,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Student,Student,student@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Teacher,Teacher,teacher@gmail.com,TEACHER,CONFIRMED,null

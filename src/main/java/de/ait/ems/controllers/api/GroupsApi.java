@@ -4,6 +4,7 @@ import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.NewGroupDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.UpdateGroupDto;
+import de.ait.ems.dto.UserDto;
 import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.validations.dto.ValidationErrorsDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,9 +60,16 @@ public interface GroupsApi {
   List<GroupDto> getGroups();
 
   @Operation(summary = "Getting a list of groups by authenticated user", description = "Available to authenticated user")
-  @GetMapping
+  @GetMapping("/byAuthUser")
   @ResponseStatus(code = HttpStatus.OK)
-  List<GroupDto> getGroupsByAuthUser(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+  List<GroupDto> getGroupsByAuthUser(
+      @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+
+  @Operation(summary = "Getting a list of users by group", description = "Available to administrator")
+  @GetMapping("/{group-id}/students")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<UserDto> getUsersFromGroup(
+      @Parameter(description = "Group ID", example = "1") @PathVariable("group-id") Long groupId);
 
   @Operation(summary = "Getting a group", description = "Available to users in this group")
   @ApiResponses(value = {

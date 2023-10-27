@@ -23,6 +23,7 @@ public class FileInfo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "file_info_id")
   private Long id;
 
   @Column(name = "link")

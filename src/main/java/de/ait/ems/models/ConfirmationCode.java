@@ -17,10 +17,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "confirmation_code")
 public class ConfirmationCode {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "code_id")
   private Long id;
 
   @Column(name = "code", nullable = false, unique = true)

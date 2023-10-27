@@ -1,5 +1,6 @@
 package de.ait.ems.controllers.api;
 
+import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.UserDto;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

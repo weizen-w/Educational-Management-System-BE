@@ -27,10 +27,11 @@
       <column name="account_state" type="varchar(20)">
         <constraints nullable="false"/>
       </column>
+      <column name="photo_link" type="text"/>
     </createTable>
 
     <createTable tableName="confirmation_code">
-      <column name="id" type="bigserial" autoIncrement="true">
+      <column name="code_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="code" type="text">
@@ -41,6 +42,15 @@
       </column>
       <column name="account_id" type="bigserial">
         <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="file_info">
+      <column name="file_info_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="link" type="text">
+        <constraints nullable="false" unique="true"/>
       </column>
     </createTable>
 
@@ -56,7 +66,7 @@
       </column>
     </createTable>
 
-    <createTable tableName="group">
+    <createTable tableName="student_group">
       <column name="group_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
@@ -225,9 +235,9 @@
       referencedTableName="account" referencedColumnNames="account_id"
       constraintName="FK_comment_account"/>
     <addForeignKeyConstraint baseTableName="account_group" baseColumnNames="group_id"
-      referencedTableName="group" referencedColumnNames="group_id"
+      referencedTableName="student_group" referencedColumnNames="group_id"
       constraintName="FK_account_group_group"/>
-    <addForeignKeyConstraint baseTableName="group" baseColumnNames="course_id"
+    <addForeignKeyConstraint baseTableName="student_group" baseColumnNames="course_id"
       referencedTableName="course" referencedColumnNames="course_id"
       constraintName="FK_group_course"/>
 
@@ -243,7 +253,7 @@
       file="db/data/course.csv">
     </loadData>
     <loadData
-      tableName="group"
+      tableName="student_group"
       file="db/data/group.csv">
     </loadData>
     <loadData

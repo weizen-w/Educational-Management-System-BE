@@ -67,6 +67,7 @@ public class User {
   private Set<ConfirmationCode> codes;
 
   private String photoLink;
+
   @Override
   public final boolean equals(Object object) {
     if (this == object) {
