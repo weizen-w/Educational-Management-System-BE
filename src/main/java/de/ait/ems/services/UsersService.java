@@ -57,14 +57,14 @@ public class UsersService {
   }
 
   private String createLinkForConfirmation(String codeValue) {
-    return baseUrl + "/confirm.html?id=" + codeValue;
+    return baseUrl + "confirm.html?id=" + codeValue;
   }
 
   private void saveConfirmCode(User user, String codeValue) {
     ConfirmationCode code = ConfirmationCode.builder()
         .code(codeValue)
         .user(user)
-        .expiredDateTime(LocalDateTime.now().plusMinutes(1))
+        .expiredDateTime(LocalDateTime.now().plusDays(1))
         .build();
     confirmationCodesRepository.save(code);
   }

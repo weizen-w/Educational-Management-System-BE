@@ -35,7 +35,7 @@
         <constraints primaryKey="true"/>
       </column>
       <column name="code" type="text">
-        <constraints nullable="false" unique="true"/>
+        <constraints nullable="false"/>
       </column>
       <column name="expired_date_time" type="timestamp">
         <constraints nullable="false"/>
@@ -50,7 +50,7 @@
         <constraints primaryKey="true"/>
       </column>
       <column name="link" type="text">
-        <constraints nullable="false" unique="true"/>
+        <constraints nullable="false"/>
       </column>
     </createTable>
 

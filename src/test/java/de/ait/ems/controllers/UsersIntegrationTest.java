@@ -45,7 +45,9 @@ public class UsersIntegrationTest {
               .content("""
                   {
                     "email": "test1@gmx.de",
-                    "password": "Qwerty007!"
+                    "password": "Qwerty007!",
+                    "firstName": "Test",
+                    "lastName": "Test"
                   }"""))
           .andExpect(status().isCreated())
           .andExpect(jsonPath("$.id", is(1)))
@@ -58,8 +60,10 @@ public class UsersIntegrationTest {
               .contentType(MediaType.APPLICATION_JSON)
               .content("""
                   {
-                    "email": "test1@gmx.de",
-                    "password": "Qwerty007!"
+                    "email": "test1gmxde",
+                    "password": "Qwerty007!",
+                    "firstName": "Test",
+                    "lastName": "Test"
                   }"""))
           .andExpect(status().isBadRequest());
     }
@@ -72,8 +76,10 @@ public class UsersIntegrationTest {
               .contentType(MediaType.APPLICATION_JSON)
               .content("""
                   {
-                    "email": "test1@gmx.de",
-                    "password": "Qwerty007!"
+                    "email": "Student1@gmail.com",
+                    "password": "Qwerty007!",
+                    "firstName": "Student1",
+                    "lastName": "Name1"
                   }"""))
           .andExpect(status().isConflict());
     }
@@ -89,7 +95,7 @@ public class UsersIntegrationTest {
           .andExpect(status().isUnauthorized());
     }
 
-    @WithUserDetails("test1@gmx.de")
+    @WithUserDetails("student1@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     @Test

@@ -1,13 +1,13 @@
 package de.ait.ems.controllers;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import de.ait.ems.config.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -27,7 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
  *
  * @author Wladimir Weizen
  */
-@SpringBootTest
+@SpringBootTest(classes = TestSecurityConfig.class)
 @AutoConfigureMockMvc
 @DisplayName("Endpoint /groups is works:")
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
@@ -42,6 +43,7 @@ public class GroupsIntegrationTest {
   public class GetGroups {
 
     @Test
+    @WithUserDetails("student1@gmail.com")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_empty_list_of_groups_for_empty_database() throws Exception {
       mockMvc.perform(get("/api/groups"))
@@ -50,6 +52,7 @@ public class GroupsIntegrationTest {
     }
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_list_of_groups_for_not_empty_database() throws Exception {
@@ -72,6 +75,7 @@ public class GroupsIntegrationTest {
   public class PostGroup {
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_created_group() throws Exception {
@@ -87,6 +91,7 @@ public class GroupsIntegrationTest {
     }
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     public void return_400_for_not_valid_group() throws Exception {
       mockMvc.perform(post("/api/groups")
               .contentType("application/json")
@@ -105,6 +110,7 @@ public class GroupsIntegrationTest {
   public class GetGroup {
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_existed_group() throws Exception {
@@ -113,10 +119,11 @@ public class GroupsIntegrationTest {
           .andExpect(jsonPath("$.id", is(1)))
           .andExpect(jsonPath("$.name", is("Group 1")))
           .andExpect(jsonPath("$.courseId", is(1)))
-          .andExpect((jsonPath("$.isArchived", is(false))));
+          .andExpect((jsonPath("$.archived", is(false))));
     }
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_404_for_not_existed_group() throws Exception {
@@ -130,6 +137,7 @@ public class GroupsIntegrationTest {
   public class PutGroup {
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_updated_group() throws Exception {
@@ -139,16 +147,17 @@ public class GroupsIntegrationTest {
                   {
                     "name": "Update group",
                     "courseId": 2,
-                    "isArchived": true
+                    "archived": true
                   }"""))
           .andExpect(status().isOk())
           .andExpect(jsonPath("$.id", is(1)))
           .andExpect(jsonPath("$.name", is("Update group")))
           .andExpect(jsonPath("$.courseId", is(2)))
-          .andExpect((jsonPath("$.isArchived", is(true))));
+          .andExpect((jsonPath("$.archived", is(true))));
     }
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_400_for_not_valid_update_group() throws Exception {
@@ -158,13 +167,14 @@ public class GroupsIntegrationTest {
                   {
                     "name": "",
                     "courseId": 0,
-                    "isArchived": true
+                    "archived": true
                   }"""))
           .andExpect(status().isBadRequest())
           .andExpect(jsonPath("$.errors.size()", is(2)));
     }
 
     @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_404_for_not_existed_group() throws Exception {
@@ -174,33 +184,8 @@ public class GroupsIntegrationTest {
                   {
                     "name": "Update group",
                     "courseId": 2,
-                    "isArchived": true
+                    "archived": true
                   }"""))
-          .andExpect(status().isNotFound());
-    }
-  }
-
-  @Nested
-  @DisplayName("DELETE /groups/{group-id}:")
-  public class DeleteGroup {
-
-    @Test
-    @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void return_deleted_group() throws Exception {
-      mockMvc.perform(delete("/api/groups/1"))
-          .andExpect(status().isOk())
-          .andExpect(jsonPath("$.id", is(1)))
-          .andExpect(jsonPath("$.name", is("Group 1")))
-          .andExpect(jsonPath("$.courseId", is(1)))
-          .andExpect((jsonPath("$.isArchived", is(false))));
-    }
-
-    @Test
-    @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void return_404_for_not_existed_group() throws Exception {
-      mockMvc.perform(delete("/api/groups/5"))
           .andExpect(status().isNotFound());
     }
   }

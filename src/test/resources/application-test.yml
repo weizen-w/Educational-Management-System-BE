@@ -2,9 +2,11 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:/test_EMS_db
-#  jpa:
+  jpa:
 #    hibernate:
 #      ddl-auto: update
+    hibernate:
+      ddl-auto: create-drop
   liquibase:
     contexts: test
 
@@ -13,3 +15,6 @@ s3:
   endpoint: fake
   region: fake
   secretKey: fake
+
+base:
+  url: test

@@ -16,7 +16,6 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,21 +93,4 @@ public interface CoursesApi {
   @ResponseStatus(code = HttpStatus.OK)
   CourseDto updateCourse(@Parameter(description = "Course ID", example = "1")
   @PathVariable("course-id") Long courseId, @RequestBody @Valid UpdateCourseDto updateCourse);
-
-  @Operation(summary = "Course delete", description = "Available to administrator")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200",
-          description = "Delete processed successfully",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = CourseDto.class))
-      ),
-      @ApiResponse(responseCode = "404",
-          description = "Course not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = StandardResponseDto.class)))
-  })
-  @DeleteMapping("/{course-id}")
-  @ResponseStatus(code = HttpStatus.OK)
-  CourseDto deleteCourse(@Parameter(description = "Course ID", example = "1")
-  @PathVariable("course-id") Long courseId);
 }

@@ -36,7 +36,7 @@ public class CoursesDtoTest {
       Assertions.assertNotNull(courseDtoNoArg);
       Assertions.assertEquals(ID, courseDto.getId());
       Assertions.assertEquals(NAME, courseDto.getName());
-      Assertions.assertEquals(IS_ARCHIVED, courseDto.getIsArchived());
+      Assertions.assertEquals(IS_ARCHIVED, courseDto.getArchived());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CoursesDtoTest {
 
       Assertions.assertNotNull(updateCourseDtoNoArg);
       Assertions.assertEquals(NAME, updateCourseDto.getName());
-      Assertions.assertEquals(IS_ARCHIVED, updateCourseDto.getIsArchived());
+      Assertions.assertEquals(IS_ARCHIVED, updateCourseDto.getArchived());
     }
   }
 }

@@ -1,12 +1,12 @@
 -- table account
 insert into account(hash_password,first_name,last_name,email,role,account_state)
-values ('Qwerty007!', 'Student1', 'Name1', 'Student1@gmx.de', 'STUDENT', 'CONFIRMED');
+values ('Qwerty007!', 'Student1', 'Name1', 'Student1@gmail.com', 'STUDENT', 'CONFIRMED');
 insert into account(hash_password,first_name,last_name,email,role,account_state)
-values ('Qwerty007!', 'Student2', 'Name2', 'Student2@gmx.de', 'STUDENT', 'CONFIRMED');
+values ('Qwerty007!', 'Student2', 'Name2', 'Student2@gmail.com', 'STUDENT', 'CONFIRMED');
 insert into account(hash_password,first_name,last_name,email,role,account_state)
-values ('Qwerty007!', 'Student3', 'Name3', 'Student3@gmx.de', 'STUDENT', 'CONFIRMED');
+values ('Qwerty007!', 'Student3', 'Name3', 'Student3@gmail.com', 'STUDENT', 'CONFIRMED');
 insert into account(hash_password,first_name,last_name,email,role,account_state)
-values ('Qwerty007!', 'Student4', 'Name4', 'Student4@gmx.de', 'STUDENT', 'CONFIRMED');
+values ('Qwerty007!', 'Admin', 'Admin', 'admin@gmail.com', 'ADMIN', 'CONFIRMED');
 
 -- table courses
 insert into course(course_name,archived)

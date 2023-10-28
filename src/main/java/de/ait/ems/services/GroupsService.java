@@ -81,12 +81,6 @@ public class GroupsService {
     return from(groupForUpdate);
   }
 
-  public GroupDto deleteGroup(Long groupId) {
-    Group groupForDelete = getGroupOrThrow(groupId);
-    groupsRepository.delete(groupForDelete);
-    return from(groupForDelete);
-  }
-
   private Group getGroupOrThrow(Long groupId) {
     return groupsRepository.findById(groupId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,

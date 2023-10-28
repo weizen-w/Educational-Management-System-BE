@@ -46,7 +46,7 @@ public class GroupsServiceTest {
     Assertions.assertEquals(5, groupDto.getId());
     Assertions.assertEquals(newGroupDto.getName(), groupDto.getName());
     Assertions.assertEquals(newGroupDto.getCourseId(), groupDto.getCourseId());
-    Assertions.assertEquals(false, groupDto.getIsArchived());
+    Assertions.assertEquals(false, groupDto.getArchived());
   }
 
   @Test
@@ -59,7 +59,7 @@ public class GroupsServiceTest {
     Assertions.assertEquals(GroupsDtoTest.ID, groupDto.getId());
     Assertions.assertEquals("Group 1", groupDto.getName());
     Assertions.assertEquals(1, groupDto.getCourseId());
-    Assertions.assertEquals(false, groupDto.getIsArchived());
+    Assertions.assertEquals(false, groupDto.getArchived());
   }
 
   @Test
@@ -84,19 +84,7 @@ public class GroupsServiceTest {
     Assertions.assertEquals(GroupsDtoTest.ID, groupDtoAfterUpdate.getId());
     Assertions.assertEquals(updateGroupDto.getName(), groupDtoAfterUpdate.getName());
     Assertions.assertEquals(updateGroupDto.getCourseId(), groupDtoAfterUpdate.getCourseId());
-    Assertions.assertEquals(updateGroupDto.getIsArchived(), groupDtoAfterUpdate.getIsArchived());
-  }
-
-  @Test
-  @Sql(scripts = "/sql/data.sql")
-  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-  public void delete_group() {
-    GroupDto groupDto = groupsService.deleteGroup(GroupsDtoTest.ID);
-
-    Assertions.assertNotNull(groupDto);
-    Assertions.assertEquals("Group 1", groupDto.getName());
-    Assertions.assertEquals(1, groupDto.getCourseId());
-    Assertions.assertEquals(false, groupDto.getIsArchived());
+    Assertions.assertEquals(updateGroupDto.getArchived(), groupDtoAfterUpdate.getArchived());
   }
 
   @Test

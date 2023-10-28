@@ -2,6 +2,7 @@ package de.ait.ems.config;
 
 import de.ait.ems.models.User;
 import de.ait.ems.models.User.Role;
+import de.ait.ems.models.User.State;
 import de.ait.ems.security.details.AuthenticatedUser;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -36,12 +37,14 @@ public class TestSecurityConfig {
               .id(1L)
               .email(MOCK_STUDENT)
               .role(Role.STUDENT)
+              .state(State.CONFIRMED)
               .build());
         } else if (username.equals(MOCK_ADMIN)) {
           return new AuthenticatedUser(User.builder()
               .id(1L)
               .email(MOCK_ADMIN)
               .role(User.Role.ADMIN)
+              .state(State.CONFIRMED)
               .build());
         } else throw new UsernameNotFoundException("User not found");
       }

@@ -55,12 +55,6 @@ public class CoursesService {
     return from(courseForUpdate);
   }
 
-  public CourseDto deleteCourse(Long courseId) {
-    Course courseForDelete = getCourseOrThrow(courseId);
-    coursesRepository.delete(courseForDelete);
-    return from(courseForDelete);
-  }
-
   private Course getCourseOrThrow(Long courseId) {
     return coursesRepository.findById(courseId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,

@@ -51,9 +51,4 @@ public class GroupsController implements GroupsApi {
   public GroupDto updateGroup(Long groupId, UpdateGroupDto updateGroup) {
     return groupsService.updateGroup(groupId, updateGroup);
   }
-
-  @Override
-  public GroupDto deleteGroup(Long groupId) {
-    return groupsService.deleteGroup(groupId);
-  }
 }

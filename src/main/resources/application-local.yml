@@ -28,4 +28,4 @@ logging:
         mail: DEBUG
 
 base:
-  url: https://${NGROK_ID}.ngrok-free.app
+  url: https://${NGROK_ID}.ngrok-free.app/
