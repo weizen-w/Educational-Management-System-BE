@@ -44,7 +44,7 @@ public class CoursesServiceTest {
     Assertions.assertNotNull(courseDto);
     Assertions.assertEquals(5, courseDto.getId());
     Assertions.assertEquals(newCourseDto.getName(), courseDto.getName());
-    Assertions.assertEquals(false, courseDto.getIsArchived());
+    Assertions.assertEquals(false, courseDto.getArchived());
   }
 
   @Test
@@ -56,7 +56,7 @@ public class CoursesServiceTest {
     Assertions.assertNotNull(courseDto);
     Assertions.assertEquals(CoursesDtoTest.ID, courseDto.getId());
     Assertions.assertEquals("Course 1", courseDto.getName());
-    Assertions.assertEquals(false, courseDto.getIsArchived());
+    Assertions.assertEquals(false, courseDto.getArchived());
   }
 
   @Test
@@ -81,18 +81,7 @@ public class CoursesServiceTest {
     Assertions.assertNotNull(courseDtoAfterUpdate);
     Assertions.assertEquals(CoursesDtoTest.ID, courseDtoAfterUpdate.getId());
     Assertions.assertEquals(updateCourseDto.getName(), courseDtoAfterUpdate.getName());
-    Assertions.assertEquals(updateCourseDto.getIsArchived(), courseDtoAfterUpdate.getIsArchived());
-  }
-
-  @Test
-  @Sql(scripts = "/sql/data.sql")
-  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-  public void delete_course() {
-    CourseDto courseDto = coursesService.deleteCourse(CoursesDtoTest.ID);
-
-    Assertions.assertNotNull(courseDto);
-    Assertions.assertEquals("Course 1", courseDto.getName());
-    Assertions.assertEquals(false, courseDto.getIsArchived());
+    Assertions.assertEquals(updateCourseDto.getArchived(), courseDtoAfterUpdate.getArchived());
   }
 
   @Test

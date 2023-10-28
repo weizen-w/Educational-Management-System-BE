@@ -41,7 +41,7 @@ public class GroupsDtoTest {
       Assertions.assertEquals(ID, groupDto.getId());
       Assertions.assertEquals(NAME, groupDto.getName());
       Assertions.assertEquals(COURSE_ID, groupDto.getCourseId());
-      Assertions.assertEquals(IS_ARCHIVED, groupDto.getIsArchived());
+      Assertions.assertEquals(IS_ARCHIVED, groupDto.getArchived());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class GroupsDtoTest {
       Assertions.assertNotNull(updateGroupDtoNoArg);
       Assertions.assertEquals(NAME, updateGroupDto.getName());
       Assertions.assertEquals(COURSE_ID, updateGroupDto.getCourseId());
-      Assertions.assertEquals(IS_ARCHIVED, updateGroupDto.getIsArchived());
+      Assertions.assertEquals(IS_ARCHIVED, updateGroupDto.getArchived());
     }
   }
 }

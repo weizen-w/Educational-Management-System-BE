@@ -3,99 +3,117 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-  <changeSet id="create-users-table" author="Wladimir">
-    <createTable tableName="users">
-      <column name="user_id" type="bigserial" autoIncrement="true">
+  <changeSet id="create-DB-table" author="Wladimir">
+
+    <createTable tableName="account">
+      <column name="account_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column name="username" type="varchar(100)">
-        <constraints unique="true" nullable="false"/>
-      </column>
-      <column name="password" type="varchar(100)">
+      <column name="hash_password" type="varchar(100)">
         <constraints nullable="false"/>
       </column>
-      <column name="first_name" type="varchar(100)">
+      <column name="first_name" type="varchar(50)">
         <constraints nullable="false"/>
       </column>
-      <column name="last_name" type="varchar(100)">
+      <column name="last_name" type="varchar(50)">
         <constraints nullable="false"/>
       </column>
-      <column name="email" type="varchar(150)">
-        <constraints unique="true" nullable="false"/>
+      <column name="email" type="varchar(100)">
+        <constraints nullable="false" unique="true"/>
       </column>
-      <column name="role_id" type="bigint">
+      <column name="role" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="account_state" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="photo_link" type="text"/>
+    </createTable>
+
+    <createTable tableName="confirmation_code">
+      <column name="code_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="code" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="expired_date_time" type="timestamp">
+        <constraints nullable="false"/>
+      </column>
+      <column name="account_id" type="bigserial">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="file_info">
+      <column name="file_info_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="link" type="text">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="course">
+      <column name="course_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="course_name" type="varchar(200)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="archived" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="student_group">
+      <column name="group_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="group_name" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="course_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="archived" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="account_group">
+      <column name="account_group_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="account_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="group_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="is_blocked" type="bool">
+      <column name="main_group" type="boolean">
         <constraints nullable="false"/>
       </column>
     </createTable>
-  </changeSet>
 
-  <changeSet id="create-roles-table" author="Wladimir">
-    <createTable tableName="roles">
-      <column name="role_id" type="bigserial" autoIncrement="true">
+    <createTable tableName="lesson">
+      <column name="lesson_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column name="role_name" type="varchar(100)">
-        <constraints unique="true" nullable="false"/>
-      </column>
-    </createTable>
-  </changeSet>
-
-  <changeSet id="create-courses-table" author="Wladimir">
-    <createTable tableName="courses">
-      <column name="course_id" type="bigserial" autoIncrement="true">
-        <constraints primaryKey="true"/>
-      </column>
-      <column name="course_name" type="varchar(100)">
+      <column name="group_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="is_archived" type="bool">
+      <column name="lesson_title" type="varchar(50)">
         <constraints nullable="false"/>
       </column>
-    </createTable>
-  </changeSet>
-
-  <changeSet id="create-student-groups-table" author="Wladimir">
-    <createTable tableName="student_groups">
-      <column name="group_id" type="bigserial" autoIncrement="true">
-        <constraints primaryKey="true"/>
-      </column>
-      <column name="group_name" type="varchar(150)">
-        <constraints nullable="false"/>
-      </column>
-      <column name="course_id" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-      <column name="is_archived" type="bool">
-        <constraints nullable="false"/>
-      </column>
-    </createTable>
-  </changeSet>
-
-  <changeSet id="create-lectures-table" author="Wladimir">
-    <createTable tableName="lectures">
-      <column name="lecture_id" type="bigserial" autoIncrement="true">
-        <constraints primaryKey="true"/>
-      </column>
-      <column name="course_id" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-      <column name="lecture_title" type="varchar(100)">
-        <constraints nullable="false"/>
-      </column>
-      <column name="lecture_description" type="text"/>
-      <column name="lecture_type_id" type="bigint">
+      <column name="lesson_description" type="text"/>
+      <column name="lesson_type_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="teacher_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="lecture_date" type="date">
+      <column name="lesson_date" type="date">
         <constraints nullable="false"/>
       </column>
       <column name="start_time" type="time">
@@ -107,165 +125,141 @@
       <column name="module_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="is_archived" type="bool">
+      <column name="link_lms" type="text"/>
+      <column name="link_zoom" type="text"/>
+      <column name="archived" type="boolean">
         <constraints nullable="false"/>
       </column>
     </createTable>
-  </changeSet>
 
-  <changeSet id="create-lecture-type-table" author="Wladimir">
-    <createTable tableName="lecture_types">
-      <column name="lecture_type_id" type="bigserial" autoIncrement="true">
+    <createTable tableName="submission">
+      <column name="submission_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column name="status_name" type="varchar(100)">
+      <column name="description" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="lesson_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="student_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="submission_state" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="archived" type="boolean">
         <constraints nullable="false"/>
       </column>
     </createTable>
-  </changeSet>
 
-  <changeSet id="create-attendances-table" author="Wladimir">
-    <createTable tableName="attendances">
+    <createTable tableName="comment">
+      <column name="comment_id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="submission_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="sender_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="message_text" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="message_date" type="timestamp">
+        <constraints nullable="false"/>
+      </column>
+      <column name="archived" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="attendance">
       <column name="attendance_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
       <column name="student_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="lecture_id" type="bigint">
+      <column name="lesson_id" type="bigint">
         <constraints nullable="false"/>
       </column>
       <column name="attendance_date" type="date">
         <constraints nullable="false"/>
       </column>
-      <column name="status_id" type="bigint">
+      <column name="status" type="varchar(20)">
         <constraints nullable="false"/>
       </column>
-      <column name="is_archived" type="bool">
-        <constraints nullable="false"/>
-      </column>
-    </createTable>
-  </changeSet>
-
-  <changeSet id="create-attendance-statuses-table" author="Wladimir">
-    <createTable tableName="attendance_statuses">
-      <column name="status_id" type="bigserial" autoIncrement="true">
-        <constraints primaryKey="true"/>
-      </column>
-      <column name="status_name" type="varchar(100)">
+      <column name="archived" type="boolean">
         <constraints nullable="false"/>
       </column>
     </createTable>
-  </changeSet>
 
-  <changeSet id="create-observers-table" author="Wladimir">
-    <createTable tableName="observers">
-      <column name="observer_id" type="bigserial" autoIncrement="true">
-        <constraints primaryKey="true"/>
-      </column>
-      <column name="student_id" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-      <column name="observed_group_id" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-    </createTable>
-  </changeSet>
-
-  <changeSet id="create-schedules-table" author="Wladimir">
-    <createTable tableName="schedules">
-      <column name="schedule_id" type="bigserial" autoIncrement="true">
-        <constraints primaryKey="true"/>
-      </column>
-      <column name="lecture_id" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-      <column name="group_id" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-      <column name="lecture_date" type="date">
-        <constraints nullable="false"/>
-      </column>
-      <column name="start_time" type="timestamp">
-        <constraints nullable="false"/>
-      </column>
-      <column name="end_time" type="timestamp">
-        <constraints nullable="false"/>
-      </column>
-      <column name="is_archived" type="bool">
-        <constraints nullable="false"/>
-      </column>
-    </createTable>
-  </changeSet>
-
-  <changeSet id="create-modules-table" author="Wladimir">
-    <createTable tableName="modules">
+    <createTable tableName="module">
       <column name="module_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column name="module_name" type="varchar(100)">
+      <column name="module_name" type="varchar(50)">
         <constraints nullable="false"/>
       </column>
-      <column name="is_archived" type="bool">
+      <column name="archived" type="boolean">
         <constraints nullable="false"/>
       </column>
     </createTable>
+
+    <addForeignKeyConstraint baseTableName="attendance" baseColumnNames="student_id"
+      referencedTableName="account" referencedColumnNames="account_id"
+      constraintName="FK_attendance_account"/>
+    <addForeignKeyConstraint baseTableName="attendance" baseColumnNames="lesson_id"
+      referencedTableName="lesson" referencedColumnNames="lesson_id"
+      constraintName="FK_attendance_lesson"/>
+    <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="teacher_id"
+      referencedTableName="account" referencedColumnNames="account_id"
+      constraintName="FK_lesson_account"/>
+    <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="module_id"
+      referencedTableName="module" referencedColumnNames="module_id"
+      constraintName="FK_lesson_module"/>
+    <addForeignKeyConstraint baseTableName="account_group" baseColumnNames="account_id"
+      referencedTableName="account" referencedColumnNames="account_id"
+      constraintName="FK_account_group_account"/>
+    <addForeignKeyConstraint baseTableName="submission" baseColumnNames="lesson_id"
+      referencedTableName="lesson" referencedColumnNames="lesson_id"
+      constraintName="FK_submission_lesson"/>
+    <addForeignKeyConstraint baseTableName="submission" baseColumnNames="student_id"
+      referencedTableName="account" referencedColumnNames="account_id"
+      constraintName="FK_submission_account"/>
+    <addForeignKeyConstraint baseTableName="comment" baseColumnNames="submission_id"
+      referencedTableName="submission" referencedColumnNames="submission_id"
+      constraintName="FK_comment_submission"/>
+    <addForeignKeyConstraint baseTableName="comment" baseColumnNames="sender_id"
+      referencedTableName="account" referencedColumnNames="account_id"
+      constraintName="FK_comment_account"/>
+    <addForeignKeyConstraint baseTableName="account_group" baseColumnNames="group_id"
+      referencedTableName="student_group" referencedColumnNames="group_id"
+      constraintName="FK_account_group_group"/>
+    <addForeignKeyConstraint baseTableName="student_group" baseColumnNames="course_id"
+      referencedTableName="course" referencedColumnNames="course_id"
+      constraintName="FK_group_course"/>
+
   </changeSet>
 
-  <changeSet id="add-foreign-keys" author="Wladimir">
-    <addForeignKeyConstraint baseTableName="users" baseColumnNames="role_id"
-      referencedTableName="roles" referencedColumnNames="role_id"
-      constraintName="FK_users_roles"/>
-    <addForeignKeyConstraint baseTableName="users" baseColumnNames="group_id"
-      referencedTableName="student_groups" referencedColumnNames="group_id"
-      constraintName="FK_users_student_groups"/>
-    <addForeignKeyConstraint baseTableName="observers" baseColumnNames="student_id"
-      referencedTableName="users" referencedColumnNames="user_id"
-      constraintName="FK_observers_users"/>
-    <addForeignKeyConstraint baseTableName="attendances" baseColumnNames="student_id"
-      referencedTableName="users" referencedColumnNames="user_id"
-      constraintName="FK_attendances_users"/>
-    <addForeignKeyConstraint baseTableName="attendances" baseColumnNames="lecture_id"
-      referencedTableName="lectures" referencedColumnNames="lecture_id"
-      constraintName="FK_attendances_lectures"/>
-    <addForeignKeyConstraint baseTableName="attendances" baseColumnNames="status_id"
-      referencedTableName="attendance_statuses" referencedColumnNames="status_id"
-      constraintName="FK_attendances_statuses"/>
-    <addForeignKeyConstraint baseTableName="lectures" baseColumnNames="course_id"
-      referencedTableName="courses" referencedColumnNames="course_id"
-      constraintName="FK_lectures_courses"/>
-    <addForeignKeyConstraint baseTableName="student_groups" baseColumnNames="course_id"
-      referencedTableName="courses" referencedColumnNames="course_id"
-      constraintName="FK_student_groups_courses"/>
-    <addForeignKeyConstraint baseTableName="observers" baseColumnNames="observed_group_id"
-      referencedTableName="student_groups" referencedColumnNames="group_id"
-      constraintName="FK_observers_student_groups"/>
-    <addForeignKeyConstraint baseTableName="lectures" baseColumnNames="teacher_id"
-      referencedTableName="users" referencedColumnNames="user_id"
-      constraintName="FK_lectures_users"/>
-    <addForeignKeyConstraint baseTableName="lectures" baseColumnNames="lecture_type_id"
-      referencedTableName="lecture_types" referencedColumnNames="lecture_type_id"
-      constraintName="FK_lectures_lecture_types"/>
-    <addForeignKeyConstraint baseTableName="schedules" baseColumnNames="group_id"
-      referencedTableName="student_groups" referencedColumnNames="group_id"
-      constraintName="FK_schedules_student_groups"/>
-    <addForeignKeyConstraint baseTableName="schedules" baseColumnNames="lecture_id"
-      referencedTableName="lectures" referencedColumnNames="lecture_id"
-      constraintName="FK_schedules_lectures"/>
-    <addForeignKeyConstraint baseTableName="lectures" baseColumnNames="module_id"
-      referencedTableName="modules" referencedColumnNames="module_id"
-      constraintName="FK_lectures_modules"/>
+  <changeSet id="adding-data-to-DB" author="Wladimir" context="!test">
+    <loadData
+      tableName="account"
+      file="db/data/account.csv">
+    </loadData>
+    <loadData
+      tableName="course"
+      file="db/data/course.csv">
+    </loadData>
+    <loadData
+      tableName="student_group"
+      file="db/data/group.csv">
+    </loadData>
+    <loadData
+      tableName="account_group"
+      file="db/data/account_group.csv">
+    </loadData>
   </changeSet>
-
-<!--  <changeSet id="adding-data-to-DB" author="Wladimir">-->
-<!--    <loadData-->
-<!--      tableName="courses"-->
-<!--      file="db/data/courses.csv">-->
-<!--    </loadData>-->
-<!--    <loadData-->
-<!--      tableName="student_groups"-->
-<!--      file="db/data/student_groups.csv">-->
-<!--    </loadData>-->
-<!--  </changeSet>-->
 
 </databaseChangeLog>

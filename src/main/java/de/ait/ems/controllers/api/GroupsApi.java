@@ -4,6 +4,8 @@ import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.NewGroupDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.UpdateGroupDto;
+import de.ait.ems.dto.UserDto;
+import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.validations.dto.ValidationErrorsDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,7 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +58,18 @@ public interface GroupsApi {
   @ResponseStatus(code = HttpStatus.OK)
   List<GroupDto> getGroups();
 
+  @Operation(summary = "Getting a list of groups by authenticated user", description = "Available to authenticated user")
+  @GetMapping("/byAuthUser")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<GroupDto> getGroupsByAuthUser(
+      @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+
+  @Operation(summary = "Getting a list of users by group", description = "Available to administrator")
+  @GetMapping("/{group-id}/students")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<UserDto> getUsersFromGroup(
+      @Parameter(description = "Group ID", example = "1") @PathVariable("group-id") Long groupId);
+
   @Operation(summary = "Getting a group", description = "Available to users in this group")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
@@ -94,21 +108,4 @@ public interface GroupsApi {
   @ResponseStatus(code = HttpStatus.OK)
   GroupDto updateGroup(@Parameter(description = "Group ID", example = "1")
   @PathVariable("group-id") Long groupId, @RequestBody @Valid UpdateGroupDto updateGroup);
-
-  @Operation(summary = "Group delete", description = "Available to administrator")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200",
-          description = "Delete processed successfully",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = GroupDto.class))
-      ),
-      @ApiResponse(responseCode = "404",
-          description = "Group not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = StandardResponseDto.class)))
-  })
-  @DeleteMapping("/{group-id}")
-  @ResponseStatus(code = HttpStatus.OK)
-  GroupDto deleteGroup(@Parameter(description = "Group ID", example = "1")
-  @PathVariable("group-id") Long groupId);
 }

@@ -3,10 +3,9 @@ package de.ait.ems.controllers;
 import de.ait.ems.controllers.api.UsersApi;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.UserDto;
+import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.services.UsersService;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,7 +19,18 @@ public class UsersController implements UsersApi {
   private final UsersService usersService;
 
   @Override
-  public UserDto addUser(@RequestBody @Valid NewUserDto newUser) {
-    return usersService.addUser(newUser);
+  public UserDto register(NewUserDto newUser) {
+    return usersService.register(newUser);
+  }
+
+  @Override
+  public UserDto getConfirmation(String confirmCode) {
+    return usersService.confirm(confirmCode);
+  }
+
+  @Override
+  public UserDto getProfile(AuthenticatedUser user) {
+    Long currentUserId = user.getId();
+    return usersService.getUserById(currentUserId);
   }
 }

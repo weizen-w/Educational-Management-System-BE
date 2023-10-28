@@ -1,0 +1,5 @@
+account_id,group_id,main_group
+2,1,true
+2,2,false
+3,1,false
+3,2,false

@@ -39,9 +39,4 @@ public class CoursesController implements CoursesApi {
   public CourseDto updateCourse(Long courseId, UpdateCourseDto updateCourse) {
     return coursesService.updateCourse(courseId, updateCourse);
   }
-
-  @Override
-  public CourseDto deleteCourse(Long courseId) {
-    return coursesService.deleteCourse(courseId);
-  }
 }

@@ -21,9 +21,9 @@ public class NewGroupDto {
   @NotNull(message = "Must not be null")
   @NotBlank(message = "Must not be blank")
   @NotEmpty(message = "Must not be empty")
-  @Size(max = 150, message = "Size must be in the range from 0 to 150")
+  @Size(max = 50, message = "Size must be in the range from 0 to 50")
   private String name;
-  @Schema(description = "Group course ID", example = "1")
+  @Schema(description = "Course ID", example = "1")
   @NotNull(message = "Must not be null")
   @Min(value = 1, message = "Can't be zero or negative")
   private Long courseId;

@@ -19,9 +19,9 @@ import lombok.NoArgsConstructor;
 public class UpdateCourseDto {
 
   @Pattern(regexp = "^$|^(?!\\s+$).+", message = "Must not be blank or contain only spaces")
-  @Size(min = 1, max = 150, message = "Size must be in the range from 1 to 150")
+  @Size(min = 1, max = 200, message = "Size must be in the range from 1 to 200")
   @Schema(description = "Course name", example = "Fullstack developer")
   private String name;
   @Schema(description = "Course is archived", example = "true")
-  private Boolean isArchived;
+  private Boolean archived;
 }
