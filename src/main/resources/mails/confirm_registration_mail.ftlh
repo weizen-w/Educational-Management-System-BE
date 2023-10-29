@@ -140,7 +140,7 @@
                      >
                 <tr>
                   <td align="left"
-                      style="padding:0;Margin:0;padding-top:40px;padding-left:40px;padding-right:40px">
+                      style="Margin:0;padding: 40px 40px 0;">
                     <table cellpadding="0" cellspacing="0" width="100%"
                            style="mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse;border-spacing:0">
                       <tr>
@@ -163,7 +163,7 @@
                 </tr>
                 <tr>
                   <td align="left"
-                      style="padding:0;Margin:0;padding-top:20px;padding-left:40px;padding-right:40px">
+                      style="Margin:0;padding: 20px 40px 0;">
                     <table cellpadding="0" cellspacing="0" width="100%"
                            style="mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse;border-spacing:0">
                       <tr>
@@ -206,7 +206,7 @@
                      style="mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse;border-spacing:0;background-color:#EFEFEF;width:600px">
                 <tr>
                   <td align="left"
-                      style="Margin:0;padding-top:30px;padding-bottom:40px;padding-left:40px;padding-right:40px">
+                      style="Margin:0;padding: 30px 40px 40px;">
                     <table cellpadding="0" cellspacing="0" width="100%"
                            style="mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse;border-spacing:0">
                       <tr>
@@ -220,7 +220,7 @@
                                     style="border-style:solid;border-color:#2CB543;background:#7630f3;border-width:0;display:block;width:auto;mso-hide:all;border-radius: 30px">
                                   <a
                                       href="${link}" class="es-button msohide" target="_blank"
-                                      style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:22px;padding:15px 20px 15px 20px;display:block;background:#00b14f;font-family:Imprima, Arial, sans-serif;font-weight:bold;font-style:normal;line-height:26px;width:auto;text-align:center;mso-padding-alt:0;mso-border-alt:10px solid #12bb52;mso-hide:all;padding-left:5px;padding-right:5px;border-radius: 30px">
+                                      style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:22px;display:block;background:#00b14f;font-family:Imprima, Arial, sans-serif;font-weight:bold;font-style:normal;line-height:26px;width:auto;text-align:center;mso-padding-alt:0;mso-border-alt:10px solid #12bb52;mso-hide:all;padding: 15px 5px;border-radius: 30px">
                                     Confirm email
                                   </a>
                                 </span>
@@ -234,7 +234,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td align="left" style="padding:0;Margin:0;padding-left:40px;padding-right:40px">
+                  <td align="left" style="Margin:0;padding: 0 40px;">
                     <table cellpadding="0" cellspacing="0" width="100%"
                            style="mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse;border-spacing:0">
                       <tr>
@@ -278,7 +278,7 @@
                      >
                 <tr>
                   <td class="esdev-adapt-off" align="left"
-                      style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:40px;padding-right:40px">
+                      style="Margin:0;padding: 20px 40px;">
                     <table cellpadding="0" cellspacing="0" class="esdev-mso-table"
                            style="mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse;border-spacing:0;width:520px">
                       <tr>

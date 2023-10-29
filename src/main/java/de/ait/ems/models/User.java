@@ -60,12 +60,13 @@ public class User {
   @Column(name = "account_state", nullable = false)
   @Enumerated(value = EnumType.STRING)
   private State state;
+  @Column(name = "photo_link")
+  private String photoLink;
 
   @OneToMany(mappedBy = "user")
   @Exclude
   private Set<ConfirmationCode> codes;
 
-  private String photoLink;
 
   @Override
   public final boolean equals(Object object) {

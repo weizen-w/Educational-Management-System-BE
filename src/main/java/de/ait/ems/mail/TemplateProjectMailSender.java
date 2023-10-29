@@ -1,14 +1,12 @@
 package de.ait.ems.mail;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 /**
  * 26/10/2023 EducationalManagementSystem
@@ -17,7 +15,6 @@ import javax.mail.internet.MimeMessage;
  */
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class TemplateProjectMailSender {
 
   private final JavaMailSender javaMailSender;
