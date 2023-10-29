@@ -107,7 +107,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="lesson_description" type="text"/>
-      <column name="lesson_type_id" type="bigint">
+      <column name="lesson_type" type="varchar(20)">
         <constraints nullable="false"/>
       </column>
       <column name="teacher_id" type="bigint">

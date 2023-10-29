@@ -32,6 +32,10 @@ public class UserDto {
   private String email;
   @Schema(description = "User role", example = "STUDENT")
   private String role;
+  @Schema(description = "User state", example = "CONFIRMED")
+  private String state;
+  @Schema(description = "User photo")
+  private String photoLink;
 
   public static UserDto from(User user) {
     return UserDto.builder()
@@ -41,6 +45,8 @@ public class UserDto {
         .lastName(user.getLastName())
         .email(user.getEmail())
         .role(user.getRole().toString())
+        .state(user.getState().name())
+        .photoLink(user.getPhotoLink())
         .build();
   }
 
