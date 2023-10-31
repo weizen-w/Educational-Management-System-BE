@@ -17,8 +17,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,11 +37,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @RequestMapping("/api/groups")
 @Tags(value = {
-    @Tag(name = "Groups")
+    @Tag(name = "Groups", description="This controller realized management of usersgroups")
 })
+@Validated
 public interface GroupsApi {
 
-  @Operation(summary = "Create a group", description = "Available to administrator")
+  @Operation(summary = "Create a group", description = "Allowed create a new group. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201",
           description = "The group was created successfully",
@@ -51,26 +56,30 @@ public interface GroupsApi {
   })
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
-  GroupDto addGroup(@RequestBody @Valid NewGroupDto newGroup);
+  GroupDto addGroup(@RequestBody @Valid @Parameter(description = "Body with new group", required = true)  NewGroupDto newGroup);
 
-  @Operation(summary = "Getting a list of groups", description = "Available to administrator")
+  @Operation(summary = "Getting a list of groups", description = "Return list of all groups. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping
   @ResponseStatus(code = HttpStatus.OK)
   List<GroupDto> getGroups();
 
-  @Operation(summary = "Getting a list of groups by authenticated user", description = "Available to authenticated user")
+  @Operation(summary = "Getting a list of groups by authenticated user", description = "Return list of all groups. Available to authenticated user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @GetMapping("/byAuthUser")
   @ResponseStatus(code = HttpStatus.OK)
   List<GroupDto> getGroupsByAuthUser(
       @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 
-  @Operation(summary = "Getting a list of users by group", description = "Available to administrator")
+  @Operation(summary = "Getting a list of users by group", description = "Return list of users from requested group. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/{group-id}/students")
   @ResponseStatus(code = HttpStatus.OK)
   List<UserDto> getUsersFromGroup(
-      @Parameter(description = "Group ID", example = "1") @PathVariable("group-id") Long groupId);
+      @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
 
-  @Operation(summary = "Getting a group", description = "Available to users in this group")
+  @Operation(summary = "Getting a group", description = "Return one group by requested group id. Available to users in this group")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Request processed successfully",
@@ -85,9 +94,10 @@ public interface GroupsApi {
   @GetMapping("/{group-id}")
   @ResponseStatus(code = HttpStatus.OK)
   GroupDto getGroup(@Parameter(description = "Group ID", example = "1")
-  @PathVariable("group-id") Long groupId);
+  @PathVariable("group-id") @Min(1) Long groupId);
 
-  @Operation(summary = "Group update", description = "Available to administrator")
+  @Operation(summary = "Group update", description = "Update group info. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Update processed successfully",
@@ -106,6 +116,6 @@ public interface GroupsApi {
   })
   @PutMapping("/{group-id}")
   @ResponseStatus(code = HttpStatus.OK)
-  GroupDto updateGroup(@Parameter(description = "Group ID", example = "1")
-  @PathVariable("group-id") Long groupId, @RequestBody @Valid UpdateGroupDto updateGroup);
+  GroupDto updateGroup(@Parameter(description = "Group ID", example = "1", required = true)
+  @PathVariable("group-id") @Min(1) Long groupId, @RequestBody @Valid UpdateGroupDto updateGroup);
 }
