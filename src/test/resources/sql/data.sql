@@ -8,7 +8,7 @@ values ('Qwerty007!', 'Student3', 'Name3', 'Student3@gmail.com', 'STUDENT', 'CON
 insert into account(hash_password,first_name,last_name,email,role,account_state)
 values ('Qwerty007!', 'Admin', 'Admin', 'admin@gmail.com', 'ADMIN', 'CONFIRMED');
 
--- table courses
+-- table course
 insert into course(course_name,archived)
 values ('Course 1', false);
 insert into course(course_name,archived)
@@ -37,3 +37,13 @@ insert into account_group(account_id,group_id,main_group)
 values (3, 3, true);
 insert into account_group(account_id,group_id,main_group)
 values (4, 4, true);
+
+-- table module
+insert into module(module_name,archived)
+values ('Module 1', false);
+insert into module(module_name,archived)
+values ('Module 2', false);
+insert into module(module_name,archived)
+values ('Module 3', false);
+insert into module(module_name,archived)
+values ('Module 4', false);
