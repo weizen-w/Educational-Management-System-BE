@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,7 +76,7 @@ public interface CoursesApi {
   @ResponseStatus(code = HttpStatus.OK)
   @PreAuthorize("hasAuthority('ADMIN')")
   CourseDto getCourse(
-      @Parameter(description = "Course ID", example = "1", required = true) @PathVariable("course-id") Long courseId);
+      @Parameter(description = "Course ID", example = "1", required = true) @Min(1) @PathVariable("course-id") Long courseId);
 
   @Operation(summary = "Course update", description = "Available to administrator")
   @ApiResponses(value = {
@@ -98,6 +99,6 @@ public interface CoursesApi {
   @ResponseStatus(code = HttpStatus.OK)
   @PreAuthorize("hasAuthority('ADMIN')")
   CourseDto updateCourse(
-      @Parameter(description = "Course ID", example = "1", required = true) @PathVariable("course-id") Long courseId,
-      @Parameter(description = "Body with new course", required = true) @RequestBody @Valid UpdateCourseDto updateCourse);
+      @Parameter(description = "Course ID", example = "1", required = true) @Min(1) @PathVariable("course-id") Long courseId,
+      @Parameter(description = "Body with new course", required = true) @Valid @RequestBody UpdateCourseDto updateCourse);
 }
