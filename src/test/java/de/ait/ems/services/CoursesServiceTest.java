@@ -15,8 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 13/10/2023 EducationalManagementSystem
@@ -27,6 +29,7 @@ import org.springframework.test.context.jdbc.Sql;
 @Nested
 @DisplayName("Course service is works:")
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ActiveProfiles("test")
 public class CoursesServiceTest {
 
@@ -35,7 +38,7 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+  @Transactional
   public void add_course() {
     NewCourseDto newCourseDto = new NewCourseDto();
     newCourseDto.setName(CoursesDtoTest.NAME);
@@ -49,7 +52,7 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+  @Transactional
   public void get_course() {
     CourseDto courseDto = coursesService.getCourse(CoursesDtoTest.ID);
 
@@ -61,7 +64,7 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+  @Transactional
   public void get_courses() {
     List<CourseDto> courses = coursesService.getCourses();
 
@@ -71,7 +74,7 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+  @Transactional
   public void update_course() {
     UpdateCourseDto updateCourseDto = new UpdateCourseDto(CoursesDtoTest.NAME,
         CoursesDtoTest.IS_ARCHIVED);
@@ -86,7 +89,7 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+  @Transactional
   public void get_exception_for_not_exist_course() {
     Long notExistCourseId = 999L;
 

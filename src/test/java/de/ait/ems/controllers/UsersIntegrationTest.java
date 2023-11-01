@@ -8,9 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @DisplayName("Endpoint /users is works:")
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ActiveProfiles("test")
 public class UsersIntegrationTest {
 
@@ -38,7 +41,7 @@ public class UsersIntegrationTest {
   public class RegisterUser {
 
     @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    @Transactional
     public void return_created_user() throws Exception {
       mockMvc.perform(post("/api/users/register")
               .contentType(MediaType.APPLICATION_JSON)
@@ -55,6 +58,7 @@ public class UsersIntegrationTest {
     }
 
     @Test
+    @Transactional
     public void return_400_for_bad_format_email() throws Exception {
       mockMvc.perform(post("/api/users/register")
               .contentType(MediaType.APPLICATION_JSON)
@@ -70,7 +74,7 @@ public class UsersIntegrationTest {
 
     @Test
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    @Transactional
     public void return_409_for_existed_email() throws Exception {
       mockMvc.perform(post("/api/users/register")
               .contentType(MediaType.APPLICATION_JSON)
@@ -90,15 +94,16 @@ public class UsersIntegrationTest {
   public class GetProfile {
 
     @Test
+    @Transactional
     public void return_403_for_unauthorized() throws Exception {
       mockMvc.perform(get("/api/users/profile"))
           .andExpect(status().isUnauthorized());
     }
 
+    @Test
     @WithUserDetails("student1@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    @Test
+    @Transactional
     public void return_information_about_current_user() throws Exception {
       mockMvc.perform(get("/api/users/profile"))
           .andExpect(status().isOk())
