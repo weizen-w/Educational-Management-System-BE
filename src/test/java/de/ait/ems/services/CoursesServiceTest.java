@@ -38,7 +38,6 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void add_course() {
     NewCourseDto newCourseDto = new NewCourseDto();
     newCourseDto.setName(CoursesDtoTest.NAME);
@@ -52,7 +51,6 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void get_course() {
     CourseDto courseDto = coursesService.getCourse(CoursesDtoTest.ID);
 
@@ -64,7 +62,6 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void get_courses() {
     List<CourseDto> courses = coursesService.getCourses();
 
@@ -74,7 +71,6 @@ public class CoursesServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void update_course() {
     UpdateCourseDto updateCourseDto = new UpdateCourseDto(CoursesDtoTest.NAME,
         CoursesDtoTest.IS_ARCHIVED);

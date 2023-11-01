@@ -23,7 +23,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 12/10/2023 EducationalManagementSystem
@@ -47,7 +46,6 @@ public class CoursesIntegrationTest {
 
     @Test
     @WithUserDetails("admin@gmail.com")
-    @Transactional
     public void return_empty_list_of_courses_for_empty_database() throws Exception {
       mockMvc.perform(get("/api/courses"))
           .andExpect(status().isOk())
@@ -57,7 +55,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_list_of_courses_for_not_empty_database() throws Exception {
       mockMvc.perform(get("/api/courses"))
           .andExpect(status().isOk())
@@ -80,7 +77,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_created_course() throws Exception {
       mockMvc.perform(post("/api/courses")
               .contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +90,6 @@ public class CoursesIntegrationTest {
 
     @Test
     @WithUserDetails("admin@gmail.com")
-    @Transactional
     public void return_400_for_not_valid_course() throws Exception {
       mockMvc.perform(post("/api/courses")
               .contentType("application/json")
@@ -114,7 +109,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_existed_course() throws Exception {
       mockMvc.perform(get("/api/courses/1"))
           .andExpect(status().isOk())
@@ -126,7 +120,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_404_for_not_existed_course() throws Exception {
       mockMvc.perform(get("/api/courses/5"))
           .andExpect(status().isNotFound());
@@ -140,7 +133,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_updated_course() throws Exception {
       mockMvc.perform(put("/api/courses/1")
               .contentType("application/json")
@@ -157,7 +149,6 @@ public class CoursesIntegrationTest {
 
     @Test
     @WithUserDetails("admin@gmail.com")
-    @Transactional
     public void return_404_for_not_existed_course() throws Exception {
       mockMvc.perform(put("/api/courses/5")
               .contentType("application/json")
@@ -172,7 +163,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_400_for_not_valid_update_course() throws Exception {
       mockMvc.perform(put("/api/courses/1")
               .contentType("application/json")

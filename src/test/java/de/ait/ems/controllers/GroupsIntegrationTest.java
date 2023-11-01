@@ -23,7 +23,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 14/10/2023 EducationalManagementSystem
@@ -46,8 +45,7 @@ public class GroupsIntegrationTest {
   public class GetGroups {
 
     @Test
-    @WithUserDetails("student1@gmail.com")
-    @Transactional
+    @WithUserDetails("admin@gmail.com")
     public void return_empty_list_of_groups_for_empty_database() throws Exception {
       mockMvc.perform(get("/api/groups"))
           .andExpect(status().isOk())
@@ -57,7 +55,6 @@ public class GroupsIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_list_of_groups_for_not_empty_database() throws Exception {
       mockMvc.perform(get("/api/groups"))
           .andExpect(status().isOk())
@@ -80,7 +77,6 @@ public class GroupsIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_created_group() throws Exception {
       mockMvc.perform(post("/api/groups")
               .contentType(MediaType.APPLICATION_JSON)
@@ -95,7 +91,6 @@ public class GroupsIntegrationTest {
 
     @Test
     @WithUserDetails("admin@gmail.com")
-    @Transactional
     public void return_400_for_not_valid_group() throws Exception {
       mockMvc.perform(post("/api/groups")
               .contentType("application/json")
@@ -116,7 +111,6 @@ public class GroupsIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_existed_group() throws Exception {
       mockMvc.perform(get("/api/groups/1"))
           .andExpect(status().isOk())
@@ -129,7 +123,6 @@ public class GroupsIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_404_for_not_existed_group() throws Exception {
       mockMvc.perform(get("/api/groups/5"))
           .andExpect(status().isNotFound());
@@ -143,7 +136,6 @@ public class GroupsIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_updated_group() throws Exception {
       mockMvc.perform(put("/api/groups/1")
               .contentType("application/json")
@@ -163,7 +155,6 @@ public class GroupsIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_400_for_not_valid_update_group() throws Exception {
       mockMvc.perform(put("/api/groups/1")
               .contentType("application/json")
@@ -180,7 +171,6 @@ public class GroupsIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_404_for_not_existed_group() throws Exception {
       mockMvc.perform(put("/api/groups/5")
               .contentType("application/json")

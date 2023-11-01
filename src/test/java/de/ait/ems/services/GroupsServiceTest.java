@@ -18,7 +18,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 14/10/2023 EducationalManagementSystem
@@ -38,7 +37,6 @@ public class GroupsServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void add_group() {
     NewGroupDto newGroupDto = new NewGroupDto();
     newGroupDto.setName(GroupsDtoTest.NAME);
@@ -54,7 +52,6 @@ public class GroupsServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void get_group() {
     GroupDto groupDto = groupsService.getGroup(GroupsDtoTest.ID);
 
@@ -67,7 +64,6 @@ public class GroupsServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void get_groups() {
     List<GroupDto> groups = groupsService.getGroups();
 
@@ -77,7 +73,6 @@ public class GroupsServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void update_group() {
     UpdateGroupDto updateGroupDto = new UpdateGroupDto(GroupsDtoTest.NAME, GroupsDtoTest.COURSE_ID,
         GroupsDtoTest.IS_ARCHIVED);
@@ -92,7 +87,6 @@ public class GroupsServiceTest {
 
   @Test
   @Sql(scripts = "/sql/data.sql")
-  @Transactional
   public void get_exception_for_not_exist_group() {
     Long notExistGroupId = 999L;
 

@@ -1,7 +1,17 @@
 package de.ait.ems.controllers;
 
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import de.ait.ems.config.TestSecurityConfig;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +22,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * 26/10/2023 EducationalManagementSystem
@@ -41,7 +44,6 @@ public class UsersIntegrationTest {
   public class RegisterUser {
 
     @Test
-    @Transactional
     public void return_created_user() throws Exception {
       mockMvc.perform(post("/api/users/register")
               .contentType(MediaType.APPLICATION_JSON)
@@ -58,7 +60,6 @@ public class UsersIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void return_400_for_bad_format_email() throws Exception {
       mockMvc.perform(post("/api/users/register")
               .contentType(MediaType.APPLICATION_JSON)
@@ -74,7 +75,6 @@ public class UsersIntegrationTest {
 
     @Test
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_409_for_existed_email() throws Exception {
       mockMvc.perform(post("/api/users/register")
               .contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +94,6 @@ public class UsersIntegrationTest {
   public class GetProfile {
 
     @Test
-    @Transactional
     public void return_403_for_unauthorized() throws Exception {
       mockMvc.perform(get("/api/users/profile"))
           .andExpect(status().isUnauthorized());
@@ -103,7 +102,6 @@ public class UsersIntegrationTest {
     @Test
     @WithUserDetails("student1@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @Transactional
     public void return_information_about_current_user() throws Exception {
       mockMvc.perform(get("/api/users/profile"))
           .andExpect(status().isOk())
