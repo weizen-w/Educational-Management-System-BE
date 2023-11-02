@@ -25,6 +25,8 @@ public class LessonService {
   private LessonRepository lessonRepository;
   @Autowired
   private ModulesService modulesService;
+  @Autowired
+  private GroupsService groupsService;
 
   public LessonDto addLesson(NewLessonDto newLesson, Long groupId) {
     Lesson lesson = Lesson.builder()
@@ -38,6 +40,7 @@ public class LessonService {
         .module(modulesService.getModuleOrThrow(newLesson.getModule().getId()))
         .linkLms(newLesson.getLinkLms())
         .linkZoom(newLesson.getLinkZoom())
+        .group(groupsService.getGroupOrThrow(groupId))
         .build();
     lessonRepository.save(lesson);
     return LessonDto.from(lesson);
