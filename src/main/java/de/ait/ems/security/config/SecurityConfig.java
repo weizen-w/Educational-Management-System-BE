@@ -28,38 +28,55 @@ public class SecurityConfig {
     httpSecurity.csrf().disable();
     httpSecurity.headers().frameOptions().disable();
 
+    // Allow access to Swagger UI without authentication
     httpSecurity
-        .authorizeRequests()
-        .antMatchers("/swagger-ui/**").permitAll()
-        .antMatchers(HttpMethod.POST, "/api/users/register/**").permitAll()
-        .antMatchers("/api/users/confirm/**").permitAll()
-        .antMatchers("/api/files/**").permitAll()
-        .antMatchers("/api/**").authenticated();
+            .authorizeRequests()
+            .antMatchers("/swagger-ui/**").permitAll();
+
+    // Allow new user registration without authentication
+    httpSecurity
+            .authorizeRequests()
+            .antMatchers(HttpMethod.POST, "/api/users/register/**").permitAll();
+
+    // Allow confirmation of users without authentication
+    httpSecurity
+            .authorizeRequests()
+            .antMatchers("/api/users/confirm/**").permitAll();
+
+    // Allow access to files without authentication
+    httpSecurity
+            .authorizeRequests()
+            .antMatchers("/api/files/**").permitAll();
+
+    // All other requests require authentication
+    httpSecurity
+            .authorizeRequests()
+            .antMatchers("/api/**").authenticated();
 
     httpSecurity
-        .exceptionHandling()
-        .defaultAuthenticationEntryPointFor(ENTRY_POINT, new AntPathRequestMatcher("/api/**"))
-        .accessDeniedHandler(ACCESS_DENIED_HANDLER);
+            .exceptionHandling()
+            .defaultAuthenticationEntryPointFor(ENTRY_POINT, new AntPathRequestMatcher("/api/**"))
+            .accessDeniedHandler(ACCESS_DENIED_HANDLER);
 
     httpSecurity
-        .formLogin()
-        .loginProcessingUrl("/api/login")
-        .successHandler(LOGIN_SUCCESS_HANDLER)
-        .failureHandler(LOGIN_FAILURE_HANDLER);
+            .formLogin()
+            .loginProcessingUrl("/api/login")
+            .successHandler(LOGIN_SUCCESS_HANDLER)
+            .failureHandler(LOGIN_FAILURE_HANDLER);
 
     httpSecurity
-        .logout()
-        .logoutUrl("/api/logout")
-        .logoutSuccessHandler(LOGOUT_SUCCESS_HANDLER);
+            .logout()
+            .logoutUrl("/api/logout")
+            .logoutSuccessHandler(LOGOUT_SUCCESS_HANDLER);
 
     return httpSecurity.build();
   }
 
   @Autowired
   public void bindUserDetailsServiceAndPasswordEncoder(UserDetailsService userDetailsServiceImpl,
-      PasswordEncoder passwordEncoder,
-      AuthenticationManagerBuilder builder) throws Exception {
+                                                       PasswordEncoder passwordEncoder,
+                                                       AuthenticationManagerBuilder builder) throws Exception {
     builder.userDetailsService(userDetailsServiceImpl)
-        .passwordEncoder(passwordEncoder);
+            .passwordEncoder(passwordEncoder);
   }
 }
