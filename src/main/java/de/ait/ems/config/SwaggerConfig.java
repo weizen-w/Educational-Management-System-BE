@@ -13,7 +13,8 @@ import io.swagger.v3.oas.annotations.info.Info;
         title = "Educational management system Api",
         description = "Educational management system", version = "1.0.0",
         contact = @Contact(
-            name = "Oleksandr Zhurba, Wladimir Weizen, Tetyana Chernobai, Ekaterina Gorshkova"
+            name = "Oleksandr Zhurba, Wladimir Weizen, Tetyana Chernobai, Ekaterina Gorshkova",
+            email = "starkyzh@gmail.com,weizen.w@gmx.de,yzozulya@my.com,poligrafist87@gmail.com"
         )
     )
 )
