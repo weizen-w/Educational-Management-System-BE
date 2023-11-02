@@ -18,6 +18,6 @@ import lombok.NoArgsConstructor;
 @Schema(name = "Message", description = "Any message from the server")
 public class StandardResponseDto {
 
-  @Schema(description = "Possible: error message, status change, etc.", example = "Course not found")
+  @Schema(description = "Possible: error message, status change, etc.", example = "Object not found / Successful authentication / Wrong login or password")
   private String message;
 }

@@ -260,6 +260,10 @@
       tableName="account_group"
       file="db/data/account_group.csv">
     </loadData>
+    <loadData
+      tableName="module"
+      file="db/data/module.csv">
+    </loadData>
   </changeSet>
 
 </databaseChangeLog>
