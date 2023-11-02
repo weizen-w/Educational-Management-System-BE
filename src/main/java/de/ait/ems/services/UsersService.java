@@ -1,5 +1,7 @@
 package de.ait.ems.services;
 
+import static de.ait.ems.dto.UserDto.from;
+
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.exceptions.RestException;
@@ -10,17 +12,14 @@ import de.ait.ems.models.User;
 import de.ait.ems.models.User.Role;
 import de.ait.ems.repositories.ConfirmationCodesRepository;
 import de.ait.ems.repositories.UsersRepository;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import static de.ait.ems.dto.UserDto.from;
 
 /**
  * @project EducationalManagementSystem
@@ -90,7 +89,7 @@ public class UsersService {
   }
 
   public UserDto getUserById(Long currentUserId) {
-    return from(usersRepository.findById(currentUserId).orElseThrow());
+    return from(getUserOrThrow(currentUserId));
   }
 
   @Transactional
@@ -104,5 +103,11 @@ public class UsersService {
     user.setState(User.State.CONFIRMED);
     usersRepository.save(user);
     return UserDto.from(user);
+  }
+
+  public User getUserOrThrow(Long userId) {
+    return usersRepository.findById(userId).orElseThrow(
+        () -> new RestException(HttpStatus.NOT_FOUND,
+            "User with id <" + userId + "> not found"));
   }
 }
