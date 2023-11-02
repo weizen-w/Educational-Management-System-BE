@@ -26,11 +26,13 @@ public class LessonDto {
   private Long lessonId;
   @Schema(description = "Title", example = "basic_programming/lesson_52")
   private String lessonTitle;
-  @Schema(description = "Description", example = "\n"
-      + "    Smalltalk about homework. Questions.\n"
-      + "    Binary seek in arrays\n"
-      + "    Binary seek by answer: collaboration task\n"
-      + "\n")
+  @Schema(description = "Description", example = """
+
+          Smalltalk about homework. Questions.
+          Binary seek in arrays
+          Binary seek by answer: collaboration task
+
+      """)
   private String lessonDescription;
   @Schema(description = "Lesson type", example = "consultation")
   private String lessonType;

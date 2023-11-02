@@ -27,11 +27,13 @@ public class UpdateLessonDto {
   @NotBlank(message = "Must be not blank")
   @NotEmpty(message = "Must be not empty")
   private String lessonTitle;
-  @Schema(description = "Description", example = "\n"
-      + "    Smalltalk about homework. Questions.\n"
-      + "    Binary seek in arrays\n"
-      + "    Binary seek by answer: collaboration task\n"
-      + "\n")
+  @Schema(description = "Description", example = """
+
+          Smalltalk about homework. Questions.
+          Binary seek in arrays
+          Binary seek by answer: collaboration task
+
+      """)
   @NotNull(message = "Must be not null")
   private String lessonDescription;
   @NotNull(message = "Must be not null")
