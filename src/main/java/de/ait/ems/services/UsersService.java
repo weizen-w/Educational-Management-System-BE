@@ -1,6 +1,9 @@
 package de.ait.ems.services;
 
+import static de.ait.ems.dto.UserDto.from;
+
 import de.ait.ems.dto.NewUserDto;
+import de.ait.ems.dto.UpdateUserDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mail.MailTemplatesUtil;
@@ -10,17 +13,15 @@ import de.ait.ems.models.User;
 import de.ait.ems.models.User.Role;
 import de.ait.ems.repositories.ConfirmationCodesRepository;
 import de.ait.ems.repositories.UsersRepository;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import static de.ait.ems.dto.UserDto.from;
 
 /**
  * @project EducationalManagementSystem
@@ -57,7 +58,7 @@ public class UsersService {
   }
 
   private String createLinkForConfirmation(String codeValue) {
-    return baseUrl + "confirm.html?id=" + codeValue;
+    return baseUrl + "#/confirm/" + codeValue;
   }
 
   private void saveConfirmCode(User user, String codeValue) {
@@ -104,5 +105,48 @@ public class UsersService {
     user.setState(User.State.CONFIRMED);
     usersRepository.save(user);
     return UserDto.from(user);
+  }
+
+  public List<UserDto> getAllUsers() {
+    List<User> users = usersRepository.findAll();
+    return from(users);
+  }
+
+  public List<UserDto> getUsersByRole(Role role) {
+    List<User> users = usersRepository.findAllByRole(role);
+    return from(users);
+  }
+
+  public UserDto updateUser(Long userId, UpdateUserDto updateUser) {
+    User userForUpdate = getUserOrThrow(userId);
+    if (updateUser.getPassword() != null) {
+      userForUpdate.setHashPassword(passwordEncoder.encode(updateUser.getPassword()));
+    }
+    if (updateUser.getFirstName() != null) {
+      userForUpdate.setFirstName(updateUser.getFirstName());
+    }
+    if (updateUser.getLastName() != null) {
+      userForUpdate.setLastName(updateUser.getLastName());
+    }
+    if (updateUser.getEmail() != null) {
+      userForUpdate.setEmail(updateUser.getEmail());
+    }
+    if (updateUser.getRole() != null) {
+      userForUpdate.setRole(updateUser.getRole());
+    }
+    if (updateUser.getState() != null) {
+      userForUpdate.setState(updateUser.getState());
+    }
+    if (updateUser.getPhotoLink() != null) {
+      userForUpdate.setPhotoLink(updateUser.getPhotoLink());
+    }
+    usersRepository.save(userForUpdate);
+    return from(userForUpdate);
+  }
+
+  private User getUserOrThrow(Long userId) {
+    return usersRepository.findById(userId).orElseThrow(
+        () -> new RestException(HttpStatus.NOT_FOUND,
+            "User with id <" + userId + "> not found"));
   }
 }
