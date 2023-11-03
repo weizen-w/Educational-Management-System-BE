@@ -144,7 +144,7 @@ public class UsersService {
     return from(userForUpdate);
   }
 
-  private User getUserOrThrow(Long userId) {
+  public User getUserOrThrow(Long userId) {
     return usersRepository.findById(userId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,
             "User with id <" + userId + "> not found"));
