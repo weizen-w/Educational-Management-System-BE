@@ -50,7 +50,7 @@ public class ModulesService {
     return from(moduleForUpdate);
   }
 
-  private Module getModuleOrThrow(Long moduleId) {
+  public Module getModuleOrThrow(Long moduleId) {
     return modulesRepository.findById(moduleId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,
             "Module with id <" + moduleId + "> not found"));

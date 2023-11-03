@@ -81,7 +81,7 @@ public class GroupsService {
     return from(groupForUpdate);
   }
 
-  private Group getGroupOrThrow(Long groupId) {
+  public Group getGroupOrThrow(Long groupId) {
     return groupsRepository.findById(groupId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,
             "Group with id <" + groupId + "> not found"));
