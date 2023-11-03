@@ -91,7 +91,7 @@ public class UsersService {
   }
 
   public UserDto getUserById(Long currentUserId) {
-    return from(usersRepository.findById(currentUserId).orElseThrow());
+    return from(getUserOrThrow(currentUserId));
   }
 
   @Transactional
