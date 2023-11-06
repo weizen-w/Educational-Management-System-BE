@@ -6,7 +6,7 @@ import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
 import de.ait.ems.repositories.AttendanceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,12 @@ import org.springframework.stereotype.Service;
  * @author Oleksandr Zhurba on 03.11.2023.
  * @project Educational-Management-System-BE
  **/
+@RequiredArgsConstructor
 @Service
 public class AttendanceService {
-  @Autowired
-  EntityMapper entityMapper;
-  private final AttendanceRepository attendanceRepository;
 
-  public AttendanceService(AttendanceRepository attendanceRepository) {
-    this.attendanceRepository = attendanceRepository;
-  }
+  private final EntityMapper entityMapper;
+  private final AttendanceRepository attendanceRepository;
 
   public AttendanceDto updateAttendance(Long attendanceId, UpdateAttendanceDto updateAttendance) {
     Attendance attendanceForUpdate = getAttendanceOrThrow(attendanceId);
