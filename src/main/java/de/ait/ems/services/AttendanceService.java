@@ -26,11 +26,11 @@ public class AttendanceService {
 
   public AttendanceDto updateAttendance(Long attendanceId, UpdateAttendanceDto updateAttendance) {
     Attendance attendanceForUpdate = getAttendanceOrThrow(attendanceId);
-    if (attendanceForUpdate.getStatus() != null) {
+    if (updateAttendance.getStatus() != null) {
       attendanceForUpdate.setStatus(attendanceForUpdate.getStatus());
     }
-    if (attendanceForUpdate.getArchived() != null) {
-      attendanceForUpdate.setArchived(attendanceForUpdate.getArchived());
+    if (updateAttendance.getArchived() != null) {
+      attendanceForUpdate.setArchived(updateAttendance.getArchived());
     }
     attendanceRepository.save(attendanceForUpdate);
     return entityMapper.convertToDto(attendanceForUpdate);
