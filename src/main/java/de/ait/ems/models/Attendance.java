@@ -33,7 +33,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "attendance")
 public class Attendance {
   public enum Status {
-    NOT_CONFIRMED, CONFIRMED
+    PRESENT, ABSENT, PENDING
   }
 
   @Id
