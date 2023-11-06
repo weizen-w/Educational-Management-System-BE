@@ -1,5 +1,6 @@
 package de.ait.ems.controllers.api;
 
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.StandardResponseDto;
@@ -97,4 +98,11 @@ public interface UsersApi {
   UserDto updateUser(
       @Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId,
       @RequestBody @Valid UpdateUserDto updateUser);
+
+  @GetMapping("/{user-id}/attendance")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @Operation(summary = "Get attendance by user id", description = "Return list of attendances of selected user. Available to administrator")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<AttendanceDto> getAttendanceByUserId(@Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
+
 }

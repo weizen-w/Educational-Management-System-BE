@@ -1,6 +1,7 @@
 package de.ait.ems.controllers;
 
 import de.ait.ems.controllers.api.UsersApi;
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.UpdateUserDto;
 import de.ait.ems.dto.UserDto;
@@ -50,5 +51,10 @@ public class UsersController implements UsersApi {
   @Override
   public UserDto updateUser(Long userId, UpdateUserDto updateUser) {
     return usersService.updateUser(userId, updateUser);
+  }
+
+  @Override
+  public List<AttendanceDto> getAttendanceByUserId(Long userId) {
+    return usersService.getAttendanceByUserId(userId);
   }
 }
