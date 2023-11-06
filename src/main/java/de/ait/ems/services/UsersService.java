@@ -2,20 +2,25 @@ package de.ait.ems.services;
 
 import static de.ait.ems.dto.UserDto.from;
 
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.UpdateUserDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mail.MailTemplatesUtil;
 import de.ait.ems.mail.TemplateProjectMailSender;
+import de.ait.ems.mapper.EntityMapper;
+import de.ait.ems.models.Attendance;
 import de.ait.ems.models.ConfirmationCode;
 import de.ait.ems.models.User;
 import de.ait.ems.models.User.Role;
+import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.ConfirmationCodesRepository;
 import de.ait.ems.repositories.UsersRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -32,17 +37,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsersService {
 
   private final UsersRepository usersRepository;
-
   private final ConfirmationCodesRepository confirmationCodesRepository;
-
   private final PasswordEncoder passwordEncoder;
-
   private final TemplateProjectMailSender mailSender;
-
   private final MailTemplatesUtil mailTemplatesUtil;
+  private final EntityMapper entityMapper;
 
   @Value("${base.url}")
   private String baseUrl;
+  private final AttendanceRepository attendanceRepository;
 
   @Transactional
   public UserDto register(NewUserDto newUser) {
@@ -148,5 +151,15 @@ public class UsersService {
     return usersRepository.findById(userId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,
             "User with id <" + userId + "> not found"));
+  }
+
+  public List<AttendanceDto> getAttendanceByUserId(Long userId) {
+    User student = getUserOrThrow(userId);
+    if (student != null) {
+      List<Attendance> attendanceList = attendanceRepository.getAttendanceByStudent(student);
+      return attendanceList.stream().map(entityMapper::convertToDto).collect(Collectors.toList());
+    } else {
+      return null;
+    }
   }
 }
