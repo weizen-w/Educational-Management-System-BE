@@ -3,6 +3,8 @@ package de.ait.ems.models;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,6 +32,9 @@ import org.hibernate.annotations.ColumnDefault;
 @Entity
 @Table(name = "attendance")
 public class Attendance {
+  public enum Status {
+    NOT_CONFIRMED, CONFIRMED
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +53,8 @@ public class Attendance {
   private LocalDate attendanceDate;
 
   @Column(name = "status", nullable = false)
-  private String status;
+  @Enumerated(value = EnumType.STRING)
+  private Status status;
 
   @Column(name = "archived", nullable = false)
   @ColumnDefault("false")
