@@ -43,6 +43,11 @@ public class GroupsController implements GroupsApi {
   }
 
   @Override
+  public List<UserDto> getUsersFromGroupByMainGroup(Long groupId) {
+    return groupsService.getUsersFromGroupByMainGroup(groupId);
+  }
+
+  @Override
   public GroupDto getGroup(Long groupId) {
     return groupsService.getGroup(groupId);
   }
