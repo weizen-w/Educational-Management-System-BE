@@ -22,4 +22,5 @@ public interface FilesApi {
   StandardResponseDto upload(
       @Parameter(content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE))
       @RequestParam("file") MultipartFile file);
+
 }
