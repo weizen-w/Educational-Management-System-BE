@@ -44,6 +44,7 @@ public class Submission {
   private String description;
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "lesson_id", nullable = false)
+  @ToString.Exclude
   private Lesson lesson;
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "student_id", nullable = false)
