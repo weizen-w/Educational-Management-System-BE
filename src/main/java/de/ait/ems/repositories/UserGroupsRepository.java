@@ -1,5 +1,6 @@
 package de.ait.ems.repositories;
 
+import de.ait.ems.models.Group;
 import de.ait.ems.models.UserGroup;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,6 @@ public interface UserGroupsRepository extends JpaRepository<UserGroup, Long> {
   List<UserGroup> findByUserId(Long id);
 
   List<UserGroup> findByGroupId(Long groupId);
+
+  List<UserGroup> findByGroupAndMainGroup(Group group, boolean b);
 }

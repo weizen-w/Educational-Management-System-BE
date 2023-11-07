@@ -8,6 +8,7 @@ import de.ait.ems.dto.NewGroupDto;
 import de.ait.ems.dto.UpdateGroupDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.exceptions.RestException;
+import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Course;
 import de.ait.ems.models.Group;
 import de.ait.ems.models.User;
@@ -33,6 +34,7 @@ public class GroupsService {
   private final GroupsRepository groupsRepository;
   private final CoursesRepository coursesRepository;
   private final UserGroupsRepository userGroupsRepository;
+  private final EntityMapper entityMapper;
 
   public GroupDto addGroup(NewGroupDto newGroup) {
     Group group = Group.builder()
@@ -91,5 +93,15 @@ public class GroupsService {
     return coursesRepository.findById(courseId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,
             "Course with id <" + courseId + "> not found"));
+  }
+
+  public List<UserDto> getUsersFromGroupByMainGroup(Long groupId) {
+    Group group = getGroupOrThrow(groupId);
+    return userGroupsRepository
+        .findByGroupAndMainGroup(group,true)
+        .stream()
+        .map(UserGroup::getUser)
+        .map(entityMapper::convertToDto)
+        .toList();
   }
 }

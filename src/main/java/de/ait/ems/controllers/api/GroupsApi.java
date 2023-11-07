@@ -78,6 +78,13 @@ public interface GroupsApi {
   List<UserDto> getUsersFromGroup(
       @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
 
+  @Operation(summary = "Getting a list of users by group", description = "Return list of users from requested group. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @GetMapping("/{group-id}/users/byMainGroup")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<UserDto> getUsersFromGroupByMainGroup(
+      @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
+
   @Operation(summary = "Getting a group", description = "Return one group by requested group id. Available to users in this group")
   @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
