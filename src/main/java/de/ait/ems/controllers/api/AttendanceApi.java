@@ -50,7 +50,7 @@ public interface AttendanceApi {
   })
   @PutMapping("/attendances/{id}")
   @ResponseStatus(code = HttpStatus.OK)
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   AttendanceDto updateAttendance(
       @Parameter(description = "Attendance ID", example = "1", required = true) @Min(1) @PathVariable("id") Long attendanceId,
       @Parameter(description = "Body with changes to attendance", required = true) @Valid @RequestBody UpdateAttendanceDto updateAttendance);

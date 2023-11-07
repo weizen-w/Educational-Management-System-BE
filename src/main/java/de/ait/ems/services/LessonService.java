@@ -1,13 +1,18 @@
 package de.ait.ems.services;
 
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.NewLessonDto;
 import de.ait.ems.dto.UpdateLessonDto;
 import de.ait.ems.exceptions.RestException;
+import de.ait.ems.mapper.EntityMapper;
+import de.ait.ems.models.Attendance;
 import de.ait.ems.models.Lesson;
+import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.LessonRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,10 @@ public class LessonService {
   private ModulesService modulesService;
   @Autowired
   private GroupsService groupsService;
+  @Autowired
+  private AttendanceRepository attendanceRepository;
+  @Autowired
+  private EntityMapper entityMapper;
 
   public LessonDto addLesson(NewLessonDto newLesson, Long groupId) {
     Lesson lesson = Lesson.builder()
@@ -96,5 +105,14 @@ public class LessonService {
     return lessonRepository.findById(lessonId).orElseThrow(
         () -> new RestException(HttpStatus.NOT_FOUND,
             "Lesson with id <" + lessonId + "> not found"));
+  }
+
+  public List<AttendanceDto> getAttendanceByLesson(Long lessonId) {
+    Lesson lesson = getLessonOrThrow(lessonId);
+    if (lesson != null){
+      List<Attendance> attendanceList = attendanceRepository.getAttendanceByLesson(lesson);
+      return attendanceList.stream().map(entityMapper::convertToDto).collect(Collectors.toList());
+    }
+    return null;
   }
 }
