@@ -32,10 +32,5 @@ public class EntityMapper {
   public UserDto convertToDto(User user) {
     return modelMapper.map(user, UserDto.class);
   }
-  public Submission convertFromDto(SubmissionDto submissionDto){
-    return modelMapper.map(submissionDto,Submission.class);
-  }
-  public Submission convertFromDto(UpdateSubmissionDto updateSubmissionDto) {
-    return modelMapper.map(updateSubmissionDto,Submission.class);
-  }
+
 }

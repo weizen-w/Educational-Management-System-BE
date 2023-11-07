@@ -22,7 +22,16 @@ public class SubmissionsService {
   private final EntityMapper entityMapper;
 
   public SubmissionDto updateSubmission(Long submissionId, UpdateSubmissionDto updateSubmissionDto) {
-    Submission submissionUpdate = entityMapper.convertFromDto(updateSubmissionDto);
+    Submission submissionUpdate = getSubmissionOrThrow(submissionId);
+    if (updateSubmissionDto.getArchived() !=null){
+      submissionUpdate.setArchived(updateSubmissionDto.getArchived());
+    }
+    if (updateSubmissionDto.getDescription() !=null){
+      submissionUpdate.setDescription(updateSubmissionDto.getDescription());
+    }
+    if (updateSubmissionDto.getState() !=null){
+      submissionUpdate.setState(updateSubmissionDto.getState());
+    }
     submissionRepository.save(submissionUpdate);
     return entityMapper.convertToDto(submissionUpdate);
   }
