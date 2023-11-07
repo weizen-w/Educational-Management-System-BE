@@ -4,6 +4,7 @@ import static de.ait.ems.dto.UserDto.from;
 
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.NewUserDto;
+import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateUserDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.exceptions.RestException;
@@ -12,10 +13,12 @@ import de.ait.ems.mail.TemplateProjectMailSender;
 import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
 import de.ait.ems.models.ConfirmationCode;
+import de.ait.ems.models.Submission;
 import de.ait.ems.models.User;
 import de.ait.ems.models.User.Role;
 import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.ConfirmationCodesRepository;
+import de.ait.ems.repositories.SubmissionRepository;
 import de.ait.ems.repositories.UsersRepository;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,6 +49,7 @@ public class UsersService {
   @Value("${base.url}")
   private String baseUrl;
   private final AttendanceRepository attendanceRepository;
+  private final SubmissionRepository submissionRepository;
 
   @Transactional
   public UserDto register(NewUserDto newUser) {
@@ -157,9 +161,24 @@ public class UsersService {
     User student = getUserOrThrow(userId);
     if (student != null) {
       List<Attendance> attendanceList = attendanceRepository.getAttendanceByStudent(student);
-      return attendanceList.stream().map(entityMapper::convertToDto).collect(Collectors.toList());
+      return attendanceList
+          .stream()
+          .map(entityMapper::convertToDto)
+          .collect(Collectors.toList());
     } else {
       return null;
     }
+  }
+
+  public List<SubmissionDto> getSubmissionsByUserId(Long userId) {
+    User student = getUserOrThrow(userId);
+    if (student != null) {
+      List<Submission> submissionList = submissionRepository.getByStudent(student);
+      return submissionList
+          .stream()
+          .map(entityMapper::convertToDto)
+          .collect(Collectors.toList());
+    }
+    return null;
   }
 }

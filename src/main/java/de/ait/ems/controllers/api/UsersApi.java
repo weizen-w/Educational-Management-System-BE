@@ -4,6 +4,7 @@ import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.StandardResponseDto;
+import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateUserDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.models.User.Role;
@@ -104,5 +105,11 @@ public interface UsersApi {
   @Operation(summary = "Get attendance by user id", description = "Return list of attendances of selected user. Available to administrator")
   @ResponseStatus(code = HttpStatus.OK)
   List<AttendanceDto> getAttendanceByUserId(@Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
+
+  @GetMapping("/{user-id}/submissions")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @Operation(summary = "Get submissions by user id", description = "Return list of submissions of selected user. Available to administrator")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<SubmissionDto> getSubmissionsByUserId(@Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
 
 }
