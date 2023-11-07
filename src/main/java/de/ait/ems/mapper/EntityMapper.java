@@ -1,7 +1,9 @@
 package de.ait.ems.mapper;
 
 import de.ait.ems.dto.AttendanceDto;
+import de.ait.ems.dto.UserDto;
 import de.ait.ems.models.Attendance;
+import de.ait.ems.models.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -20,5 +22,8 @@ public class EntityMapper {
 
   public AttendanceDto convertToDto(Attendance attendance) {
     return modelMapper.map(attendance, AttendanceDto.class);
+  }
+  public UserDto convertToDto(User user) {
+    return modelMapper.map(user, UserDto.class);
   }
 }
