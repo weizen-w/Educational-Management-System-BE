@@ -1,6 +1,7 @@
 package de.ait.ems.controllers;
 
 import de.ait.ems.controllers.api.LessonsApi;
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.NewLessonDto;
 import de.ait.ems.dto.UpdateLessonDto;
@@ -31,5 +32,10 @@ public class LessonsController implements LessonsApi {
   @Override
   public LessonDto updateLesson(Long lessonId, UpdateLessonDto updateLesson) {
     return lessonService.updateLesson(updateLesson, lessonId);
+  }
+
+  @Override
+  public List<AttendanceDto> getAttendanceByLesson(Long lessonId) {
+    return lessonService.getAttendanceByLesson(lessonId);
   }
 }

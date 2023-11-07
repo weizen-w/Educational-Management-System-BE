@@ -1,5 +1,6 @@
 package de.ait.ems.controllers.api;
 
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.NewLessonDto;
 import de.ait.ems.dto.StandardResponseDto;
@@ -83,6 +84,16 @@ public interface LessonsApi {
   @PutMapping("/lesson/{id}")
   @ResponseStatus(code = HttpStatus.OK)
   LessonDto updateLesson(@Parameter(description = "Lesson ID", example = "1", required = true)
-  @PathVariable("id") @Min(1) Long groupId, @RequestBody @Valid UpdateLessonDto updateLesson);
+  @PathVariable("id") @Min(1) Long lessonId, @RequestBody @Valid UpdateLessonDto updateLesson);
+
+
+  @Operation(summary = "Getting a list of attendance lesson", description = "Return list of attendance for selected lesson. Available to ADMIN or TEACHER")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @GetMapping("/lessons/{id}/attendance")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<AttendanceDto> getAttendanceByLesson(
+      @Parameter(description = "Lesson ID", example = "1", required = true)
+      @PathVariable("id") @Min(1) Long lessonId);
 
 }
+
