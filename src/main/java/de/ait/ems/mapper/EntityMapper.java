@@ -2,7 +2,6 @@ package de.ait.ems.mapper;
 
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.SubmissionDto;
-import de.ait.ems.dto.UpdateSubmissionDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.models.Attendance;
 import de.ait.ems.models.Submission;
