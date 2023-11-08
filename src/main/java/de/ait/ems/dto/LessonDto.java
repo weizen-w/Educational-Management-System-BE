@@ -58,6 +58,7 @@ public class LessonDto {
   public static LessonDto from(Lesson lesson) {
     return LessonDto.builder()
         .lessonId(lesson.getId())
+        .group(GroupDto.from(lesson.getGroup()))
         .lessonTitle(lesson.getLessonTitle())
         .lessonDescription(lesson.getLessonDescription())
         .lessonType(lesson.getLessonType().name())

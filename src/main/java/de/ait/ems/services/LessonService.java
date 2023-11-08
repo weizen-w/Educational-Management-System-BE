@@ -64,6 +64,9 @@ public class LessonService {
 
   public LessonDto updateLesson(UpdateLessonDto updateLesson, Long lessonId) {
     Lesson lessonForUpdate = getLessonOrThrow(lessonId);
+    if (updateLesson.getGroupId() != null) {
+      lessonForUpdate.setGroup(groupsService.getGroupOrThrow(updateLesson.getGroupId()));
+    }
     if (updateLesson.getLessonTitle() != null) {
       lessonForUpdate.setLessonTitle(updateLesson.getLessonTitle());
     }

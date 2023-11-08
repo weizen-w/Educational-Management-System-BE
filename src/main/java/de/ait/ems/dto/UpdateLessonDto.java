@@ -22,6 +22,11 @@ import lombok.NoArgsConstructor;
 @Schema(name = "New lesson", description = "Adding new Lesson for students and teachers")
 public class UpdateLessonDto {
 
+  @Schema(description = "Group ID", example = "1")
+  @NotNull(message = "Must be not null")
+  @NotBlank(message = "Must be not blank")
+  @NotEmpty(message = "Must be not empty")
+  private Long groupId;
   @Schema(description = "Title", example = "basic_programming/lesson_52")
   @NotNull(message = "Must be not null")
   @NotBlank(message = "Must be not blank")
