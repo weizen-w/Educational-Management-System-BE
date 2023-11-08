@@ -8,6 +8,7 @@ import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
 import de.ait.ems.models.Lesson;
+import de.ait.ems.models.Lesson.LessonType;
 import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.LessonRepository;
 import java.util.ArrayList;
@@ -41,12 +42,12 @@ public class LessonService {
     Lesson lesson = Lesson.builder()
         .lessonTitle(newLesson.getLessonTitle())
         .lessonDescription(newLesson.getLessonDescription())
-        .lessonType(newLesson.getLessonType())
-        .teacher(usersService.getUserOrThrow(newLesson.getTeacher().getId()))
+        .lessonType(LessonType.valueOf(newLesson.getLessonType()))
+        .teacher(usersService.getUserOrThrow(newLesson.getTeacherId()))
         .lessonDate(newLesson.getLessonDate())
         .startTime(newLesson.getStartTime())
         .endTime(newLesson.getEndTime())
-        .module(modulesService.getModuleOrThrow(newLesson.getModule().getId()))
+        .module(modulesService.getModuleOrThrow(newLesson.getModuleID()))
         .linkLms(newLesson.getLinkLms())
         .linkZoom(newLesson.getLinkZoom())
         .group(groupsService.getGroupOrThrow(groupId))
@@ -71,10 +72,10 @@ public class LessonService {
       lessonForUpdate.setLessonDescription(updateLesson.getLessonDescription());
     }
     if (updateLesson.getLessonType() != null) {
-      lessonForUpdate.setLessonType(updateLesson.getLessonType());
+      lessonForUpdate.setLessonType(LessonType.valueOf(updateLesson.getLessonType()));
     }
-    if (updateLesson.getTeacher() != null) {
-      lessonForUpdate.setTeacher(usersService.getUserOrThrow(updateLesson.getTeacher().getId()));
+    if (updateLesson.getTeacherId() != null) {
+      lessonForUpdate.setTeacher(usersService.getUserOrThrow(updateLesson.getTeacherId()));
     }
     if (updateLesson.getLessonDate() != null) {
       lessonForUpdate.setLessonDate(updateLesson.getLessonDate());
@@ -85,8 +86,8 @@ public class LessonService {
     if (updateLesson.getEndTime() != null) {
       lessonForUpdate.setEndTime(updateLesson.getEndTime());
     }
-    if (updateLesson.getModule() != null) {
-      lessonForUpdate.setModule(modulesService.getModuleOrThrow(updateLesson.getModule().getId()));
+    if (updateLesson.getModuleId() != null) {
+      lessonForUpdate.setModule(modulesService.getModuleOrThrow(updateLesson.getModuleId()));
     }
     if (updateLesson.getLinkLms() != null) {
       lessonForUpdate.setLinkLms(updateLesson.getLinkLms());
