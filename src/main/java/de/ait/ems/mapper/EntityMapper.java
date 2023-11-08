@@ -1,9 +1,11 @@
 package de.ait.ems.mapper;
 
+import de.ait.ems.dto.CommentDto;
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UserDto;
 import de.ait.ems.models.Attendance;
+import de.ait.ems.models.Comment;
 import de.ait.ems.models.Submission;
 import de.ait.ems.models.User;
 import org.modelmapper.ModelMapper;
@@ -27,6 +29,9 @@ public class EntityMapper {
   }
   public SubmissionDto convertToDto(Submission submission) {
     return modelMapper.map(submission, SubmissionDto.class);
+  }
+  public CommentDto convertToDto(Comment comment) {
+    return modelMapper.map(comment, CommentDto.class);
   }
   public UserDto convertToDto(User user) {
     return modelMapper.map(user, UserDto.class);
