@@ -19,4 +19,9 @@ public class CommentsController implements CommentsApi {
   public CommentDto updateComment(Long commentId, UpdateCommentDto updateCommentDto) {
     return commentsService.updateComment(commentId,updateCommentDto);
   }
+
+  @Override
+  public CommentDto deleteComment(Long commentId) {
+    return commentsService.deleteComment(commentId);
+  }
 }

@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +45,7 @@ public interface CommentsApi {
               schema = @Schema(implementation = ValidationErrorsDto.class))
       ),
       @ApiResponse(responseCode = "404",
-          description = "Group not found",
+          description = "Comment not found",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = StandardResponseDto.class)))
   })
@@ -52,4 +53,26 @@ public interface CommentsApi {
   CommentDto updateComment(
       @Parameter(description = "Comment ID", example = "1", required = true) @PathVariable("comment-id") @Min(1) Long commentId,
       @RequestBody @Valid UpdateCommentDto updateCommentDto);
+
+  @Operation(summary = "Delete comment by ID", description = "Delete comment. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Delete processed successfully",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = CommentDto.class))
+      ),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class))
+      ),
+      @ApiResponse(responseCode = "404",
+          description = "Comment not found",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = StandardResponseDto.class)))
+  })
+  @DeleteMapping("/{comment-id}")
+  CommentDto deleteComment(@Parameter(description = "Comment ID", example = "1", required = true)
+  @PathVariable("comment-id") @Min(1) Long commentId);
 }
