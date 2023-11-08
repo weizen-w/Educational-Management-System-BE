@@ -38,6 +38,12 @@ public class LessonService {
   @Autowired
   private EntityMapper entityMapper;
 
+  public List<LessonDto> getLessonByGroup(Long groupId) {
+    List<LessonDto> result = new ArrayList<>();
+    List<Lesson> lessonList = lessonRepository.findByGroupId(groupId);
+    lessonList.forEach(lesson -> result.add(LessonDto.from(lesson)));
+    return result;
+  }
   public LessonDto addLesson(NewLessonDto newLesson, Long groupId) {
     Lesson lesson = Lesson.builder()
         .lessonTitle(newLesson.getLessonTitle())
@@ -54,13 +60,6 @@ public class LessonService {
         .build();
     lessonRepository.save(lesson);
     return LessonDto.from(lesson);
-  }
-
-  public List<LessonDto> getLessonByGroup(Long groupId) {
-    List<LessonDto> result = new ArrayList<>();
-    List<Lesson> lessonList = lessonRepository.findByGroupId(groupId);
-    lessonList.forEach(lesson -> result.add(LessonDto.from(lesson)));
-    return result;
   }
 
   public LessonDto updateLesson(UpdateLessonDto updateLesson, Long lessonId) {

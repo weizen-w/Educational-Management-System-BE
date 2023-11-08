@@ -4,6 +4,7 @@ import static de.ait.ems.dto.GroupDto.from;
 import static de.ait.ems.dto.UserDto.from;
 
 import de.ait.ems.dto.GroupDto;
+import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.NewGroupDto;
 import de.ait.ems.dto.UpdateGroupDto;
 import de.ait.ems.dto.UserDto;
@@ -11,12 +12,15 @@ import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Course;
 import de.ait.ems.models.Group;
+import de.ait.ems.models.Lesson;
 import de.ait.ems.models.User;
 import de.ait.ems.models.UserGroup;
 import de.ait.ems.repositories.CoursesRepository;
 import de.ait.ems.repositories.GroupsRepository;
+import de.ait.ems.repositories.LessonRepository;
 import de.ait.ems.repositories.UserGroupsRepository;
 import de.ait.ems.security.details.AuthenticatedUser;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +38,7 @@ public class GroupsService {
   private final GroupsRepository groupsRepository;
   private final CoursesRepository coursesRepository;
   private final UserGroupsRepository userGroupsRepository;
+  private final LessonRepository lessonRepository;
   private final EntityMapper entityMapper;
 
   public GroupDto addGroup(NewGroupDto newGroup) {
