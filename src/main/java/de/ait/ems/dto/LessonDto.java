@@ -38,6 +38,8 @@ public class LessonDto {
   private String lessonType;
   @Schema(description = "Teacher", implementation = UserDto.class)
   private UserDto teacher;
+  @Schema(description = "Group", implementation = GroupDto.class)
+  private GroupDto group;
   @Schema(description = "Date", example = "2023-11-27")
   private LocalDate lessonDate;
   @Schema(description = "Start time", example = "10:15:30")
@@ -58,7 +60,7 @@ public class LessonDto {
         .lessonId(lesson.getId())
         .lessonTitle(lesson.getLessonTitle())
         .lessonDescription(lesson.getLessonDescription())
-        .lessonType(lesson.getLessonType())
+        .lessonType(lesson.getLessonType().name())
         .teacher(UserDto.from(lesson.getTeacher()))
         .lessonDate(lesson.getLessonDate())
         .startTime(lesson.getStartTime())
