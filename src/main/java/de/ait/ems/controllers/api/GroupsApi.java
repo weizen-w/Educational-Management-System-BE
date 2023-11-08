@@ -1,7 +1,9 @@
 package de.ait.ems.controllers.api;
 
 import de.ait.ems.dto.GroupDto;
+import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.NewGroupDto;
+import de.ait.ems.dto.NewLessonDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.UpdateGroupDto;
 import de.ait.ems.dto.UserDto;
@@ -125,4 +127,29 @@ public interface GroupsApi {
   @ResponseStatus(code = HttpStatus.OK)
   GroupDto updateGroup(@Parameter(description = "Group ID", example = "1", required = true)
   @PathVariable("group-id") @Min(1) Long groupId, @RequestBody @Valid UpdateGroupDto updateGroup);
+
+  @Operation(summary = "Getting a list of lessons by group", description = "Return list of lessons from requested group. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @GetMapping("/{group-id}/lessons")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<LessonDto> getLessonsByGroup(
+      @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
+
+  @Operation(summary = "Create a lesson", description = "Allowed create a new lesson for existed group. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201",
+          description = "The lesson was created successfully",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = LessonDto.class))),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class)))
+  })
+  @PostMapping("/{group-id}/lessons")
+  @ResponseStatus(code = HttpStatus.CREATED)
+  LessonDto addLesson(@RequestBody @Valid @Parameter(description = "Body with new lesson", required = true) NewLessonDto newLesson,
+      @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
+
 }

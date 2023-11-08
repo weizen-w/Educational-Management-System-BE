@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +38,9 @@ import org.hibernate.proxy.HibernateProxy;
 @Entity
 @Table(name = "lesson")
 public class Lesson {
+  public enum LessonType {
+    CONSULTATION, LESSON, PRACTICE, PROJECT
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +55,8 @@ public class Lesson {
   @Column(name = "lesson_description")
   private String lessonDescription;
   @Column(name = "lesson_type")
-  private String lessonType;
+  @Enumerated(value = EnumType.STRING)
+  private LessonType lessonType;
   @ManyToOne
   @JoinColumn(name = "teacher_id", nullable = false)
   @ToString.Exclude
