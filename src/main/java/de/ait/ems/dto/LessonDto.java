@@ -34,7 +34,7 @@ public class LessonDto {
 
       """)
   private String lessonDescription;
-  @Schema(description = "Lesson type", example = "consultation")
+  @Schema(description = "Lesson type", example = "LESSON")
   private String lessonType;
   @Schema(description = "Teacher", implementation = UserDto.class)
   private UserDto teacher;
@@ -58,7 +58,6 @@ public class LessonDto {
   public static LessonDto from(Lesson lesson) {
     return LessonDto.builder()
         .lessonId(lesson.getId())
-        .group(GroupDto.from(lesson.getGroup()))
         .lessonTitle(lesson.getLessonTitle())
         .lessonDescription(lesson.getLessonDescription())
         .lessonType(lesson.getLessonType().name())
@@ -70,6 +69,7 @@ public class LessonDto {
         .linkLms(lesson.getLinkLms())
         .linkZoom(lesson.getLinkZoom())
         .archived(lesson.getArchived())
+        .group(GroupDto.from(lesson.getGroup()))
         .build();
   }
 

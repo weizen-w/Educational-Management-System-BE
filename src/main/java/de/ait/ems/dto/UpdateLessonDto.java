@@ -44,32 +44,22 @@ public class UpdateLessonDto {
   @NotNull(message = "Must be not null")
   @NotBlank(message = "Must be not blank")
   @NotEmpty(message = "Must be not empty")
-  @Schema(description = "Lesson type", example = "consultation")
+  @Schema(description = "Lesson type", example = "LESSON")
   private String lessonType;
   @Schema(description = "Teacher ID", example = "1")
   @NotNull(message = "Must be not null")
-  @NotBlank(message = "Must be not blank")
-  @NotEmpty(message = "Must be not empty")
   private Long teacherId;
   @Schema(description = "Date", example = "2023-11-27")
   @NotNull(message = "Must be not null")
-  @NotBlank(message = "Must be not blank")
-  @NotEmpty(message = "Must be not empty")
   private LocalDate lessonDate;
   @Schema(description = "Start time", example = "10:15:30")
   @NotNull(message = "Must be not null")
-  @NotBlank(message = "Must be not blank")
-  @NotEmpty(message = "Must be not empty")
   private LocalTime startTime;
   @Schema(description = "End time", example = "12:15:30")
   @NotNull(message = "Must be not null")
-  @NotBlank(message = "Must be not blank")
-  @NotEmpty(message = "Must be not empty")
   private LocalTime endTime;
   @Schema(description = "Module ID", example = "1")
   @NotNull(message = "Must be not null")
-  @NotBlank(message = "Must be not blank")
-  @NotEmpty(message = "Must be not empty")
   private Long moduleId;
   @Schema(description = "Link LMS", example = "https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_52")
   @NotNull(message = "Must be not null")
