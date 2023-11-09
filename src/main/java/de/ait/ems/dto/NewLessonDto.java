@@ -57,6 +57,8 @@ public class NewLessonDto {
   @NotNull(message = "Must be not null")
   private Long moduleID;
   @Schema(description = "Link LMS", example = "https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_52")
+  @NotBlank(message = "Must be not blank")
+  @NotEmpty(message = "Must be not empty")
   @NotNull(message = "Must be not null")
   private String linkLms;
   @Schema(description = "Link Zoom", example = "https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1")
