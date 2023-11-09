@@ -70,7 +70,7 @@ public class Lesson {
   @Column(name = "end_time", nullable = false)
 
   private LocalTime endTime;
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "module_id", nullable = false)
   @ToString.Exclude
   private Module module;
