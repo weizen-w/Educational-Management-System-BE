@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public interface LessonsApi {
 
   @Operation(summary = "Lesson update", description = "Update lesson info. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Update processed successfully",
