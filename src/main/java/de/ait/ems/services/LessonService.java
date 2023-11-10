@@ -7,10 +7,15 @@ import de.ait.ems.dto.UpdateLessonDto;
 import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
+import de.ait.ems.models.Group;
 import de.ait.ems.models.Lesson;
 import de.ait.ems.models.Lesson.LessonType;
+import de.ait.ems.models.User;
+import de.ait.ems.models.UserGroup;
 import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.LessonRepository;
+import de.ait.ems.repositories.UserGroupsRepository;
+import de.ait.ems.security.details.AuthenticatedUser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +33,7 @@ public class LessonService {
 
   private final UsersService usersService;
   private final LessonRepository lessonRepository;
+  private final UserGroupsRepository userGroupsRepository;
   private final ModulesService modulesService;
   private final GroupsService groupsService;
   private final AttendanceRepository attendanceRepository;
@@ -114,5 +120,26 @@ public class LessonService {
       return attendanceList.stream().map(entityMapper::convertToDto).collect(Collectors.toList());
     }
     return null;
+  }
+
+  public List<LessonDto> getLessonByAuthUser(AuthenticatedUser authUser) {
+    User user = usersService.getUserOrThrow(authUser.getId());
+    if (user != null) {
+      List<UserGroup> groupsByUser = userGroupsRepository.findByUserId(user.getId());
+      List<Group> groups = groupsByUser.stream().map(UserGroup::getGroup).toList();
+      List<Lesson> lessonList = new ArrayList<>();
+      for (Group group : groups) {
+        lessonList.addAll(lessonRepository.findByGroupId(group.getId()));
+      }
+      return lessonList
+          .stream()
+          .map(entityMapper::convertToDto)
+          .collect(Collectors.toList());
+    }
+    return null;
+  }
+
+  public LessonDto getLessonById(Long lessonId) {
+    return entityMapper.convertToDto(getLessonOrThrow(lessonId));
   }
 }

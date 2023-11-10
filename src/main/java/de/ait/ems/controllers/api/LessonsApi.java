@@ -4,6 +4,7 @@ import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.UpdateLessonDto;
+import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.validations.dto.ValidationErrorsDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,12 +34,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  **/
 @RequestMapping("/api/lesson")
 @Tags(value = {
-    @Tag(name = "Lessons", description="This controller realized management of lessons")
+    @Tag(name = "Lessons", description = "This controller realized management of lessons")
 })
 @Validated
 public interface LessonsApi {
+
   @Operation(summary = "Lesson update", description = "Update lesson info. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Update processed successfully",
@@ -68,5 +71,40 @@ public interface LessonsApi {
       @Parameter(description = "Lesson ID", example = "1", required = true)
       @PathVariable("id") @Min(1) Long lessonId);
 
+
+  @Operation(summary = "Get lessons list by auth user", description = "Return lessons list by auth user. Allowed to any auth user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Lessons returned successfully. ",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = LessonDto.class))),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class)))
+  })
+  @GetMapping("/byAuthUser")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<LessonDto> getLessonsByAuthUser(
+      @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+
+  @Operation(summary = "Get lesson by id", description = "Return lesson by id. Allowed to Admin and teacher")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Lessons returned successfully. ",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = LessonDto.class))),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class)))
+  })
+  @GetMapping("/{lesson-id}")
+  @ResponseStatus(code = HttpStatus.OK)
+  LessonDto getLessonById(
+      @Parameter(description = "Lesson ID", example = "1", required = true)
+      @PathVariable("lesson-id") @Min(1) Long lessonId);
 }
 

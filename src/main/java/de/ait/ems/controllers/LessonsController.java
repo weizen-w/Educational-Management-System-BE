@@ -4,6 +4,7 @@ import de.ait.ems.controllers.api.LessonsApi;
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.UpdateLessonDto;
+import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.services.LessonService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,15 @@ public class LessonsController implements LessonsApi {
   @Override
   public List<AttendanceDto> getAttendanceByLesson(Long lessonId) {
     return lessonService.getAttendanceByLesson(lessonId);
+  }
+
+  @Override
+  public List<LessonDto> getLessonsByAuthUser(AuthenticatedUser user) {
+    return lessonService.getLessonByAuthUser(user);
+  }
+
+  @Override
+  public LessonDto getLessonById(Long lessonId) {
+    return lessonService.getLessonById(lessonId);
   }
 }
