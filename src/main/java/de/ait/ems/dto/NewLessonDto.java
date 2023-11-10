@@ -34,7 +34,6 @@ public class NewLessonDto {
           Binary seek by answer: collaboration task
 
       """)
-  @NotNull(message = "Must be not null")
   private String lessonDescription;
   @NotNull(message = "Must be not null")
   @NotBlank(message = "Must be not blank")
@@ -55,15 +54,9 @@ public class NewLessonDto {
   private LocalTime endTime;
   @Schema(description = "Module ID", example = "1")
   @NotNull(message = "Must be not null")
-  private Long moduleID;
+  private Long moduleId;
   @Schema(description = "Link LMS", example = "https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_52")
-  @NotBlank(message = "Must be not blank")
-  @NotEmpty(message = "Must be not empty")
-  @NotNull(message = "Must be not null")
   private String linkLms;
   @Schema(description = "Link Zoom", example = "https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1")
-  @NotNull(message = "Must be not null")
-  @NotBlank(message = "Must be not blank")
-  @NotEmpty(message = "Must be not empty")
   private String linkZoom;
 }

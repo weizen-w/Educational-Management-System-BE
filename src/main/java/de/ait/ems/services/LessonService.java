@@ -14,7 +14,7 @@ import de.ait.ems.repositories.LessonRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,21 +22,16 @@ import org.springframework.stereotype.Service;
  * @author Oleksandr Zhurba on 01.11.2023.
  * @project Educational-Management-System-BE
  **/
+@RequiredArgsConstructor
 @Service
 public class LessonService {
 
-  @Autowired
-  private UsersService usersService;
-  @Autowired
-  private LessonRepository lessonRepository;
-  @Autowired
-  private ModulesService modulesService;
-  @Autowired
-  private GroupsService groupsService;
-  @Autowired
-  private AttendanceRepository attendanceRepository;
-  @Autowired
-  private EntityMapper entityMapper;
+  private final UsersService usersService;
+  private final LessonRepository lessonRepository;
+  private final ModulesService modulesService;
+  private final GroupsService groupsService;
+  private final AttendanceRepository attendanceRepository;
+  private final EntityMapper entityMapper;
 
   public List<LessonDto> getLessonByGroup(Long groupId) {
     List<LessonDto> result = new ArrayList<>();
@@ -44,6 +39,7 @@ public class LessonService {
     lessonList.forEach(lesson -> result.add(LessonDto.from(lesson)));
     return result;
   }
+
   public LessonDto addLesson(NewLessonDto newLesson, Long groupId) {
     Lesson lesson = Lesson.builder()
         .lessonTitle(newLesson.getLessonTitle())
@@ -53,10 +49,11 @@ public class LessonService {
         .lessonDate(newLesson.getLessonDate())
         .startTime(newLesson.getStartTime())
         .endTime(newLesson.getEndTime())
-        .module(modulesService.getModuleOrThrow(newLesson.getModuleID()))
+        .module(modulesService.getModuleOrThrow(newLesson.getModuleId()))
         .linkLms(newLesson.getLinkLms())
         .linkZoom(newLesson.getLinkZoom())
         .group(groupsService.getGroupOrThrow(groupId))
+        .archived(false)
         .build();
     lessonRepository.save(lesson);
     return LessonDto.from(lesson);
@@ -112,7 +109,7 @@ public class LessonService {
 
   public List<AttendanceDto> getAttendanceByLesson(Long lessonId) {
     Lesson lesson = getLessonOrThrow(lessonId);
-    if (lesson != null){
+    if (lesson != null) {
       List<Attendance> attendanceList = attendanceRepository.getAttendanceByLesson(lesson);
       return attendanceList.stream().map(entityMapper::convertToDto).collect(Collectors.toList());
     }

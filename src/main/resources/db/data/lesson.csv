@@ -1,0 +1,7 @@
+group_id,lesson_title,lesson_description,lesson_type,teacher_id,lesson_date,start_time,end_time,module_id,link_lms,link_zoom,archived
+1,"basic_programming: lesson_51","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
+1,"basic_programming: lesson_52","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
+1,"basic_programming: lesson_53","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
+2,"basic_programming: lesson_54","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
+2,"basic_programming: lesson_55","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
+2,"basic_programming: lesson_56","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
