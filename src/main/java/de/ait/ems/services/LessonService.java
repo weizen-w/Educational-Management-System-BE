@@ -138,4 +138,8 @@ public class LessonService {
     }
     return null;
   }
+
+  public LessonDto getLessonById(Long lessonId) {
+    return entityMapper.convertToDto(getLessonOrThrow(lessonId));
+  }
 }

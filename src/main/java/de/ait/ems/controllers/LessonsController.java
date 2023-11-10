@@ -34,4 +34,9 @@ public class LessonsController implements LessonsApi {
   public List<LessonDto> getLessonsByAuthUser(AuthenticatedUser user) {
     return lessonService.getLessonByAuthUser(user);
   }
+
+  @Override
+  public LessonDto getLessonById(Long lessonId) {
+    return lessonService.getLessonById(lessonId);
+  }
 }

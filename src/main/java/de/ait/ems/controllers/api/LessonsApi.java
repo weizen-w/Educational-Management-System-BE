@@ -88,5 +88,23 @@ public interface LessonsApi {
   @ResponseStatus(code = HttpStatus.OK)
   List<LessonDto> getLessonsByAuthUser(
       @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+
+  @Operation(summary = "Get lesson by id", description = "Return lesson by id. Allowed to Admin and teacher")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Lessons returned successfully. ",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = LessonDto.class))),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class)))
+  })
+  @GetMapping("/{lesson-id}")
+  @ResponseStatus(code = HttpStatus.OK)
+  LessonDto getLessonById(
+      @Parameter(description = "Lesson ID", example = "1", required = true)
+      @PathVariable("lesson-id") @Min(1) Long lessonId);
 }
 
