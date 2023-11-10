@@ -14,9 +14,11 @@ import org.hibernate.validator.constraints.Length;
 @Schema(name = "Update attendance", description = "Update lesson attendance")
 public class UpdateAttendanceDto implements Serializable {
 
+  @Schema(description = "Status", example = "CONFIRMED")
   @Pattern(message = "Must not be blank or contain only spaces", regexp = "^$|^(?!\\\\s+$).+")
   @Length(message = "Size must be in the range from 1 to 20", min = 1, max = 20)
   String status;
+  @Schema(description = "archived", example = "false")
   @NotNull(message = "Must not be null")
   Boolean archived;
 }
