@@ -27,14 +27,14 @@
       <column name="account_state" type="varchar(20)">
         <constraints nullable="false"/>
       </column>
-      <column name="photo_link" type="text"/>
+      <column name="photo_link" type="varchar"/>
     </createTable>
 
     <createTable tableName="confirmation_code">
       <column name="code_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column name="code" type="text">
+      <column name="code" type="varchar">
         <constraints nullable="false"/>
       </column>
       <column name="expired_date_time" type="timestamp">
@@ -49,7 +49,7 @@
       <column name="file_info_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column name="link" type="text">
+      <column name="link" type="varchar">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -106,7 +106,7 @@
       <column name="lesson_title" type="varchar(50)">
         <constraints nullable="false"/>
       </column>
-      <column name="lesson_description" type="text"/>
+      <column name="lesson_description" type="varchar"/>
       <column name="lesson_type" type="varchar(20)">
         <constraints nullable="false"/>
       </column>
@@ -125,8 +125,8 @@
       <column name="module_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="link_lms" type="text"/>
-      <column name="link_zoom" type="text"/>
+      <column name="link_lms" type="varchar"/>
+      <column name="link_zoom" type="varchar"/>
       <column name="archived" type="boolean">
         <constraints nullable="false"/>
       </column>
@@ -136,7 +136,7 @@
       <column name="submission_id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column name="description" type="text">
+      <column name="description" type="varchar">
         <constraints nullable="false"/>
       </column>
       <column name="lesson_id" type="bigint">
@@ -163,7 +163,7 @@
       <column name="sender_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="message_text" type="text">
+      <column name="message_text" type="varchar">
         <constraints nullable="false"/>
       </column>
       <column name="message_date" type="timestamp">
@@ -207,21 +207,30 @@
       </column>
     </createTable>
 
-    <addForeignKeyConstraint baseTableName="attendance" baseColumnNames="student_id"
+    <addForeignKeyConstraint baseTableName="account_group" baseColumnNames="account_id"
       referencedTableName="account" referencedColumnNames="account_id"
-      constraintName="FK_attendance_account"/>
-    <addForeignKeyConstraint baseTableName="attendance" baseColumnNames="lesson_id"
-      referencedTableName="lesson" referencedColumnNames="lesson_id"
-      constraintName="FK_attendance_lesson"/>
+      constraintName="FK_account_group_account"/>
+    <addForeignKeyConstraint baseTableName="account_group" baseColumnNames="group_id"
+      referencedTableName="student_group" referencedColumnNames="group_id"
+      constraintName="FK_account_group_group"/>
+    <addForeignKeyConstraint baseTableName="student_group" baseColumnNames="course_id"
+      referencedTableName="course" referencedColumnNames="course_id"
+      constraintName="FK_group_course"/>
+    <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="group_id"
+      referencedTableName="student_group" referencedColumnNames="group_id"
+      constraintName="FK_lesson_group"/>
     <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="teacher_id"
       referencedTableName="account" referencedColumnNames="account_id"
       constraintName="FK_lesson_account"/>
     <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="module_id"
       referencedTableName="module" referencedColumnNames="module_id"
       constraintName="FK_lesson_module"/>
-    <addForeignKeyConstraint baseTableName="account_group" baseColumnNames="account_id"
+    <addForeignKeyConstraint baseTableName="attendance" baseColumnNames="student_id"
       referencedTableName="account" referencedColumnNames="account_id"
-      constraintName="FK_account_group_account"/>
+      constraintName="FK_attendance_account"/>
+    <addForeignKeyConstraint baseTableName="attendance" baseColumnNames="lesson_id"
+      referencedTableName="lesson" referencedColumnNames="lesson_id"
+      constraintName="FK_attendance_lesson"/>
     <addForeignKeyConstraint baseTableName="submission" baseColumnNames="lesson_id"
       referencedTableName="lesson" referencedColumnNames="lesson_id"
       constraintName="FK_submission_lesson"/>
@@ -234,36 +243,41 @@
     <addForeignKeyConstraint baseTableName="comment" baseColumnNames="sender_id"
       referencedTableName="account" referencedColumnNames="account_id"
       constraintName="FK_comment_account"/>
-    <addForeignKeyConstraint baseTableName="account_group" baseColumnNames="group_id"
-      referencedTableName="student_group" referencedColumnNames="group_id"
-      constraintName="FK_account_group_group"/>
-    <addForeignKeyConstraint baseTableName="student_group" baseColumnNames="course_id"
-      referencedTableName="course" referencedColumnNames="course_id"
-      constraintName="FK_group_course"/>
 
   </changeSet>
 
   <changeSet id="adding-data-to-DB" author="Wladimir" context="!test">
+
     <loadData
       tableName="account"
       file="db/data/account.csv">
     </loadData>
+
     <loadData
       tableName="course"
       file="db/data/course.csv">
     </loadData>
+
     <loadData
       tableName="student_group"
       file="db/data/group.csv">
     </loadData>
+
     <loadData
       tableName="account_group"
       file="db/data/account_group.csv">
     </loadData>
+
     <loadData
       tableName="module"
       file="db/data/module.csv">
     </loadData>
+
+    <loadData
+      tableName="lesson"
+      file="db/data/lesson.csv">
+    </loadData>
+
   </changeSet>
 
 </databaseChangeLog>
