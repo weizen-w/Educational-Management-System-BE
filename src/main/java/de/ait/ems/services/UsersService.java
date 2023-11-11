@@ -161,10 +161,7 @@ public class UsersService {
     User student = getUserOrThrow(userId);
     if (student != null) {
       List<Attendance> attendanceList = attendanceRepository.getAttendanceByStudent(student);
-      return attendanceList
-          .stream()
-          .map(entityMapper::convertToDto)
-          .collect(Collectors.toList());
+      return AttendanceDto.from(attendanceList);
     } else {
       return null;
     }
