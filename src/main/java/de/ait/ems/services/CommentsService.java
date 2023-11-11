@@ -3,7 +3,6 @@ package de.ait.ems.services;
 import de.ait.ems.dto.CommentDto;
 import de.ait.ems.dto.UpdateCommentDto;
 import de.ait.ems.exceptions.RestException;
-import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Comment;
 import de.ait.ems.repositories.CommentsRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentsService {
   private final CommentsRepository commentsRepository;
-  private final EntityMapper entityMapper;
 
   public CommentDto updateComment(Long commentId, UpdateCommentDto updateCommentDto) {
     Comment comment = getCommentOrThrow(commentId);
@@ -29,7 +27,7 @@ public class CommentsService {
       if(updateCommentDto.getMessageText()!=null){
         comment.setMessageText(updateCommentDto.getMessageText());
       }
-      return entityMapper.convertToDto(comment);
+      return CommentDto.from(comment);
     }
     return null;
   }
@@ -44,7 +42,7 @@ public class CommentsService {
     Comment comment = getCommentOrThrow(commentId);
     if (comment!=null){
       commentsRepository.delete(comment);
-      return entityMapper.convertToDto(comment);
+      return CommentDto.from(comment);
     }
     return null;
   }
