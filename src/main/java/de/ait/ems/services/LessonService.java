@@ -117,7 +117,7 @@ public class LessonService {
     Lesson lesson = getLessonOrThrow(lessonId);
     if (lesson != null) {
       List<Attendance> attendanceList = attendanceRepository.getAttendanceByLesson(lesson);
-      return attendanceList.stream().map(entityMapper::convertToDto).collect(Collectors.toList());
+      return AttendanceDto.from(attendanceList);
     }
     return null;
   }
