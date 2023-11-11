@@ -5,6 +5,7 @@ import de.ait.ems.dto.UpdateAttendanceDto;
 import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
+import de.ait.ems.models.Attendance.Status;
 import de.ait.ems.models.User;
 import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.security.details.AuthenticatedUser;
@@ -29,13 +30,13 @@ public class AttendanceService {
   public AttendanceDto updateAttendance(Long attendanceId, UpdateAttendanceDto updateAttendance) {
     Attendance attendanceForUpdate = getAttendanceOrThrow(attendanceId);
     if (updateAttendance.getStatus() != null) {
-      attendanceForUpdate.setStatus(attendanceForUpdate.getStatus());
+      attendanceForUpdate.setStatus(Status.valueOf(updateAttendance.getStatus()));
     }
     if (updateAttendance.getArchived() != null) {
       attendanceForUpdate.setArchived(updateAttendance.getArchived());
     }
     attendanceRepository.save(attendanceForUpdate);
-    return entityMapper.convertToDto(attendanceForUpdate);
+    return AttendanceDto.from(attendanceForUpdate);
   }
 
   private Attendance getAttendanceOrThrow(Long attendanceId) {
