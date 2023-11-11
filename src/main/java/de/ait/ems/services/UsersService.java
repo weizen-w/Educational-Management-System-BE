@@ -10,7 +10,6 @@ import de.ait.ems.dto.UserDto;
 import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mail.MailTemplatesUtil;
 import de.ait.ems.mail.TemplateProjectMailSender;
-import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
 import de.ait.ems.models.ConfirmationCode;
 import de.ait.ems.models.Submission;
@@ -23,7 +22,6 @@ import de.ait.ems.repositories.UsersRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -44,7 +42,6 @@ public class UsersService {
   private final PasswordEncoder passwordEncoder;
   private final TemplateProjectMailSender mailSender;
   private final MailTemplatesUtil mailTemplatesUtil;
-  private final EntityMapper entityMapper;
 
   @Value("${base.url}")
   private String baseUrl;
@@ -171,10 +168,7 @@ public class UsersService {
     User student = getUserOrThrow(userId);
     if (student != null) {
       List<Submission> submissionList = submissionRepository.getByStudent(student);
-      return submissionList
-          .stream()
-          .map(entityMapper::convertToDto)
-          .collect(Collectors.toList());
+      return SubmissionDto.from(submissionList);
     }
     return null;
   }

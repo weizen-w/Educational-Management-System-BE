@@ -43,11 +43,11 @@ public class SubmissionsService {
       submissionUpdate.setState(updateSubmissionDto.getState());
     }
     submissionRepository.save(submissionUpdate);
-    return entityMapper.convertToDto(submissionUpdate);
+    return SubmissionDto.from(submissionUpdate);
   }
 
   public SubmissionDto getById(Long submissionId) {
-    return entityMapper.convertToDto(getSubmissionOrThrow(submissionId));
+    return SubmissionDto.from(getSubmissionOrThrow(submissionId));
   }
 
   public Submission getSubmissionOrThrow(Long submissionId) {
