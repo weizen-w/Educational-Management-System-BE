@@ -5,7 +5,6 @@ import de.ait.ems.dto.NewCommentDto;
 import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateSubmissionDto;
 import de.ait.ems.exceptions.RestException;
-import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Comment;
 import de.ait.ems.models.Submission;
 import de.ait.ems.repositories.CommentsRepository;
@@ -13,7 +12,6 @@ import de.ait.ems.repositories.SubmissionRepository;
 import de.ait.ems.security.details.AuthenticatedUser;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,7 +25,6 @@ import org.springframework.stereotype.Service;
 public class SubmissionsService {
 
   private final SubmissionRepository submissionRepository;
-  private final EntityMapper entityMapper;
   private final UsersService usersService;
   private final CommentsRepository commentsRepository;
 
@@ -60,10 +57,7 @@ public class SubmissionsService {
     Submission submission = getSubmissionOrThrow(submissionId);
     if(submission!=null){
       List<Comment> commentList = commentsRepository.getBySubmission(submission);
-      return commentList
-          .stream()
-          .map(entityMapper::convertToDto)
-          .collect(Collectors.toList());
+      return CommentDto.from(commentList);
     }
     return null;
   }
@@ -80,7 +74,7 @@ public class SubmissionsService {
           .messageDate(LocalDateTime.now())
           .build();
       commentsRepository.save(newComment);
-      return entityMapper.convertToDto(newComment);
+      return CommentDto.from(newComment);
     }
     return null;
   }
