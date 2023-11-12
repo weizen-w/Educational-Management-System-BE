@@ -28,16 +28,17 @@ public class SubmissionsService {
   private final UsersService usersService;
   private final CommentsRepository commentsRepository;
 
-  public SubmissionDto updateSubmission(Long submissionId, UpdateSubmissionDto updateSubmissionDto) {
+  public SubmissionDto updateSubmission(Long submissionId,
+      UpdateSubmissionDto updateSubmissionDto) {
     Submission submissionUpdate = getSubmissionOrThrow(submissionId);
-    if (updateSubmissionDto.getArchived() !=null){
+    if (updateSubmissionDto.getArchived() != null) {
       submissionUpdate.setArchived(updateSubmissionDto.getArchived());
     }
-    if (updateSubmissionDto.getDescription() !=null){
+    if (updateSubmissionDto.getDescription() != null) {
       submissionUpdate.setDescription(updateSubmissionDto.getDescription());
     }
-    if (updateSubmissionDto.getState() !=null){
-      submissionUpdate.setState(updateSubmissionDto.getState());
+    if (updateSubmissionDto.getSubmission_state() != null) {
+      submissionUpdate.setState(updateSubmissionDto.getSubmission_state());
     }
     submissionRepository.save(submissionUpdate);
     return SubmissionDto.from(submissionUpdate);
@@ -55,16 +56,17 @@ public class SubmissionsService {
 
   public List<CommentDto> getCommentsBySubmissionId(Long submissionId) {
     Submission submission = getSubmissionOrThrow(submissionId);
-    if(submission!=null){
+    if (submission != null) {
       List<Comment> commentList = commentsRepository.getBySubmission(submission);
       return CommentDto.from(commentList);
     }
     return null;
   }
 
-  public CommentDto addCommentToSubmission(NewCommentDto newCommentDto, Long submissionId, AuthenticatedUser authenticatedUser) {
+  public CommentDto addCommentToSubmission(NewCommentDto newCommentDto, Long submissionId,
+      AuthenticatedUser authenticatedUser) {
     Submission submission = getSubmissionOrThrow(submissionId);
-    if(submission !=null){
+    if (submission != null) {
       Comment newComment = Comment
           .builder()
           .messageText(newCommentDto.getMessageText())
