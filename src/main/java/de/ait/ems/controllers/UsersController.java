@@ -55,6 +55,11 @@ public class UsersController implements UsersApi {
   }
 
   @Override
+  public UserDto updateAuthUser(AuthenticatedUser user, UpdateUserDto updateUser) {
+    return usersService.updateUser(user.getId(),updateUser);
+  }
+
+  @Override
   public List<AttendanceDto> getAttendanceByUserId(Long userId) {
     return usersService.getAttendanceByUserId(userId);
   }
