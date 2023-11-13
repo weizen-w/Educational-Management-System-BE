@@ -79,7 +79,7 @@ public interface SubmissionsApi {
   @PathVariable("submission-id") @Min(1) Long submissionId);
 
   @Operation(summary = "Getting a submissions comments", description = "Return comments list by submission by requested id. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Request processed successfully",
