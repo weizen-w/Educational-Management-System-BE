@@ -24,6 +24,8 @@ import lombok.NoArgsConstructor;
 public class CommentDto implements Serializable {
   @Schema(description = "Comment ID", example = "1")
   Long comment_id;
+  @Schema(description = "Submission ID", example = "1")
+  Long submission_id;
   @Schema(description = "Sender (author) ID", example = "1")
   Long author_id;
   @Schema(description = "Description", example = "Some comment under submission")
@@ -36,6 +38,7 @@ public class CommentDto implements Serializable {
   public static CommentDto from(Comment comment) {
     return CommentDto.builder()
         .comment_id(comment.getId())
+        .submission_id(comment.getSubmission().getId())
         .author_id(comment.getAuthor().getId())
         .messageText(comment.getMessageText())
         .messageDate(comment.getMessageDate())
