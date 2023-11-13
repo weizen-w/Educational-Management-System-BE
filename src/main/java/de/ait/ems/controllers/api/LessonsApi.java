@@ -3,6 +3,7 @@ package de.ait.ems.controllers.api;
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.StandardResponseDto;
+import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateLessonDto;
 import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.validations.dto.ValidationErrorsDto;
@@ -106,5 +107,25 @@ public interface LessonsApi {
   LessonDto getLessonById(
       @Parameter(description = "Lesson ID", example = "1", required = true)
       @PathVariable("lesson-id") @Min(1) Long lessonId);
+
+  @Operation(summary = "Get lessons submission by id", description = "Return lessons submission by id. Allowed to Admin and teacher")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Submission returned successfully. ",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = SubmissionDto.class))),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class)))
+  })
+  @GetMapping("/{lesson-id}/submissions/{submission-id}")
+  @ResponseStatus(code = HttpStatus.OK)
+  SubmissionDto getLessonsSubmissionById(
+      @Parameter(description = "Lesson ID", example = "1", required = true)
+      @PathVariable("lesson-id") @Min(1) Long lessonId,
+      @Parameter(description = "Submission ID", example = "1", required = true)
+      @PathVariable("submission-id") @Min(1) Long submissionId);
 }
 

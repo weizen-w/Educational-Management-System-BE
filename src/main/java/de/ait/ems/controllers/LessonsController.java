@@ -3,6 +3,7 @@ package de.ait.ems.controllers;
 import de.ait.ems.controllers.api.LessonsApi;
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
+import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateLessonDto;
 import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.services.LessonService;
@@ -38,5 +39,10 @@ public class LessonsController implements LessonsApi {
   @Override
   public LessonDto getLessonById(Long lessonId) {
     return lessonService.getLessonById(lessonId);
+  }
+
+  @Override
+  public SubmissionDto getLessonsSubmissionById(Long lessonId, Long submissionId) {
+    return lessonService.getLessonsSubmissionById(lessonId, submissionId);
   }
 }

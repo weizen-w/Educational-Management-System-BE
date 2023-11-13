@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public interface SubmissionsApi {
 
   @Operation(summary = "Update submission by ID", description = "Update submission. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Update processed successfully",
@@ -51,7 +51,7 @@ public interface SubmissionsApi {
               schema = @Schema(implementation = ValidationErrorsDto.class))
       ),
       @ApiResponse(responseCode = "404",
-          description = "Group not found",
+          description = "Submission not found",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = StandardResponseDto.class)))
   })
@@ -61,7 +61,7 @@ public interface SubmissionsApi {
       @RequestBody @Valid UpdateSubmissionDto updateSubmissionDto);
 
   @Operation(summary = "Getting a submission", description = "Return one submission by requested id. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Request processed successfully",
@@ -69,7 +69,7 @@ public interface SubmissionsApi {
               schema = @Schema(implementation = SubmissionDto.class))
       ),
       @ApiResponse(responseCode = "404",
-          description = "Group not found",
+          description = "Submission not found",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = StandardResponseDto.class)))
   })
@@ -87,7 +87,7 @@ public interface SubmissionsApi {
               schema = @Schema(implementation = CommentDto.class))
       ),
       @ApiResponse(responseCode = "404",
-          description = "Group not found",
+          description = "Comment not found",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = StandardResponseDto.class)))
   })
@@ -100,7 +100,7 @@ public interface SubmissionsApi {
   @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201",
-          description = "The group was created successfully",
+          description = "The comment was created successfully",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = CommentDto.class))),
       @ApiResponse(responseCode = "400",
@@ -115,4 +115,5 @@ public interface SubmissionsApi {
       @Parameter(description = "Submission ID", example = "1") @PathVariable("submission-id") @Min(1)
       Long submissionId,
       @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+
 }
