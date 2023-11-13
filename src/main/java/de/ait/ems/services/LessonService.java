@@ -3,6 +3,7 @@ package de.ait.ems.services;
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.NewLessonDto;
+import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateLessonDto;
 import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mapper.EntityMapper;
@@ -10,6 +11,7 @@ import de.ait.ems.models.Attendance;
 import de.ait.ems.models.Group;
 import de.ait.ems.models.Lesson;
 import de.ait.ems.models.Lesson.LessonType;
+import de.ait.ems.models.Submission;
 import de.ait.ems.models.User;
 import de.ait.ems.models.UserGroup;
 import de.ait.ems.repositories.AttendanceRepository;
@@ -39,6 +41,7 @@ public class LessonService {
   private final AttendanceRepository attendanceRepository;
   private final EntityMapper entityMapper;
   private final AttendanceService attendanceService;
+  private final SubmissionsService submissionsService;
 
   public List<LessonDto> getLessonByGroup(Long groupId) {
     List<LessonDto> result = new ArrayList<>();
@@ -143,5 +146,14 @@ public class LessonService {
 
   public LessonDto getLessonById(Long lessonId) {
     return entityMapper.convertToDto(getLessonOrThrow(lessonId));
+  }
+
+  public SubmissionDto getLessonsSubmissionById(Long lessonId, Long submissionId) {
+    Lesson lesson = getLessonOrThrow(lessonId);
+    if (lesson!=null){
+      Submission submission = submissionsService.getSubmissionOrThrow(submissionId);
+      return SubmissionDto.from(submission);
+    }
+    return null;
   }
 }
