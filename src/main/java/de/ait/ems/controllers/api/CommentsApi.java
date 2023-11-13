@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface CommentsApi {
 
   @Operation(summary = "Update comment by ID", description = "Update comment. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Update processed successfully",
@@ -55,7 +55,7 @@ public interface CommentsApi {
       @RequestBody @Valid UpdateCommentDto updateCommentDto);
 
   @Operation(summary = "Delete comment by ID", description = "Delete comment. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Delete processed successfully",
