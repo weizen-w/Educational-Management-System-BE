@@ -7,7 +7,6 @@ import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.services.AttendanceService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AttendancesController implements AttendanceApi {
 
-  @Autowired
-  AttendanceService attendanceService;
+  private final AttendanceService attendanceService;
 
   @Override
   public AttendanceDto updateAttendance(Long attendanceId, UpdateAttendanceDto updateAttendance) {
