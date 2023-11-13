@@ -38,6 +38,7 @@ public class LessonService {
   private final GroupsService groupsService;
   private final AttendanceRepository attendanceRepository;
   private final EntityMapper entityMapper;
+  private final AttendanceService attendanceService;
 
   public List<LessonDto> getLessonByGroup(Long groupId) {
     List<LessonDto> result = new ArrayList<>();
@@ -62,6 +63,7 @@ public class LessonService {
         .archived(false)
         .build();
     lessonRepository.save(lesson);
+    attendanceService.addAttendanceByNewLesson(lesson, groupId);
     return LessonDto.from(lesson);
   }
 

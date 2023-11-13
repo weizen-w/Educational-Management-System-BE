@@ -6,8 +6,11 @@ import de.ait.ems.exceptions.RestException;
 import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
 import de.ait.ems.models.Attendance.Status;
+import de.ait.ems.models.Lesson;
 import de.ait.ems.models.User;
+import de.ait.ems.models.UserGroup;
 import de.ait.ems.repositories.AttendanceRepository;
+import de.ait.ems.repositories.UserGroupsRepository;
 import de.ait.ems.security.details.AuthenticatedUser;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +29,7 @@ public class AttendanceService {
   private final EntityMapper entityMapper;
   private final AttendanceRepository attendanceRepository;
   private final UsersService usersService;
+  private final UserGroupsRepository userGroupsRepository;
 
   public AttendanceDto updateAttendance(Long attendanceId, UpdateAttendanceDto updateAttendance) {
     Attendance attendanceForUpdate = getAttendanceOrThrow(attendanceId);
@@ -53,5 +57,25 @@ public class AttendanceService {
           .collect(Collectors.toList());
     }
     return null;
+  }
+
+  public void addAttendanceByNewLesson(Lesson lesson, Long groupId) {
+    List<User> users = userGroupsRepository
+        .findByGroupId(groupId)
+        .stream()
+        .map(UserGroup::getUser)
+        .toList();
+    for (User user: users) {
+      Attendance attendance = Attendance.builder()
+          .student(user)
+          .lesson(lesson)
+          .attendanceDate(lesson.getLessonDate())
+          .archived(false)
+          .status(Status.valueOf("PRESENT"))
+          .build();
+      attendanceRepository.save(attendance);
+    }
+
+
   }
 }
