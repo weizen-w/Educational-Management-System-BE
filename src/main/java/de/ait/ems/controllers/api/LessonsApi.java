@@ -73,8 +73,8 @@ public interface LessonsApi {
       @PathVariable("id") @Min(1) Long lessonId);
 
 
-  @Operation(summary = "Get lessons list by auth user", description = "Return lessons list by auth user. Allowed to any auth user")
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
+  @Operation(summary = "Get lessons list by teacher", description = "Return lessons list by teacher. Available to ADMIN or TEACHER")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Lessons returned successfully. ",
@@ -85,9 +85,9 @@ public interface LessonsApi {
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = ValidationErrorsDto.class)))
   })
-  @GetMapping("/byAuthUser")
+  @GetMapping("/byTeacher")
   @ResponseStatus(code = HttpStatus.OK)
-  List<LessonDto> getLessonsByAuthUser(
+  List<LessonDto> getLessonsByTeacher(
       @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 
   @Operation(summary = "Get lesson by id", description = "Return lesson by id. Allowed to Admin and teacher")

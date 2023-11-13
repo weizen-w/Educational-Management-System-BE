@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class AttendancesController implements AttendanceApi {
+
   @Autowired
   AttendanceService attendanceService;
 
   @Override
   public AttendanceDto updateAttendance(Long attendanceId, UpdateAttendanceDto updateAttendance) {
-    return attendanceService.updateAttendance(attendanceId,updateAttendance);
+    return attendanceService.updateAttendance(attendanceId, updateAttendance);
   }
 
   @Override
