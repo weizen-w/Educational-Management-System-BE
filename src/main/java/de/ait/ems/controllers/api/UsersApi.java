@@ -1,7 +1,6 @@
 package de.ait.ems.controllers.api;
 
 import de.ait.ems.dto.AttendanceDto;
-import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.SubmissionDto;
@@ -83,7 +82,7 @@ public interface UsersApi {
       @ApiResponse(responseCode = "200",
           description = "Update processed successfully",
           content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = GroupDto.class))
+              schema = @Schema(implementation = UserDto.class))
       ),
       @ApiResponse(responseCode = "400",
           description = "Validation error",
@@ -91,7 +90,7 @@ public interface UsersApi {
               schema = @Schema(implementation = ValidationErrorsDto.class))
       ),
       @ApiResponse(responseCode = "404",
-          description = "Group not found",
+          description = "User not found",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = StandardResponseDto.class)))
   })
@@ -99,6 +98,30 @@ public interface UsersApi {
   UserDto updateUser(
       @Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId,
       @RequestBody @Valid UpdateUserDto updateUser);
+
+  @Operation(summary = "Update users profile", description = "Update user info in profile. Available to auth user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Update processed successfully",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = UserDto.class))
+      ),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class))
+      ),
+      @ApiResponse(responseCode = "404",
+          description = "User not found",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = StandardResponseDto.class)))
+  })
+  @PutMapping("/profile")
+  UserDto updateAuthUser(
+      @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user,
+      @RequestBody @Valid UpdateUserDto updateUser);
+
 
   @GetMapping("/{user-id}/attendance")
   @PreAuthorize("hasAuthority('ADMIN')")
