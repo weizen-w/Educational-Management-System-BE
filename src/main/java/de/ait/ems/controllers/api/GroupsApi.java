@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @RequestMapping("/api/groups")
 @Tags(value = {
-    @Tag(name = "Groups", description="This controller realized management of usersgroups")
+    @Tag(name = "Groups", description = "This controller realized management of usersgroups")
 })
 @Validated
 public interface GroupsApi {
@@ -58,7 +58,8 @@ public interface GroupsApi {
   })
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
-  GroupDto addGroup(@RequestBody @Valid @Parameter(description = "Body with new group", required = true)  NewGroupDto newGroup);
+  GroupDto addGroup(
+      @RequestBody @Valid @Parameter(description = "Body with new group", required = true) NewGroupDto newGroup);
 
   @Operation(summary = "Getting a list of groups", description = "Return list of all groups. Available to administrator")
   @PreAuthorize("hasAuthority('ADMIN')")
@@ -81,7 +82,7 @@ public interface GroupsApi {
       @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
 
   @Operation(summary = "Getting a list of users by group", description = "Return list of users from requested group. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @GetMapping("/{group-id}/users/byMainGroup")
   @ResponseStatus(code = HttpStatus.OK)
   List<UserDto> getUsersFromGroupByMainGroup(
@@ -149,7 +150,8 @@ public interface GroupsApi {
   })
   @PostMapping("/{group-id}/lessons")
   @ResponseStatus(code = HttpStatus.CREATED)
-  LessonDto addLesson(@RequestBody @Valid @Parameter(description = "Body with new lesson", required = true) NewLessonDto newLesson,
+  LessonDto addLesson(
+      @RequestBody @Valid @Parameter(description = "Body with new lesson", required = true) NewLessonDto newLesson,
       @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
 
 }
