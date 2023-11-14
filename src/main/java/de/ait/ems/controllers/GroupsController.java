@@ -62,6 +62,11 @@ public class GroupsController implements GroupsApi {
   }
 
   @Override
+  public GroupDto getMainGroupByAuthUser(AuthenticatedUser user) {
+    return groupsService.getMainGroupByAuthUser(user);
+  }
+
+  @Override
   public GroupDto getGroup(Long groupId) {
     return groupsService.getGroup(groupId);
   }
