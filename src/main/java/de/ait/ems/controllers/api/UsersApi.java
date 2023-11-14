@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public interface UsersApi {
 
   @GetMapping
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
   @Operation(summary = "Get all users", description = "Return list of all users. Available to administrator")
   @ResponseStatus(code = HttpStatus.OK)
   List<UserDto> getAllUsers();
@@ -127,12 +127,14 @@ public interface UsersApi {
   @PreAuthorize("hasAuthority('ADMIN')")
   @Operation(summary = "Get attendance by user id", description = "Return list of attendances of selected user. Available to administrator")
   @ResponseStatus(code = HttpStatus.OK)
-  List<AttendanceDto> getAttendanceByUserId(@Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
+  List<AttendanceDto> getAttendanceByUserId(
+      @Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
 
   @GetMapping("/{user-id}/submissions")
   @PreAuthorize("hasAuthority('ADMIN')")
   @Operation(summary = "Get submissions by user id", description = "Return list of submissions of selected user. Available to administrator")
   @ResponseStatus(code = HttpStatus.OK)
-  List<SubmissionDto> getSubmissionsByUserId(@Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
+  List<SubmissionDto> getSubmissionsByUserId(
+      @Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
 
 }

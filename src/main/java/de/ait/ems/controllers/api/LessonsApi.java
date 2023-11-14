@@ -110,16 +110,6 @@ public interface LessonsApi {
 
   @Operation(summary = "Get submissions by lesson", description = "Return submissions by lesson. Allowed to Admin and teacher")
   @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200",
-          description = "Submissions returned successfully. ",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = SubmissionDto.class))),
-      @ApiResponse(responseCode = "400",
-          description = "Validation error",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ValidationErrorsDto.class)))
-  })
   @GetMapping("/{lesson-id}/submissions")
   @ResponseStatus(code = HttpStatus.OK)
   List<SubmissionDto> getSubmissionsByLesson(
