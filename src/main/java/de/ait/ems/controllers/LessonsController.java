@@ -42,7 +42,7 @@ public class LessonsController implements LessonsApi {
   }
 
   @Override
-  public SubmissionDto getLessonsSubmissionById(Long lessonId, Long submissionId) {
-    return lessonService.getLessonsSubmissionById(lessonId, submissionId);
+  public List<SubmissionDto> getSubmissionsByLesson(Long lessonId) {
+    return lessonService.getSubmissionsByLesson(lessonId);
   }
 }
