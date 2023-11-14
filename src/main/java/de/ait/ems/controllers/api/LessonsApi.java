@@ -2,6 +2,7 @@ package de.ait.ems.controllers.api;
 
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
+import de.ait.ems.dto.NewSubmissionDto;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateLessonDto;
@@ -24,6 +25,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,10 +111,21 @@ public interface LessonsApi {
       @PathVariable("lesson-id") @Min(1) Long lessonId);
 
   @Operation(summary = "Get submissions by lesson", description = "Return submissions by lesson. Allowed to Admin and teacher")
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
   @GetMapping("/{lesson-id}/submissions")
   @ResponseStatus(code = HttpStatus.OK)
   List<SubmissionDto> getSubmissionsByLesson(
       @Parameter(description = "Lesson ID", example = "1", required = true)
       @PathVariable("lesson-id") @Min(1) Long lessonId);
+
+  @Operation(summary = "Post submission by lesson", description = "Add new submission by lesson. Allowed to auth user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
+  @PostMapping("/{lesson-id}/submissions")
+  @ResponseStatus(code = HttpStatus.OK)
+  SubmissionDto addSubmissionsByLesson(
+      @RequestBody @Valid @Parameter(description = "Body with new submission", required = true)
+      NewSubmissionDto newSubmissionDto,
+      @Parameter(description = "Lesson ID", example = "1", required = true)
+      @PathVariable("lesson-id") @Min(1) Long lessonId,
+      @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 }

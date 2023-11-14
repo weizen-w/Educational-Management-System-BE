@@ -61,7 +61,7 @@ public interface SubmissionsApi {
       @RequestBody @Valid UpdateSubmissionDto updateSubmissionDto);
 
   @Operation(summary = "Getting a submission", description = "Return one submission by requested id. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Request processed successfully",
@@ -93,8 +93,9 @@ public interface SubmissionsApi {
   })
   @GetMapping("/{submission-id}/comments")
   @ResponseStatus(code = HttpStatus.OK)
-  List<CommentDto> getCommentsBySubmissionId(@Parameter(description = "Submission ID", example = "1")
-  @PathVariable("submission-id") @Min(1) Long submissionId);
+  List<CommentDto> getCommentsBySubmissionId(
+      @Parameter(description = "Submission ID", example = "1")
+      @PathVariable("submission-id") @Min(1) Long submissionId);
 
   @Operation(summary = "Create a comment", description = "Create a comment in submission. Available to administrator")
   @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
@@ -110,8 +111,9 @@ public interface SubmissionsApi {
   })
   @PostMapping("/{submission-id}/comments")
   @ResponseStatus(code = HttpStatus.CREATED)
-  CommentDto addComment(@RequestBody @Valid @Parameter(description = "Body with new comment", required = true)
-  NewCommentDto newCommentDto,
+  CommentDto addComment(
+      @RequestBody @Valid @Parameter(description = "Body with new comment", required = true)
+      NewCommentDto newCommentDto,
       @Parameter(description = "Submission ID", example = "1") @PathVariable("submission-id") @Min(1)
       Long submissionId,
       @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);

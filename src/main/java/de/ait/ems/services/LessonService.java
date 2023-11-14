@@ -3,6 +3,7 @@ package de.ait.ems.services;
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.LessonDto;
 import de.ait.ems.dto.NewLessonDto;
+import de.ait.ems.dto.NewSubmissionDto;
 import de.ait.ems.dto.SubmissionDto;
 import de.ait.ems.dto.UpdateLessonDto;
 import de.ait.ems.exceptions.RestException;
@@ -11,6 +12,7 @@ import de.ait.ems.models.Attendance;
 import de.ait.ems.models.Lesson;
 import de.ait.ems.models.Lesson.LessonType;
 import de.ait.ems.models.Submission;
+import de.ait.ems.models.Submission.Status;
 import de.ait.ems.models.User;
 import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.LessonRepository;
@@ -145,6 +147,23 @@ public class LessonService {
     if (lesson != null) {
       List<Submission> submissions = submissionRepository.getSubmissionsByLesson(lesson);
       return SubmissionDto.from(submissions);
+    }
+    return null;
+  }
+
+  public SubmissionDto addSubmissionByLesson(NewSubmissionDto newSubmissionDto, Long lessonId,
+      AuthenticatedUser authenticatedUser) {
+    Lesson lesson = getLessonOrThrow(lessonId);
+    if (lesson != null) {
+      Submission submission = Submission.builder()
+          .description(newSubmissionDto.getDescription())
+          .lesson(lesson)
+          .student(usersService.getUserOrThrow(authenticatedUser.getId()))
+          .state(Status.NEW)
+          .archived(false)
+          .build();
+      submissionRepository.save(submission);
+      return SubmissionDto.from(submission);
     }
     return null;
   }
