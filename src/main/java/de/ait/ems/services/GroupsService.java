@@ -98,10 +98,20 @@ public class GroupsService {
   public List<UserDto> getUsersFromGroupByMainGroup(Long groupId) {
     Group group = getGroupOrThrow(groupId);
     return userGroupsRepository
-        .findByGroupAndMainGroup(group,true)
+        .findByGroupAndMainGroup(group, true)
         .stream()
         .map(UserGroup::getUser)
         .map(entityMapper::convertToDto)
         .toList();
+  }
+
+  public GroupDto getMainGroupByAuthUser(AuthenticatedUser user) {
+    List<UserGroup> groupsByUser = userGroupsRepository.findByUserId(user.getId());
+    for (UserGroup userGroup : groupsByUser) {
+      if (userGroup.getMainGroup()) {
+        return GroupDto.from(userGroup.getGroup());
+      }
+    }
+    return null;
   }
 }
