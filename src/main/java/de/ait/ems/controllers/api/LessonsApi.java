@@ -91,7 +91,7 @@ public interface LessonsApi {
       @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 
   @Operation(summary = "Get lesson by id", description = "Return lesson by id. Allowed to Admin and teacher")
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Lessons returned successfully. ",
