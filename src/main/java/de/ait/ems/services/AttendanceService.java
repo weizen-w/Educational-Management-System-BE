@@ -3,7 +3,6 @@ package de.ait.ems.services;
 import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.UpdateAttendanceDto;
 import de.ait.ems.exceptions.RestException;
-import de.ait.ems.mapper.EntityMapper;
 import de.ait.ems.models.Attendance;
 import de.ait.ems.models.Attendance.Status;
 import de.ait.ems.models.Lesson;
@@ -13,7 +12,6 @@ import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.UserGroupsRepository;
 import de.ait.ems.security.details.AuthenticatedUser;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AttendanceService {
 
-  private final EntityMapper entityMapper;
   private final AttendanceRepository attendanceRepository;
   private final UsersService usersService;
   private final UserGroupsRepository userGroupsRepository;
@@ -52,20 +49,15 @@ public class AttendanceService {
   public List<AttendanceDto> getAttendancesByAuthUser(AuthenticatedUser user) {
     User userEntity = usersService.getUserOrThrow(user.getId());
     if (userEntity != null) {
-      return attendanceRepository.getAttendanceByStudent(userEntity).stream()
-          .map(entityMapper::convertToDto)
-          .collect(Collectors.toList());
+      return AttendanceDto.from(attendanceRepository.getAttendanceByStudent(userEntity));
     }
     return null;
   }
 
   public void addAttendanceByNewLesson(Lesson lesson, Long groupId) {
-    List<User> users = userGroupsRepository
-        .findByGroupId(groupId)
-        .stream()
-        .map(UserGroup::getUser)
+    List<User> users = userGroupsRepository.findByGroupId(groupId).stream().map(UserGroup::getUser)
         .toList();
-    for (User user: users) {
+    for (User user : users) {
       Attendance attendance = Attendance.builder()
           .student(user)
           .lesson(lesson)
@@ -75,7 +67,5 @@ public class AttendanceService {
           .build();
       attendanceRepository.save(attendance);
     }
-
-
   }
 }
