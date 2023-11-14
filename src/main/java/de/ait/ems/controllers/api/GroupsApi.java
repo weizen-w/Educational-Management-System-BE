@@ -136,8 +136,8 @@ public interface GroupsApi {
   GroupDto updateGroup(@Parameter(description = "Group ID", example = "1", required = true)
   @PathVariable("group-id") @Min(1) Long groupId, @RequestBody @Valid UpdateGroupDto updateGroup);
 
-  @Operation(summary = "Getting a list of lessons by group", description = "Return list of lessons from requested group. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @Operation(summary = "Getting a list of lessons by group", description = "Return list of lessons from requested group. Available to auth user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @GetMapping("/{group-id}/lessons")
   @ResponseStatus(code = HttpStatus.OK)
   List<LessonDto> getLessonsByGroup(
