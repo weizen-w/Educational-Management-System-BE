@@ -108,11 +108,11 @@ public interface LessonsApi {
       @Parameter(description = "Lesson ID", example = "1", required = true)
       @PathVariable("lesson-id") @Min(1) Long lessonId);
 
-  @Operation(summary = "Get lessons submission by id", description = "Return lessons submission by id. Allowed to Admin and teacher")
+  @Operation(summary = "Get submissions by lesson", description = "Return submissions by lesson. Allowed to Admin and teacher")
   @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
-          description = "Submission returned successfully. ",
+          description = "Submissions returned successfully. ",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = SubmissionDto.class))),
       @ApiResponse(responseCode = "400",
@@ -120,12 +120,9 @@ public interface LessonsApi {
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = ValidationErrorsDto.class)))
   })
-  @GetMapping("/{lesson-id}/submissions/{submission-id}")
+  @GetMapping("/{lesson-id}/submissions")
   @ResponseStatus(code = HttpStatus.OK)
-  SubmissionDto getLessonsSubmissionById(
+  List<SubmissionDto> getSubmissionsByLesson(
       @Parameter(description = "Lesson ID", example = "1", required = true)
-      @PathVariable("lesson-id") @Min(1) Long lessonId,
-      @Parameter(description = "Submission ID", example = "1", required = true)
-      @PathVariable("submission-id") @Min(1) Long submissionId);
+      @PathVariable("lesson-id") @Min(1) Long lessonId);
 }
-

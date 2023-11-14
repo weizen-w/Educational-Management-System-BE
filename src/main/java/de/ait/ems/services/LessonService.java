@@ -14,6 +14,7 @@ import de.ait.ems.models.Submission;
 import de.ait.ems.models.User;
 import de.ait.ems.repositories.AttendanceRepository;
 import de.ait.ems.repositories.LessonRepository;
+import de.ait.ems.repositories.SubmissionRepository;
 import de.ait.ems.security.details.AuthenticatedUser;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class LessonService {
   private final AttendanceRepository attendanceRepository;
   private final EntityMapper entityMapper;
   private final AttendanceService attendanceService;
-  private final SubmissionsService submissionsService;
+  private final SubmissionRepository submissionRepository;
 
   public List<LessonDto> getLessonByGroup(Long groupId) {
     List<LessonDto> result = new ArrayList<>();
@@ -139,11 +140,11 @@ public class LessonService {
     return entityMapper.convertToDto(getLessonOrThrow(lessonId));
   }
 
-  public SubmissionDto getLessonsSubmissionById(Long lessonId, Long submissionId) {
+  public List<SubmissionDto> getSubmissionsByLesson(Long lessonId) {
     Lesson lesson = getLessonOrThrow(lessonId);
-    if (lesson!=null){
-      Submission submission = submissionsService.getSubmissionOrThrow(submissionId);
-      return SubmissionDto.from(submission);
+    if (lesson != null) {
+      List<Submission> submissions = submissionRepository.getSubmissionsByLesson(lesson);
+      return SubmissionDto.from(submissions);
     }
     return null;
   }
