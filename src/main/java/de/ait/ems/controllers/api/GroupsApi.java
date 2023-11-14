@@ -88,13 +88,6 @@ public interface GroupsApi {
   List<UserDto> getUsersFromGroupByMainGroup(
       @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
 
-  @Operation(summary = "Getting a list of groups by main group and auth user", description = "Getting a list of users by group and auth user. Available to auth user")
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
-  @GetMapping("/mainGroupByAuthUser")
-  @ResponseStatus(code = HttpStatus.OK)
-  GroupDto getMainGroupByAuthUser(
-      @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
-
   @Operation(summary = "Getting a group", description = "Return one group by requested group id. Available to users in this group")
   @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @ApiResponses(value = {
@@ -136,8 +129,8 @@ public interface GroupsApi {
   GroupDto updateGroup(@Parameter(description = "Group ID", example = "1", required = true)
   @PathVariable("group-id") @Min(1) Long groupId, @RequestBody @Valid UpdateGroupDto updateGroup);
 
-  @Operation(summary = "Getting a list of lessons by group", description = "Return list of lessons from requested group. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @Operation(summary = "Getting a list of lessons by group", description = "Return list of lessons from requested group. Available to auth user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
   @GetMapping("/{group-id}/lessons")
   @ResponseStatus(code = HttpStatus.OK)
   List<LessonDto> getLessonsByGroup(
