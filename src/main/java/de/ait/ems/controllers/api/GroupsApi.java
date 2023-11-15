@@ -2,6 +2,7 @@ package de.ait.ems.controllers.api;
 
 import de.ait.ems.dto.GroupDto;
 import de.ait.ems.dto.LessonDto;
+import de.ait.ems.dto.MaterialDto;
 import de.ait.ems.dto.NewGroupDto;
 import de.ait.ems.dto.NewLessonDto;
 import de.ait.ems.dto.StandardResponseDto;
@@ -159,6 +160,13 @@ public interface GroupsApi {
   @ResponseStatus(code = HttpStatus.CREATED)
   LessonDto addLesson(
       @RequestBody @Valid @Parameter(description = "Body with new lesson", required = true) NewLessonDto newLesson,
+      @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
+
+  @Operation(summary = "Getting a list of materials by group", description = "Return list of lessons materials from requested group. Available to auth user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT') or hasAuthority('TEACHER')")
+  @GetMapping("/{group-id}/materials")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<MaterialDto> getMaterialsByGroup(
       @Parameter(description = "Group ID", example = "1", required = true) @PathVariable("group-id") @Min(1) Long groupId);
 
 }
