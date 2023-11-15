@@ -50,10 +50,52 @@ values ('Module 4', false);
 
 -- table lesson
 insert into lesson(group_id,lesson_title,lesson_description,lesson_type,teacher_id,lesson_date,start_time,end_time,module_id,link_lms,link_zoom,archived)
-values (1, 'basic_programming/lesson_52','Smalltalk about homework Questions Binary seek in arrays','consultation',1,'2023-11-27','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_52','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
+values (1, 'basic_programming/lesson_52','Smalltalk about homework Questions Binary seek in arrays','CONSULTATION',1,'2023-11-27','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_52','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
 insert into lesson(group_id,lesson_title,lesson_description,lesson_type,teacher_id,lesson_date,start_time,end_time,module_id,link_lms,link_zoom,archived)
-values (2, 'basic_programming/lesson_53','Smalltalk about homework Questions Binary seek in arrays','consultation',2,'2023-11-28','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_53','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
+values (2, 'basic_programming/lesson_53','Smalltalk about homework Questions Binary seek in arrays','CONSULTATION',2,'2023-11-28','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_53','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
 insert into lesson(group_id,lesson_title,lesson_description,lesson_type,teacher_id,lesson_date,start_time,end_time,module_id,link_lms,link_zoom,archived)
-values (1, 'basic_programming/lesson_54','Smalltalk about homework Questions Binary seek in arrays','consultation',1,'2023-11-29','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_54','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
+values (1, 'basic_programming/lesson_54','Smalltalk about homework Questions Binary seek in arrays','CONSULTATION',1,'2023-11-29','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_54','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
 insert into lesson(group_id,lesson_title,lesson_description,lesson_type,teacher_id,lesson_date,start_time,end_time,module_id,link_lms,link_zoom,archived)
-values (2, 'basic_programming/lesson_55','Smalltalk about homework Questions Binary seek in arrays','consultation',2,'2023-11-30','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_55','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
+values (2, 'basic_programming/lesson_55','Smalltalk about homework Questions Binary seek in arrays','CONSULTATION',2,'2023-11-30','10:15:30','12:15:30',1,'https://lms.ait-tr.de/#/group/cohort26/module/basic_programming/lesson/lesson_55','https://us05web.zoom.us/j/82073564366?pwd=LqOp9ojsiqseacSVwFPyt2jZA2tqUI.1',false);
+
+--table attendance
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (11,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (12,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (13,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (14,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (15,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (16,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (17,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (18,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (19,1,1,'2023-11-27','PRESENT',false);
+insert into attendance (attendance_id, student_id, lesson_id, attendance_date, status, archived)
+values (20,1,1,'2023-11-27','PRESENT',false);
+
+--table submission
+insert into submission (submission_id, description, lesson_id, student_id, submission_state,
+                        archived)
+values (1, 'Home work',1,1,'NEW',true);
+insert into submission (submission_id, description, lesson_id, student_id, submission_state,
+                        archived)
+values (2, 'Home work',1,1,'GIVEN',false);
+insert into submission (submission_id, description, lesson_id, student_id, submission_state,
+                        archived)
+values (3, 'Home work',1,1,'VIEWED',true);
+insert into submission (submission_id, description, lesson_id, student_id, submission_state,
+                        archived)
+values (4, 'Home work',1,1,'NEW',false);
+insert into submission (submission_id, description, lesson_id, student_id, submission_state,
+                        archived)
+values (5, 'Home work',1,1,'NEW',false);
+insert into submission (submission_id, description, lesson_id, student_id, submission_state,
+                        archived)
+values (6, 'Home work',1,1,'NEW',false);
