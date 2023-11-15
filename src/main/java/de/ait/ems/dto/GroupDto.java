@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(name = "Group(students/teacher)", description = "Group description")
+@Schema(name = "Group", description = "Group of entity User (admin, students and teachers)")
 public class GroupDto {
 
   @Schema(description = "Group ID", example = "1")

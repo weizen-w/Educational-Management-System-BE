@@ -1,10 +1,15 @@
 package de.ait.ems.controllers;
 
 import de.ait.ems.controllers.api.UsersApi;
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.NewUserDto;
+import de.ait.ems.dto.SubmissionDto;
+import de.ait.ems.dto.UpdateUserDto;
 import de.ait.ems.dto.UserDto;
+import de.ait.ems.models.User.Role;
 import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.services.UsersService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController implements UsersApi {
 
   private final UsersService usersService;
+
+  @Override
+  public List<UserDto> getAllUsers() {
+    return usersService.getAllUsers();
+  }
+
+  @Override
+  public List<UserDto> getUsersByRole(Role role) {
+    return usersService.getUsersByRole(role);
+  }
 
   @Override
   public UserDto register(NewUserDto newUser) {
@@ -32,5 +47,25 @@ public class UsersController implements UsersApi {
   public UserDto getProfile(AuthenticatedUser user) {
     Long currentUserId = user.getId();
     return usersService.getUserById(currentUserId);
+  }
+
+  @Override
+  public UserDto updateUser(Long userId, UpdateUserDto updateUser) {
+    return usersService.updateUser(userId, updateUser);
+  }
+
+  @Override
+  public UserDto updateAuthUser(AuthenticatedUser user, UpdateUserDto updateUser) {
+    return usersService.updateUser(user.getId(),updateUser);
+  }
+
+  @Override
+  public List<AttendanceDto> getAttendanceByUserId(Long userId) {
+    return usersService.getAttendanceByUserId(userId);
+  }
+
+  @Override
+  public List<SubmissionDto> getSubmissionsByUserId(Long userId) {
+    return usersService.getSubmissionsByUserId(userId);
   }
 }

@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @DisplayName("Endpoint /courses is works:")
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ActiveProfiles("test")
 public class CoursesIntegrationTest {
 
@@ -44,7 +46,6 @@ public class CoursesIntegrationTest {
 
     @Test
     @WithUserDetails("admin@gmail.com")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_empty_list_of_courses_for_empty_database() throws Exception {
       mockMvc.perform(get("/api/courses"))
           .andExpect(status().isOk())
@@ -54,7 +55,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_list_of_courses_for_not_empty_database() throws Exception {
       mockMvc.perform(get("/api/courses"))
           .andExpect(status().isOk())
@@ -77,7 +77,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_created_course() throws Exception {
       mockMvc.perform(post("/api/courses")
               .contentType(MediaType.APPLICATION_JSON)
@@ -110,7 +109,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_existed_course() throws Exception {
       mockMvc.perform(get("/api/courses/1"))
           .andExpect(status().isOk())
@@ -122,7 +120,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_404_for_not_existed_course() throws Exception {
       mockMvc.perform(get("/api/courses/5"))
           .andExpect(status().isNotFound());
@@ -136,7 +133,6 @@ public class CoursesIntegrationTest {
     @Test
     @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_updated_course() throws Exception {
       mockMvc.perform(put("/api/courses/1")
               .contentType("application/json")
@@ -153,8 +149,20 @@ public class CoursesIntegrationTest {
 
     @Test
     @WithUserDetails("admin@gmail.com")
+    public void return_404_for_not_existed_course() throws Exception {
+      mockMvc.perform(put("/api/courses/5")
+              .contentType("application/json")
+              .content("""
+                  {
+                    "name": "Update course",
+                    "archived": true
+                  }"""))
+          .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithUserDetails("admin@gmail.com")
     @Sql(scripts = "/sql/data.sql")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void return_400_for_not_valid_update_course() throws Exception {
       mockMvc.perform(put("/api/courses/1")
               .contentType("application/json")
@@ -165,20 +173,6 @@ public class CoursesIntegrationTest {
                   }"""))
           .andExpect(status().isBadRequest())
           .andExpect(jsonPath("$.errors.size()", is(1)));
-    }
-
-    @Test
-    @WithUserDetails("admin@gmail.com")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void return_404_for_not_existed_course() throws Exception {
-      mockMvc.perform(put("/api/courses/5")
-              .contentType("application/json")
-              .content("""
-                  {
-                    "name": "Update course",
-                    "archived": true
-                  }"""))
-          .andExpect(status().isNotFound());
     }
   }
 }

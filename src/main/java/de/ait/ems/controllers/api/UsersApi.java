@@ -1,8 +1,12 @@
 package de.ait.ems.controllers.api;
 
+import de.ait.ems.dto.AttendanceDto;
 import de.ait.ems.dto.NewUserDto;
 import de.ait.ems.dto.StandardResponseDto;
+import de.ait.ems.dto.SubmissionDto;
+import de.ait.ems.dto.UpdateUserDto;
 import de.ait.ems.dto.UserDto;
+import de.ait.ems.models.User.Role;
 import de.ait.ems.security.details.AuthenticatedUser;
 import de.ait.ems.validations.dto.ValidationErrorsDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,12 +17,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,6 +39,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping("/api/users")
 @Tags(value = {@Tag(name = "Users")})
 public interface UsersApi {
+
+  @GetMapping
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
+  @Operation(summary = "Get all users", description = "Return list of all users. Available to administrator")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<UserDto> getAllUsers();
+
+  @GetMapping("/byRole/{role}")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @Operation(summary = "Get users by role", description = "Return list of users by role. Available to administrator")
+  List<UserDto> getUsersByRole(@PathVariable Role role);
 
   @Operation(summary = "Create an user", description = "Available to administrator")
   @ApiResponses(value = {
@@ -56,4 +75,66 @@ public interface UsersApi {
 
   @GetMapping("/profile")
   UserDto getProfile(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+
+  @Operation(summary = "Update user by ID", description = "Update user info. Available to administrator")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Update processed successfully",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = UserDto.class))
+      ),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class))
+      ),
+      @ApiResponse(responseCode = "404",
+          description = "User not found",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = StandardResponseDto.class)))
+  })
+  @PutMapping("/{user-id}")
+  UserDto updateUser(
+      @Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId,
+      @RequestBody @Valid UpdateUserDto updateUser);
+
+  @Operation(summary = "Update users profile", description = "Update user info in profile. Available to auth user")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Update processed successfully",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = UserDto.class))
+      ),
+      @ApiResponse(responseCode = "400",
+          description = "Validation error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = ValidationErrorsDto.class))
+      ),
+      @ApiResponse(responseCode = "404",
+          description = "User not found",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = StandardResponseDto.class)))
+  })
+  @PutMapping("/profile")
+  UserDto updateAuthUser(
+      @Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user,
+      @RequestBody @Valid UpdateUserDto updateUser);
+
+
+  @GetMapping("/{user-id}/attendance")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @Operation(summary = "Get attendance by user id", description = "Return list of attendances of selected user. Available to administrator")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<AttendanceDto> getAttendanceByUserId(
+      @Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
+
+  @GetMapping("/{user-id}/submissions")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @Operation(summary = "Get submissions by user id", description = "Return list of submissions of selected user. Available to administrator")
+  @ResponseStatus(code = HttpStatus.OK)
+  List<SubmissionDto> getSubmissionsByUserId(
+      @Parameter(description = "User ID", example = "1", required = true) @PathVariable("user-id") @Min(1) Long userId);
+
 }
