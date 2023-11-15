@@ -47,6 +47,8 @@ public class Group {
   @Column(name = "archived", nullable = false)
   @ColumnDefault("false")
   private Boolean archived;
+  @Column(name = "link_template")
+  private String linkTemplate;
 
   @Override
   public final boolean equals(Object object) {

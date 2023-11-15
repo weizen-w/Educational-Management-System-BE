@@ -27,6 +27,9 @@ public class GroupDto {
   private String name;
   @Schema(description = "Group course ID", example = "1")
   private Long courseId;
+  @Schema(description = "Link template", example =
+      "https://raw.githubusercontent.com/ait-tr/cohort25/main/back_end/lesson_0x0/theory.md")
+  private String link_template;
   @Schema(description = "Group is archived", example = "false")
   private Boolean archived;
 
@@ -36,6 +39,7 @@ public class GroupDto {
         .name(group.getName())
         .courseId(group.getCourse().getId())
         .archived(group.getArchived())
+        .link_template(group.getLinkTemplate())
         .build();
   }
 
