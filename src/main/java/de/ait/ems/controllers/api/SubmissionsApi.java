@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public interface SubmissionsApi {
 
   @Operation(summary = "Update submission by ID", description = "Update submission. Available to administrator")
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STUDENT')")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200",
           description = "Update processed successfully",
