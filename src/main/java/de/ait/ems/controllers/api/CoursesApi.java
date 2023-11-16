@@ -57,7 +57,7 @@ public interface CoursesApi {
   @Operation(summary = "Getting a list of courses", description = "Available to all users. Available to administrator")
   @GetMapping
   @ResponseStatus(code = HttpStatus.OK)
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER')")
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('TEACHER') or hasAuthority('STUDENT')")
   List<CourseDto> getCourses();
 
   @Operation(summary = "Getting a course", description = "Available to all users")
