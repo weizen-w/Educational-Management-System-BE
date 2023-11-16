@@ -280,4 +280,12 @@
 
   </changeSet>
 
+  <changeSet id="adding-link-template-to-DB" author="Oleksandr" context="!test">
+    <addColumn  tableName="student_group">
+      <column afterColumn="course_id"
+        name="link_template"
+        type="varchar(255)"/>
+    </addColumn>
+  </changeSet>
+
 </databaseChangeLog>
