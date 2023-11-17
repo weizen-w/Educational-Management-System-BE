@@ -2,14 +2,10 @@ package de.ait.ems.services;
 
 import de.ait.ems.dto.MaterialDto;
 import de.ait.ems.models.Group;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,28 +24,20 @@ import org.springframework.web.util.UriUtils;
 @Service
 public class MaterialsService {
 
-  private static final String LOCAL_FILENAME = "out.md";
   private final GroupsService groupsService;
 
   private static Map<String, String> readFileFromUrl(String url) {
-    StringBuilder answer = new StringBuilder();
     Map<String, String> output = new HashMap<>();
     try (InputStream in = reencode(url).toURL().openStream()) {
-      Files.copy(in, Paths.get(LOCAL_FILENAME), StandardCopyOption.REPLACE_EXISTING);
-      File fileMd = new File(LOCAL_FILENAME);
-      if (fileMd.exists()) {
-        Scanner scanner = new Scanner(fileMd);
-        while (scanner.hasNext()) {
-          String line = scanner.nextLine();
-          answer.append(line);
-          answer.append("\n");
-          output.put("body", answer.toString());
-          output.put("code", "success");
-        }
-        scanner.close();
+      Scanner scanner = new Scanner(in, StandardCharsets.UTF_8);
+      while (scanner.hasNext()) {
+        String line = scanner.useDelimiter("\\A").next();
+        output.put("body", line);
+        output.put("code", "success");
       }
-    } catch (IOException e) {
-      output.put("body", e.getMessage());
+      scanner.close();
+    } catch (IOException ex) {
+      output.put("body", ex.getMessage());
       output.put("code", "failed");
     }
     return output;
