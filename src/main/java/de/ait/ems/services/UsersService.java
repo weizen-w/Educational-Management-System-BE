@@ -62,7 +62,7 @@ public class UsersService {
   }
 
   private String createLinkForConfirmation(String codeValue) {
-    return baseUrl + "#/confirm/" + codeValue;
+    return baseUrl + "/ems/index.html#/confirm/" + codeValue;
   }
 
   private void saveConfirmCode(User user, String codeValue) {
