@@ -7,15 +7,13 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import de.ait.ems.dto.StandardResponseDto;
 import de.ait.ems.models.FileInfo;
 import de.ait.ems.repositories.FilesInfoRepository;
+import java.io.InputStream;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
-import java.util.UUID;
 
 /**
  * 26/10/2023 EducationalManagementSystem
@@ -27,7 +25,6 @@ import java.util.UUID;
 public class FilesService {
 
   private final AmazonS3 amazonS3;
-  private final @Value("${bucketName}") String bucketName;
 
   private final FilesInfoRepository filesInfoRepository;
 
@@ -48,10 +45,10 @@ public class FilesService {
     metadata.setContentType(file.getContentType());
     metadata.setContentLength(file.getSize());
     PutObjectRequest request =
-        new PutObjectRequest(bucketName, "avatar/" + newFileName, inputStream, metadata)
+        new PutObjectRequest("ems-files", "avatar/" + newFileName, inputStream, metadata)
             .withCannedAcl(CannedAccessControlList.PublicRead);
     amazonS3.putObject(request);
-    String link = amazonS3.getUrl(bucketName, "avatar/" + newFileName).toString();
+    String link = amazonS3.getUrl("ems-files", "avatar/" + newFileName).toString();
     FileInfo fileInfo = FileInfo.builder()
         .link(link)
         .build();
