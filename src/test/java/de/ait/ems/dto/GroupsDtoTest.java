@@ -26,6 +26,7 @@ public class GroupsDtoTest {
   public static final Course COURSE = new Course(CoursesDtoTest.ID, CoursesDtoTest.NAME,
       CoursesDtoTest.IS_ARCHIVED);
   public static final Boolean IS_ARCHIVED = false;
+  public static final String LINK_TEMPLATE = "https://raw.githubusercontent.com/ait-tr/cohort26/main/back_end/lesson_0x0/theory.md";
 
   @Nested
   @DisplayName("GroupDto:")
@@ -34,7 +35,7 @@ public class GroupsDtoTest {
     @Test
     public void get_group_dto() {
       GroupDto groupDtoNoArg = new GroupDto();
-      Group group = new Group(ID, NAME, COURSE, IS_ARCHIVED);
+      Group group = new Group(ID, NAME, COURSE, IS_ARCHIVED, LINK_TEMPLATE);
       GroupDto groupDto = GroupDto.from(group);
 
       Assertions.assertNotNull(groupDtoNoArg);
@@ -42,12 +43,13 @@ public class GroupsDtoTest {
       Assertions.assertEquals(NAME, groupDto.getName());
       Assertions.assertEquals(COURSE_ID, groupDto.getCourseId());
       Assertions.assertEquals(IS_ARCHIVED, groupDto.getArchived());
+      Assertions.assertEquals(LINK_TEMPLATE, groupDto.getLink_template());
     }
 
     @Test
     public void get_groups_dto() {
-      Group group1 = new Group(ID, NAME, COURSE, IS_ARCHIVED);
-      Group group2 = new Group(ID, NAME, COURSE, IS_ARCHIVED);
+      Group group1 = new Group(ID, NAME, COURSE, IS_ARCHIVED, LINK_TEMPLATE);
+      Group group2 = new Group(ID, NAME, COURSE, IS_ARCHIVED, LINK_TEMPLATE);
       List<Group> groups = new ArrayList<>();
       groups.add(group1);
       groups.add(group2);
@@ -79,11 +81,13 @@ public class GroupsDtoTest {
     @Test
     public void get_update_group_dto() {
       UpdateGroupDto updateGroupDtoNoArg = new UpdateGroupDto();
-      UpdateGroupDto updateGroupDto = new UpdateGroupDto(NAME, COURSE_ID, IS_ARCHIVED);
+      UpdateGroupDto updateGroupDto = new UpdateGroupDto(NAME, COURSE_ID, LINK_TEMPLATE,
+          IS_ARCHIVED);
 
       Assertions.assertNotNull(updateGroupDtoNoArg);
       Assertions.assertEquals(NAME, updateGroupDto.getName());
       Assertions.assertEquals(COURSE_ID, updateGroupDto.getCourseId());
+      Assertions.assertEquals(LINK_TEMPLATE, updateGroupDto.getLink_template());
       Assertions.assertEquals(IS_ARCHIVED, updateGroupDto.getArchived());
     }
   }

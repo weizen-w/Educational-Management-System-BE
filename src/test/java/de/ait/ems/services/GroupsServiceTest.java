@@ -75,7 +75,7 @@ public class GroupsServiceTest {
   @Sql(scripts = "/sql/data.sql")
   public void update_group() {
     UpdateGroupDto updateGroupDto = new UpdateGroupDto(GroupsDtoTest.NAME, GroupsDtoTest.COURSE_ID,
-        GroupsDtoTest.IS_ARCHIVED);
+        GroupsDtoTest.LINK_TEMPLATE, GroupsDtoTest.IS_ARCHIVED);
     GroupDto groupDtoAfterUpdate = groupsService.updateGroup(GroupsDtoTest.ID, updateGroupDto);
 
     Assertions.assertNotNull(groupDtoAfterUpdate);

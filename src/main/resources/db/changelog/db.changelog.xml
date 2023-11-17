@@ -280,7 +280,7 @@
 
   </changeSet>
 
-  <changeSet id="adding-link-template-to-DB" author="Oleksandr" context="!test">
+  <changeSet id="adding-link-template-to-DB" author="Oleksandr">
     <addColumn  tableName="student_group">
       <column afterColumn="course_id"
         name="link_template"
