@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,8 @@ public class FilesService {
   private final AmazonS3 amazonS3;
 
   private final FilesInfoRepository filesInfoRepository;
+  @Value("${spring.data.couchbase.bucket-name}")
+  private String bucketName;
 
   @Transactional
   @SneakyThrows
@@ -45,10 +48,10 @@ public class FilesService {
     metadata.setContentType(file.getContentType());
     metadata.setContentLength(file.getSize());
     PutObjectRequest request =
-        new PutObjectRequest("ems-files", "avatar/" + newFileName, inputStream, metadata)
+        new PutObjectRequest(bucketName, "avatar/" + newFileName, inputStream, metadata)
             .withCannedAcl(CannedAccessControlList.PublicRead);
     amazonS3.putObject(request);
-    String link = amazonS3.getUrl("ems-files", "avatar/" + newFileName).toString();
+    String link = amazonS3.getUrl(bucketName, "avatar/" + newFileName).toString();
     FileInfo fileInfo = FileInfo.builder()
         .link(link)
         .build();
