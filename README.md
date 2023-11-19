@@ -1,6 +1,6 @@
 # Educational Management System
 - Final project gr.Cohort26 (Backend)
-- authors: Oleksandr Zhurba, Wladimir Weizen, Alexander Nartow, Tetiana Chernobai, Kateryna Horshkova
+- authors: Oleksandr Zhurba, Wladimir Weizen, Tetiana Chernobai, Kateryna Horshkova
 
 Welcome to our innovative **Educational Management System**! This project is designed to revolutionize the way lectures are managed, attendance is tracked, and schedules are organized for both students and educators within educational institutions.
 

@@ -4,8 +4,8 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
-#    hibernate:
-#      ddl-auto: update
+    #    hibernate:
+    #      ddl-auto: update
     show-sql: true
   mail:
     host: smtp.gmail.com
@@ -17,3 +17,6 @@ spring:
           auth: true
           starttls:
             enable: true
+  data:
+    couchbase:
+      bucket-name: ${BUCKET_NAME}

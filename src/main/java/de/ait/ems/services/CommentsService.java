@@ -16,17 +16,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class CommentsService {
+
   private final CommentsRepository commentsRepository;
 
   public CommentDto updateComment(Long commentId, UpdateCommentDto updateCommentDto) {
     Comment comment = getCommentOrThrow(commentId);
-    if (comment!=null){
-      if(updateCommentDto.getArchived()!=null){
+    if (comment != null) {
+      if (updateCommentDto.getArchived() != null) {
         comment.setArchived(updateCommentDto.getArchived());
       }
-      if(updateCommentDto.getMessageText()!=null){
+      if (updateCommentDto.getMessageText() != null) {
         comment.setMessageText(updateCommentDto.getMessageText());
       }
+      commentsRepository.save(comment);
       return CommentDto.from(comment);
     }
     return null;
@@ -40,7 +42,7 @@ public class CommentsService {
 
   public CommentDto deleteComment(Long commentId) {
     Comment comment = getCommentOrThrow(commentId);
-    if (comment!=null){
+    if (comment != null) {
       commentsRepository.delete(comment);
       return CommentDto.from(comment);
     }
