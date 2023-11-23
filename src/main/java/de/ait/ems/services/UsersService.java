@@ -62,7 +62,7 @@ public class UsersService {
   }
 
   private String createLinkForConfirmation(String codeValue) {
-    String fixBaseUrl = baseUrl.substring(0,33) + "/#/";
+    String fixBaseUrl = baseUrl.substring(0,40) + "/#/";
     return fixBaseUrl + "confirm/" + codeValue;
   }
 
