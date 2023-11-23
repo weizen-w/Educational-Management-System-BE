@@ -2,3 +2,13 @@ hash_password,first_name,last_name,email,role,account_state,photo_link
 $2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Admin,Admin,admin@gmail.com,ADMIN,CONFIRMED,null
 $2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Student,Student,student@gmail.com,STUDENT,CONFIRMED,null
 $2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Teacher,Teacher,teacher@gmail.com,TEACHER,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Mila,Yolovich,Yolovich@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Elena,Dabdina,dabdina@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Julia,Zozulya,Zozulya@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Karina,Lunyachek,Lunyachek@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Anna,Korshak,Korshak@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Mariya,Sefer,Sefer@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Yanina,Burovec,Burovec@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Artem,Pivovar,Pivovar@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Dmitriy,Kalashnikov,Kalashnikov@gmail.com,STUDENT,CONFIRMED,null
+$2y$10$n5jnhCctYFIccJPUIr8AmOIfG9VeDI6Tu1FpkewD6MLzrflapEw4G,Irina,Borodina,Borodina@gmail.com,STUDENT,CONFIRMED,null

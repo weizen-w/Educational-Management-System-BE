@@ -288,4 +288,22 @@
     </addColumn>
   </changeSet>
 
+  <changeSet id="adding-data-to-DB" author="Tetiana" context="!test">
+    <loadData
+            tableName="submission"
+            file="db/data/submission.csv">
+    </loadData>
+
+    <loadData
+            tableName="attendance"
+            file="db/data/attendance.csv">
+    </loadData>
+
+    <loadData
+            tableName="comment"
+            file="db/data/comment.csv">
+    </loadData>
+  </changeSet>
+
+
 </databaseChangeLog>
