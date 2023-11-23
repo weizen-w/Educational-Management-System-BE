@@ -1,7 +1,7 @@
-group_name,course_id,archived
-Cohort-21,1,false
-Cohort-22,2,false
-Cohort-23,3,false
-Cohort-24,1,false
-Cohort-25,2,false
-Cohort-26,3,false
+group_name,course_id,archived,link_template
+Cohort-21,1,false,https://raw.githubusercontent.com/ait-tr/cohort25/main/back_end/lesson_0x0/theory.md
+Cohort-22,2,false,https://raw.githubusercontent.com/ait-tr/cohort25/main/back_end/lesson_0x0/theory.md
+Cohort-23,3,false,https://raw.githubusercontent.com/ait-tr/cohort25/main/back_end/lesson_0x0/theory.md
+Cohort-24,1,false,https://raw.githubusercontent.com/ait-tr/cohort25/main/back_end/lesson_0x0/theory.md
+Cohort-25,2,false,https://raw.githubusercontent.com/ait-tr/cohort25/main/back_end/lesson_0x0/theory.md
+Cohort-26,3,false,https://raw.githubusercontent.com/ait-tr/cohort25/main/back_end/lesson_0x0/theory.md

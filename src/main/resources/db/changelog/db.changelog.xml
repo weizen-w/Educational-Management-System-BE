@@ -246,6 +246,14 @@
 
   </changeSet>
 
+  <changeSet id="adding-link-template-to-DB" author="Oleksandr">
+    <addColumn tableName="student_group">
+      <column afterColumn="course_id"
+        name="link_template"
+        type="varchar(255)"/>
+    </addColumn>
+  </changeSet>
+
   <changeSet id="adding-data-to-DB" author="Wladimir" context="!test">
 
     <loadData
@@ -280,12 +288,23 @@
 
   </changeSet>
 
-  <changeSet id="adding-link-template-to-DB" author="Oleksandr">
-    <addColumn  tableName="student_group">
-      <column afterColumn="course_id"
-        name="link_template"
-        type="varchar(255)"/>
-    </addColumn>
+  <changeSet id="adding-data-to-DB" author="Tetiana" context="!test">
+
+    <loadData
+      tableName="submission"
+      file="db/data/submission.csv">
+    </loadData>
+
+    <loadData
+      tableName="attendance"
+      file="db/data/attendance.csv">
+    </loadData>
+
+    <loadData
+      tableName="comment"
+      file="db/data/comment.csv">
+    </loadData>
+
   </changeSet>
 
 </databaseChangeLog>

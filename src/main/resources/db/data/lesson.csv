@@ -1,7 +1,25 @@
 group_id,lesson_title,lesson_description,lesson_type,teacher_id,lesson_date,start_time,end_time,module_id,link_lms,link_zoom,archived
-1,"basic_programming: lesson_51","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
-1,"basic_programming: lesson_52","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
-1,"basic_programming: lesson_53","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
-2,"basic_programming: lesson_54","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
-2,"basic_programming: lesson_55","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
-2,"basic_programming: lesson_56","description",CONSULTATION,2,2023-11-07,10:45:00,15:15:00,2,link lms,link zoom,false
+5,"basic_programming: lesson_51","description",CONSULTATION,3,2023-11-06,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_52","description",LESSON,3,2023-11-06,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_53","description",CONSULTATION,3,2023-11-07,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_54","description",LESSON,3,2023-11-07,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_55","description",CONSULTATION,3,2023-11-08,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_56","description",LESSON,3,2023-11-08,17:30:00,15:15:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_57","description",CONSULTATION,3,2023-11-09,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_58","description",LESSON,3,2023-11-09,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_59","description",CONSULTATION,3,2023-11-10,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_60","description",PRACTICE,3,2023-11-10,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_61","description",PRACTICE,3,2023-11-13,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_62","description",PRACTICE,3,2023-11-13,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_51","description",CONSULTATION,3,2023-11-06,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_52","description",LESSON,3,2023-11-06,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_53","description",CONSULTATION,3,2023-11-07,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_54","description",LESSON,3,2023-11-07,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_55","description",CONSULTATION,3,2023-11-08,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_56","description",LESSON,3,2023-11-08,17:30:00,15:15:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_57","description",CONSULTATION,3,2023-11-09,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_58","description",LESSON,3,2023-11-09,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_59","description",CONSULTATION,3,2023-11-10,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_60","description",PRACTICE,3,2023-11-10,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+6,"basic_programming: lesson_61","description",PRACTICE,3,2023-11-13,10:30:00,14:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
+5,"basic_programming: lesson_62","description",PRACTICE,3,2023-11-13,17:30:00,21:00:00,2,https://lms.ait-tr.de/#/lessons/group/cohort25/module/back_end/lesson/lesson_23,https://us02web.zoom.us/j/84308654436,false
